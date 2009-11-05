@@ -133,9 +133,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
                                          QtGui.QSizePolicy.Expanding)
         self.layout2.addItem(spacer, row, 0)
 
-        desktopGeometry = QtGui.qApp.desktop().screenGeometry()
-        self.move((desktopGeometry.width() - self.width()) / 2,
-                  (desktopGeometry.height() - self.height()) / 2)
+        self.centered = False
 
     def makeLabel(self, text):
         label = QtGui.QLabel(text, self)
@@ -151,6 +149,14 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
             return ""
         return QtCore.QCryptographicHash.hash(file.readAll(),
                                         QtCore.QCryptographicHash.Md5).toHex()
+
+    def showEvent(self, event):
+        if not self.centered:
+            desktopGeometry = QtGui.qApp.desktop().screenGeometry()
+            self.move((desktopGeometry.width() - self.width()) / 2,
+                      (desktopGeometry.height() - self.height()) / 2)
+            self.centered = True
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
