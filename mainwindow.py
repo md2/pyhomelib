@@ -443,6 +443,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksByGroupModel.refresh()
 
     def on_group3_triggered(self, action):
+        self.fetchAll()
         removeBookFromGroup(action.bookid, action.groupid)
         self.booksByGroupModel.refresh()
 
