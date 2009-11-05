@@ -5,6 +5,7 @@ from PyQt4 import QtCore, QtSql
 from fb2streamreader import FB2StreamReader
 from bookdblayer import *
 
+
 class ImportThread(QtCore.QThread):
 
     error = QtCore.pyqtSignal(QtCore.QString)
@@ -18,9 +19,6 @@ class ImportThread(QtCore.QThread):
         self.condition = QtCore.QWaitCondition()
         self.filenames = QtCore.QStringList()
         self.abort = False
-
-    def __del__(self):
-        QtSql.QSqlDatabase.removeDatabase("import_thread_connection")
 
     def quit(self):
         locker = QtCore.QMutexLocker(self.mutex)
