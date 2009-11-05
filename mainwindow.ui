@@ -1,0 +1,2013 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>691</width>
+    <height>534</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">PyHomeLib</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>320</width>
+     <height>200</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_11">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="tabShape">
+        <enum>QTabWidget::Rounded</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="documentMode">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="widget">
+        <attribute name="title">
+         <string>Authors</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>29</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Search:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="authorEdit"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="authorsView">
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="widget_2">
+        <attribute name="title">
+         <string>Sequences</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>29</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Search:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="sequenceEdit"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="sequencesView">
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::SolidLine</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="widget_3">
+        <attribute name="title">
+         <string>Genres</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="TreeViewEx" name="genresTree">
+           <property name="headerHidden">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="widget_4">
+        <attribute name="title">
+         <string>Search</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="searchByAuthorEdit"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="searchByTitleEdit"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="searchBySeqEdit"/>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLineEdit" name="searchByGenreEdit"/>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Genre:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Sequence:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Title:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Author:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>5</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="1">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>5</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="5" column="1">
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>5</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>File author:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QLineEdit" name="searchByFileAuthorEdit"/>
+           </item>
+           <item row="7" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>5</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="widget_5">
+        <attribute name="title">
+         <string>Groups</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Add:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="groupEdit"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="groupsView">
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QStackedWidget" name="stackedWidget">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="page">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_12">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Author:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="authorTitleLabel">
+             <property name="palette">
+              <palette>
+               <active>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="booksByAuthorView">
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_2">
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Sequence:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="seqTitleLabel">
+             <property name="palette">
+              <palette>
+               <active>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="booksBySeqView">
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_3">
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QLabel" name="label_15">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Genre:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="genreTitleLabel">
+             <property name="palette">
+              <palette>
+               <active>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="booksByGenreView">
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_4">
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Search results:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="resultsTitleLabel">
+             <property name="palette">
+              <palette>
+               <active>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="bookSearchView">
+           <attribute name="horizontalHeaderVisible">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_5">
+        <layout class="QVBoxLayout" name="verticalLayout_10">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Group:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="groupTitleLabel">
+             <property name="palette">
+              <palette>
+               <active>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>0</red>
+                   <green>0</green>
+                   <blue>127</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText">
+                 <brush brushstyle="SolidPattern">
+                  <color alpha="255">
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="TableViewEx" name="booksByGroupView">
+           <attribute name="horizontalHeaderVisible">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>691</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="helpMenu">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <widget class="QMenu" name="databaseMenu">
+    <property name="title">
+     <string>&amp;Database</string>
+    </property>
+    <addaction name="actionDbProperties"/>
+    <addaction name="separator"/>
+    <addaction name="actionDbScanBookDir"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="viewMenu">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionViewBookInfo"/>
+    <addaction name="actionRussianAlphabet"/>
+    <addaction name="actionEnglishAlphabet"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="actionConfigure"/>
+   </widget>
+   <addaction name="databaseMenu"/>
+   <addaction name="viewMenu"/>
+   <addaction name="menuSettings"/>
+   <addaction name="helpMenu"/>
+  </widget>
+  <widget class="QToolBar" name="ruLettersToolbar">
+   <property name="windowTitle">
+    <string>Russian alphabet</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRuLetterAll"/>
+   <addaction name="actionRuLetterA"/>
+   <addaction name="actionRuLetterB"/>
+   <addaction name="actionRuLetterV"/>
+   <addaction name="actionRuLetterG"/>
+   <addaction name="actionRuLetterD"/>
+   <addaction name="actionRuLetterE"/>
+   <addaction name="actionRuLetterYo"/>
+   <addaction name="actionRuLetterZh"/>
+   <addaction name="actionRuLetterZ"/>
+   <addaction name="actionRuLetterI"/>
+   <addaction name="actionRuLetterY"/>
+   <addaction name="actionRuLetterK"/>
+   <addaction name="actionRuLetterL"/>
+   <addaction name="actionRuLetterM"/>
+   <addaction name="actionRuLetterN"/>
+   <addaction name="actionRuLetterO"/>
+   <addaction name="actionRuLetterP"/>
+   <addaction name="actionRuLetterR"/>
+   <addaction name="actionRuLetterS"/>
+   <addaction name="actionRuLetterT"/>
+   <addaction name="actionRuLetterU"/>
+   <addaction name="actionRuLetterF"/>
+   <addaction name="actionRuLetterH"/>
+   <addaction name="actionRuLetterTs"/>
+   <addaction name="actionRuLetterCh"/>
+   <addaction name="actionRuLetterSh"/>
+   <addaction name="actionRuLetterSch"/>
+   <addaction name="actionRuLetterYy"/>
+   <addaction name="actionRuLetterEe"/>
+   <addaction name="actionRuLetterYu"/>
+   <addaction name="actionRuLetterYa"/>
+  </widget>
+  <widget class="QToolBar" name="enLettersToolbar">
+   <property name="windowTitle">
+    <string>English alphabet</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionEnLetterAll"/>
+   <addaction name="actionEnLetterA"/>
+   <addaction name="actionEnLetterB"/>
+   <addaction name="actionEnLetterC"/>
+   <addaction name="actionEnLetterD"/>
+   <addaction name="actionEnLetterE"/>
+   <addaction name="actionEnLetterF"/>
+   <addaction name="actionEnLetterG"/>
+   <addaction name="actionEnLetterH"/>
+   <addaction name="actionEnLetterI"/>
+   <addaction name="actionEnLetterJ"/>
+   <addaction name="actionEnLetterK"/>
+   <addaction name="actionEnLetterL"/>
+   <addaction name="actionEnLetterM"/>
+   <addaction name="actionEnLetterN"/>
+   <addaction name="actionEnLetterO"/>
+   <addaction name="actionEnLetterP"/>
+   <addaction name="actionEnLetterQ"/>
+   <addaction name="actionEnLetterR"/>
+   <addaction name="actionEnLetterS"/>
+   <addaction name="actionEnLetterT"/>
+   <addaction name="actionEnLetterU"/>
+   <addaction name="actionEnLetterV"/>
+   <addaction name="actionEnLetterW"/>
+   <addaction name="actionEnLetterX"/>
+   <addaction name="actionEnLetterY"/>
+   <addaction name="actionEnLetterZ"/>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="minimumSize">
+    <size>
+     <width>220</width>
+     <height>119</height>
+    </size>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <widget class="QLabel" name="coverpageLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="annotationEdit">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>235</red>
+               <green>235</green>
+               <blue>234</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>235</red>
+               <green>235</green>
+               <blue>234</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>244</red>
+               <green>244</green>
+               <blue>244</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionEnLetterA">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">A</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterB">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">B</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterC">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">C</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterD">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">D</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterE">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">E</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterF">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">F</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterG">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">G</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterH">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">H</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterI">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">I</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterJ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">J</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterK">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">K</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterL">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">L</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterM">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">M</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterN">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">N</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterO">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">O</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterP">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">P</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterQ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Q</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">R</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">S</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterT">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">T</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterU">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">U</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterV">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">V</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterW">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">W</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterX">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">X</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterY">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Y</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterZ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Z</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionEnLetterAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">*</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterA">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">А</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterB">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Б</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterV">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">В</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterG">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Г</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterD">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Д</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterE">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Е</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterYo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ё</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterZh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ж</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterZ">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">З</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterI">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">И</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterY">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Й</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterK">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">К</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterL">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Л</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterM">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">М</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterN">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Н</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterO">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">О</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterP">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">П</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Р</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">С</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterT">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Т</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterU">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">У</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterF">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ф</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterH">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Х</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterTs">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ц</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterCh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ч</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterSh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ш</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterSch">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Щ</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterYy">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ы</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterEe">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Э</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterYu">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Ю</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterYa">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Я</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionRuLetterAll">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">*</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionDbProperties">
+   <property name="text">
+    <string>&amp;Properties...</string>
+   </property>
+  </action>
+  <action name="actionDbScanBookDir">
+   <property name="text">
+    <string>&amp;Add directory...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionViewBookInfo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Info panel</string>
+   </property>
+  </action>
+  <action name="actionRussianAlphabet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Russian alphabet</string>
+   </property>
+  </action>
+  <action name="actionEnglishAlphabet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;English alphabet</string>
+   </property>
+  </action>
+  <action name="actionConfigure">
+   <property name="text">
+    <string>&amp;Configure...</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TableViewEx</class>
+   <extends>QTableView</extends>
+   <header>tableviewex.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TreeViewEx</class>
+   <extends>QTreeView</extends>
+   <header>treeviewex.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>424</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>639</x>
+     <y>424</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewBookInfo</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>dockWidget</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>580</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dockWidget</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>actionViewBookInfo</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>580</x>
+     <y>296</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEnglishAlphabet</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>enLettersToolbar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>345</x>
+     <y>65</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRussianAlphabet</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>ruLettersToolbar</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>345</x>
+     <y>35</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>345</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

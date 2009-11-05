@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genres>
+  <group description="Деловая литература">
+    <genre id="132" code="banking" description="Банковское дело"/>
+    <genre id="133" code="accounting" description="Бухучет, налогообложение, аудит"/>
+    <genre id="134" code="global_economy" description="Внешнеэкономическая деятельность"/>
+    <genre id="135" code="paper_work" description="Делопроизводство"/>
+    <genre id="136" code="org_behavior" description="Корпоративная культура"/>
+    <genre id="137" code="personal_finance" description="Личные финансы"/>
+    <genre id="138" code="small_business" description="Малый бизнес"/>
+    <genre id="139" code="marketing" description="Маркетинг, PR, реклама"/>
+    <genre id="140" code="real_estate" description="Недвижимость"/>
+    <genre id="141" code="popular_business" description="О бизнесе популярно"/>
+    <genre id="142" code="industries" description="Отраслевые издания"/>
+    <genre id="143" code="job_hunting" description="Поиск работы, карьера"/>
+    <genre id="144" code="economics_ref" description="Справочники"/>
+    <genre id="145" code="management" description="Управление, подбор персонала"/>
+    <genre id="146" code="stock" description="Ценные бумаги, инвестиции"/>
+    <genre id="147" code="economics" description="Экономика"/>
+  </group>
+  <group description="Детективы и Триллеры">
+    <genre id="13" code="det_classic" description="Классический детектив"/>
+    <genre id="14" code="det_police" description="Полицейский детектив"/>
+    <genre id="15" code="det_action" description="Боевик"/>
+    <genre id="16" code="det_irony" description="Иронический детектив"/>
+    <genre id="17" code="det_history" description="Исторический детектив"/>
+    <genre id="18" code="det_espionage" description="Шпионский детектив"/>
+    <genre id="19" code="det_crime" description="Криминальный детектив"/>
+    <genre id="20" code="det_political" description="Политический детектив"/>
+    <genre id="21" code="det_maniac" description="Маньяки"/>
+    <genre id="22" code="det_hard" description="Крутой детектив"/>
+    <genre id="23" code="thriller" description="Триллер"/>
+    <genre id="24" code="detective" description="Детектив"/>
+  </group>
+  <group description="Детское">
+    <genre id="45" code="child_tale" description="Сказка"/>
+    <genre id="46" code="child_verse" description="Детские стихи"/>
+    <genre id="47" code="child_prose" description="Детская проза"/>
+    <genre id="48" code="child_sf" description="Детская фантастика"/>
+    <genre id="49" code="child_det" description="Детские остросюжетные"/>
+    <genre id="50" code="child_adv" description="Детские приключения"/>
+    <genre id="51" code="child_education" description="Детская образовательная литература"/>
+    <genre id="52" code="children" description="Детская литература"/>
+  </group>
+  <group description="Документальная литература">
+    <genre id="89" code="nonf_biography" description="Биографии и Мемуары"/>
+    <genre id="90" code="nonf_publicism" description="Публицистика"/>
+    <genre id="91" code="nonf_criticism" description="Критика"/>
+    <genre id="92" code="design" description="Искусство и Дизайн"/>
+    <genre id="93" code="nonfiction" description="Документальная литература"/>
+  </group>
+  <group description="Домоводство (Дом и семья)">
+    <genre id="102" code="home_cooking" description="Кулинария"/>
+    <genre id="103" code="home_pets" description="Домашние животные"/>
+    <genre id="104" code="home_crafts" description="Хобби и ремесла"/>
+    <genre id="105" code="home_entertain" description="Развлечения"/>
+    <genre id="106" code="home_health" description="Здоровье"/>
+    <genre id="107" code="home_garden" description="Сад и огород"/>
+    <genre id="108" code="home_diy" description="Сделай сам"/>
+    <genre id="109" code="home_sport" description="Спорт"/>
+    <genre id="110" code="home_sex" description="Эротика, Секс"/>
+    <genre id="111" code="home" description="Домоводство"/>
+  </group>
+  <group description="Компьютеры и Интернет">
+    <genre id="129" code="comp_dsp" description="Цифровая обработка сигналов"/>
+    <genre id="77" code="comp_www" description="Интернет"/>
+    <genre id="78" code="comp_programming" description="Программирование"/>
+    <genre id="79" code="comp_hard" description="Компьютерное 'железо' (аппаратное обеспечение)"/>
+    <genre id="80" code="comp_soft" description="Программы"/>
+    <genre id="81" code="comp_db" description="Базы данных"/>
+    <genre id="82" code="comp_osnet" description="ОС и Сети"/>
+    <genre id="83" code="computers" description="Околокомпьютерная литература"/>
+  </group>
+  <group description="Любовные романы">
+    <genre id="32" code="love_contemporary" description="Современные любовные романы"/>
+    <genre id="33" code="love_history" description="Исторические любовные романы"/>
+    <genre id="34" code="love_detective" description="Остросюжетные любовные романы"/>
+    <genre id="35" code="love_short" description="Короткие любовные романы"/>
+    <genre id="36" code="love_erotica" description="Эротика"/>
+    <genre id="37" code="love" description="О любви"/>
+    <genre id="148" code="love_sf" description="Любовно-фантастические романы"/>
+  </group>
+  <group description="Наука, Образование">
+    <genre id="61" code="sci_history" description="История"/>
+    <genre id="62" code="sci_psychology" description="Психология"/>
+    <genre id="63" code="sci_culture" description="Культурология"/>
+    <genre id="64" code="sci_religion" description="Религиоведение"/>
+    <genre id="65" code="sci_philosophy" description="Философия"/>
+    <genre id="66" code="sci_politics" description="Политика"/>
+    <genre id="67" code="sci_business" description="Деловая литература"/>
+    <genre id="68" code="sci_juris" description="Юриспруденция"/>
+    <genre id="69" code="sci_linguistic" description="Языкознание"/>
+    <genre id="70" code="sci_medicine" description="Медицина"/>
+    <genre id="71" code="sci_phys" description="Физика"/>
+    <genre id="72" code="sci_math" description="Математика"/>
+    <genre id="73" code="sci_chem" description="Химия"/>
+    <genre id="74" code="sci_biology" description="Биология"/>
+    <genre id="75" code="sci_tech" description="Технические науки"/>
+    <genre id="76" code="science" description="Научная литература"/>
+    <genre id="126" code="sci_cosmos" description="Астрономия и Космос"/>
+    <genre id="125" code="sci_geo" description="Геология и география"/>
+    <genre id="123" code="sci_biophys" description="Биофизика"/>
+    <genre id="122" code="sci_state" description="Государство и право"/>
+    <genre id="121" code="sci_economy" description="Экономика"/>
+    <genre id="116" code="sci_orgchem" description="Органическая химия"/>
+    <genre id="115" code="sci_anachem" description="Аналитическая химия"/>
+    <genre id="114" code="sci_physchem" description="Физическая химия"/>
+    <genre id="113" code="sci_biochem" description="Биохимия"/>
+  </group>
+  <group description="Поэзия, Драматургия">
+    <genre id="53" code="poetry" description="Поэзия"/>
+    <genre id="54" code="dramaturgy" description="Драматургия"/>
+  </group>
+  <group description="Приключения">
+    <genre id="38" code="adv_western" description="Вестерн"/>
+    <genre id="39" code="adv_history" description="Исторические приключения"/>
+    <genre id="40" code="adv_indian" description="Приключения про индейцев"/>
+    <genre id="41" code="adv_maritime" description="Морские приключения"/>
+    <genre id="42" code="adv_geo" description="Путешествия и география"/>
+    <genre id="43" code="adv_animal" description="Природа и животные"/>
+    <genre id="44" code="adventure" description="Приключения"/>
+  </group>
+  <group description="Проза">
+    <genre id="25" code="prose" description="Проза"/>
+    <genre id="26" code="prose_classic" description="Классическая проза"/>
+    <genre id="27" code="prose_history" description="Историческая проза"/>
+    <genre id="28" code="prose_contemporary" description="Современная проза"/>
+    <genre id="29" code="prose_counter" description="Контркультура"/>
+    <genre id="30" code="prose_rus_classic" description="Русская классическая проза"/>
+    <genre id="31" code="prose_su_classics" description="Советская классическая проза"/>
+    <genre id="130" code="prose_military" description="О войне"/>
+  </group>
+  <group description="Прочее">
+    <genre id="127" code="notes" description="Партитуры"/>
+    <genre id="112" code="other" description="Неотсортированное"/>
+  </group>
+  <group description="Религия и духовность">
+    <genre id="128" code="religion_budda" description="Буддизм"/>
+    <genre id="94" code="religion_rel" description="Религия"/>
+    <genre id="95" code="religion_esoterics" description="Эзотерика"/>
+    <genre id="96" code="religion_self" description="Самосовершенствование"/>
+    <genre id="97" code="religion" description="Религиозная литература"/>
+  </group>
+  <group description="Справочная литература">
+    <genre id="84" code="ref_encyc" description="Энциклопедии"/>
+    <genre id="85" code="ref_dict" description="Словари"/>
+    <genre id="86" code="ref_ref" description="Справочники"/>
+    <genre id="87" code="ref_guide" description="Руководства"/>
+    <genre id="88" code="reference" description="Справочная литература"/>
+  </group>
+  <group description="Старинное">
+    <genre id="55" code="antique_ant" description="Античная литература"/>
+    <genre id="56" code="antique_european" description="Европейская старинная литература"/>
+    <genre id="57" code="antique_russian" description="Древнерусская литература"/>
+    <genre id="58" code="antique_east" description="Древневосточная литература"/>
+    <genre id="59" code="antique_myths" description="Мифы. Легенды. Эпос"/>
+    <genre id="60" code="antique" description="Старинная литература"/>
+  </group>
+  <group description="Техника">
+    <genre id="120" code="sci_build" description="Строительство и сопромат"/>
+    <genre id="119" code="sci_radio" description="Радиоэлектроника"/>
+    <genre id="118" code="sci_metal" description="Металлургия"/>
+    <genre id="117" code="sci_transport" description="Транспорт и авиация"/>
+  </group>
+  <group description="Фантастика">
+    <genre id="1" code="sf_history" description="Альтернативная история"/>
+    <genre id="2" code="sf_action" description="Боевая фантастика"/>
+    <genre id="3" code="sf_epic" description="Эпическая фантастика"/>
+    <genre id="4" code="sf_heroic" description="Героическая фантастика"/>
+    <genre id="5" code="sf_detective" description="Детективная фантастика"/>
+    <genre id="6" code="sf_cyberpunk" description="Киберпанк"/>
+    <genre id="7" code="sf_space" description="Космическая фантастика"/>
+    <genre id="8" code="sf_social" description="Социально-психологическая фантастика"/>
+    <genre id="9" code="sf_horror" description="Ужасы и Мистика"/>
+    <genre id="10" code="sf_humor" description="Юмористическая фантастика"/>
+    <genre id="11" code="sf_fantasy" description="Фэнтези"/>
+    <genre id="12" code="sf" description="Научная Фантастика"/>
+    <genre id="124" code="sf_fantasy_city" description="Городское фэнтези"/>
+    <genre id="131" code="sf_postapocalyptic" description="Постапокалипсис"/>
+  </group>
+  <group description="Юмор">
+    <genre id="98" code="humor_anecdote" description="Анекдоты"/>
+    <genre id="99" code="humor_prose" description="Юмористическая проза"/>
+    <genre id="100" code="humor_verse" description="Юмористические стихи"/>
+    <genre id="101" code="humor" description="Юмор"/>
+  </group>
+</genres>
