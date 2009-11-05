@@ -48,12 +48,12 @@ class SqlQueryModelEx(QtSql.QSqlQueryModel):
         if self.where:
             l.append("WHERE")
             l.append(self.where)
-        if self.order:
-            l.append("ORDER BY")
-            l.append(self.order)
         if self.group:
             l.append("GROUP BY")
             l.append(self.group)
+        if self.order:
+            l.append("ORDER BY")
+            l.append(self.order)
         if self.limit:
             l.append("LIMIT")
             l.append(self.limit)
