@@ -15,6 +15,7 @@ from fb2streamreader import FB2StreamReader
 from fb2bookparserthread import FB2BookParserThread
 from sqlquerymodelex import SqlQueryModelEx
 from settingsdialog import SettingsDialog
+from statisticsdialog import StatisticsDialog
 from mysettings import MySettings
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
@@ -625,4 +626,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         if self.dockWidget.isVisible():
             bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
+
+    @QtCore.pyqtSlot()
+    def on_actionStatistics_triggered(self):
+        dlg = StatisticsDialog(self)
+        dlg.exec_()
 
