@@ -67,22 +67,11 @@ class ImportThread(QtCore.QThread):
     def selectAuthorByName(self, db, firstname, middlename, lastname, nickname):
         query = QtSql.QSqlQuery(db)
         query.prepare("SELECT authorid FROM libauthorname WHERE lastname=? AND firstname=? AND middlename=? AND nickname=?")
-        if lastname.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(lastname)
-        if firstname.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(firstname)
-        if middlename.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(middlename)
-        if nickname.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(nickname)
+        for s in (lastname, firstname, middlename, nickname):
+            if s.isNull():
+                query.addBindValue("")
+            else:
+                query.addBindValue(s)
         if not query.exec_():
             raise Exception, query.lastError().text()
         if query.next():
@@ -92,22 +81,11 @@ class ImportThread(QtCore.QThread):
     def insertAuthor(self, db, firstname, middlename, lastname, nickname):
         query = QtSql.QSqlQuery(db)
         query.prepare("INSERT INTO libauthorname (firstname, middlename, lastname, nickname) VALUES(?,?,?,?)")
-        if firstname.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(firstname)
-        if middlename.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(middlename)
-        if lastname.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(lastname)
-        if nickname.isNull():
-            query.addBindValue("")
-        else:
-            query.addBindValue(nickname)
+        for s in (firstname, middlename, lastname, nickname):
+            if s.isNull():
+                query.addBindValue("")
+            else:
+                query.addBindValue(s)
         if not query.exec_():
             raise Exception, query.lastError().text()
         return query.lastInsertId().toInt()[0]
