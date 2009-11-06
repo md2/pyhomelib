@@ -300,6 +300,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                             QtCore.QDir.homePath(),
                                             QtGui.QFileDialog.ShowDirsOnly)
         if not dirname.isEmpty():
+            if self.programSettings.getSaveUiOnExitOption():
+                self.writeStateTo(self.uiSettingsFile)
             os.execvp('python', ('python', 'importdialog.py',
                                  dbName(),
                                  QtCore.QDir(dirname).absolutePath(),
