@@ -19,18 +19,6 @@ class DbPropertiesDialog(QtGui.QDialog, Ui_DbPropertiesDialog):
         self.nameEdit.setText(self.name)
         self.descriptionEdit.setText(self.description)
 
-    def on_selectFileButton_pressed(self):
-        filename = QtGui.QFileDialog.getSaveFileName(self,
-                                self.tr("Select file"),
-                                QtCore.QDir.homePath() + QtCore.QDir.separator() + \
-                                                         '.pyhomelib',
-                                "SQLite3 database (*.sqlite)")
-        if not filename.isEmpty():
-            if not filename.endsWith('.sqlite'):
-                filename += '.sqlite'
-            self.filenameEdit.setText(filename)
-            self.filenameEdit.setFocus()
-
     def on_buttonBox_accepted(self):
         filename = self.filenameEdit.text()
         if not filename.trimmed().isEmpty():
