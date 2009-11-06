@@ -601,3 +601,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             while widget.model().canFetchMore():
                 widget.model().fetchMore()
 
+    def on_booksByAuthorView_clicked(self, index):
+        if self.dockWidget.isVisible():
+            bookid = self.booksByAuthorModel.record(index.row()).value(0).toInt()[0]
+            self.parserThread.parse(bookid)
+
+    def on_booksBySeqView_clicked(self, index):
+        if self.dockWidget.isVisible():
+            bookid = self.booksBySeqModel.record(index.row()).value(0).toInt()[0]
+            self.parserThread.parse(bookid)
+
+    def on_bookSearchView_clicked(self, index):
+        if self.dockWidget.isVisible():
+            bookid = self.bookSearchModel.record(index.row()).value(0).toInt()[0]
+            self.parserThread.parse(bookid)
+
+    def on_booksByGenreView_clicked(self, index):
+        if self.dockWidget.isVisible():
+            bookid = self.booksByGenreModel.record(index.row()).value(0).toInt()[0]
+            self.parserThread.parse(bookid)
+
+    def on_booksByGroupView_clicked(self, index):
+        if self.dockWidget.isVisible():
+            bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
+            self.parserThread.parse(bookid)
+
