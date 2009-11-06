@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Thu Nov  5 15:18:19 2009
+# Created: Fri Nov  6 14:42:11 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -698,6 +698,7 @@ class Ui_MainWindow(object):
         self.actionEnLetterAll.setObjectName("actionEnLetterAll")
         self.actionRuLetterA = QtGui.QAction(MainWindow)
         self.actionRuLetterA.setCheckable(True)
+        self.actionRuLetterA.setChecked(True)
         self.actionRuLetterA.setText("А")
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -915,7 +916,6 @@ class Ui_MainWindow(object):
         self.actionRuLetterYa.setObjectName("actionRuLetterYa")
         self.actionRuLetterAll = QtGui.QAction(MainWindow)
         self.actionRuLetterAll.setCheckable(True)
-        self.actionRuLetterAll.setChecked(True)
         self.actionRuLetterAll.setText("*")
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -943,11 +943,15 @@ class Ui_MainWindow(object):
         self.actionConfigure.setObjectName("actionConfigure")
         self.actionAboutQt = QtGui.QAction(MainWindow)
         self.actionAboutQt.setObjectName("actionAboutQt")
+        self.actionStatistics = QtGui.QAction(MainWindow)
+        self.actionStatistics.setObjectName("actionStatistics")
         self.helpMenu.addAction(self.actionAbout)
         self.helpMenu.addAction(self.actionAboutQt)
         self.databaseMenu.addAction(self.actionDbProperties)
         self.databaseMenu.addSeparator()
         self.databaseMenu.addAction(self.actionDbScanBookDir)
+        self.databaseMenu.addSeparator()
+        self.databaseMenu.addAction(self.actionStatistics)
         self.databaseMenu.addSeparator()
         self.databaseMenu.addAction(self.actionExit)
         self.viewMenu.addAction(self.actionViewBookInfo)
@@ -1063,6 +1067,7 @@ class Ui_MainWindow(object):
         self.actionEnglishAlphabet.setText(QtGui.QApplication.translate("MainWindow", "&English alphabet", None, QtGui.QApplication.UnicodeUTF8))
         self.actionConfigure.setText(QtGui.QApplication.translate("MainWindow", "&Configure...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAboutQt.setText(QtGui.QApplication.translate("MainWindow", "About Qt", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionStatistics.setText(QtGui.QApplication.translate("MainWindow", "&Statistics", None, QtGui.QApplication.UnicodeUTF8))
 
 from tableviewex import TableViewEx
 from treeviewex import TreeViewEx

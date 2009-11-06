@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'importdialog.ui'
 #
-# Created: Thu Nov  5 15:18:19 2009
+# Created: Fri Nov  6 14:42:11 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
