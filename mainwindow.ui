@@ -1425,6 +1425,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string notr="true">А</string>
    </property>
@@ -1826,9 +1829,6 @@
   </action>
   <action name="actionRuLetterAll">
    <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
     <bool>true</bool>
    </property>
    <property name="text">

@@ -104,7 +104,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                                   None,
                                                   "lastname, firstname")
         self.authorsView.setModel(self.authorsModel)
-        self.authorsModel.select()
+        self.setTableAuthorsModelQuery()
         self.authorsView.hideColumn(0)
         self.authorsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Last name"))
         self.authorsView.model().setHeaderData(2, QtCore.Qt.Horizontal, self.tr("First name"))
