@@ -16,7 +16,7 @@ class StatisticsDialog(QtGui.QDialog, Ui_StatisticsDialog):
         numberOfBooks = execScalar(db(), "SELECT COUNT(*) FROM libbook").toInt()[0]
         numberOfAuthors = execScalar(db(), "SELECT COUNT(*) FROM libauthorname").toInt()[0]
         numberOfSequences = execScalar(db(), "SELECT COUNT(*) FROM libseqname").toInt()[0]
-        totalSize = execScalar(db(), "SELECT SUM(filesize) FROM libbook").toInt()[0]
+        totalSize = execScalar(db(), "SELECT SUM(filesize) FROM libbook").toLongLong()[0]
 
         self.numberOfBooksLabel.setNum(numberOfBooks)
         self.numberOfAuthorsLabel.setNum(numberOfAuthors)
