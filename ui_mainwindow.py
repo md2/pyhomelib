@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Fri Nov  6 14:42:11 2009
+# Created: Wed Nov 11 14:56:37 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -1027,7 +1027,6 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.tabWidget, QtCore.SIGNAL("currentChanged(int)"), self.stackedWidget.setCurrentIndex)
         QtCore.QObject.connect(self.actionViewBookInfo, QtCore.SIGNAL("toggled(bool)"), self.dockWidget.setVisible)
-        QtCore.QObject.connect(self.dockWidget, QtCore.SIGNAL("visibilityChanged(bool)"), self.actionViewBookInfo.setChecked)
         QtCore.QObject.connect(self.actionEnglishAlphabet, QtCore.SIGNAL("toggled(bool)"), self.enLettersToolbar.setVisible)
         QtCore.QObject.connect(self.actionRussianAlphabet, QtCore.SIGNAL("toggled(bool)"), self.ruLettersToolbar.setVisible)
         QtCore.QObject.connect(self.actionExit, QtCore.SIGNAL("triggered()"), MainWindow.close)
