@@ -56,6 +56,10 @@ class WindowStateWriter(object):
                 l.append(QtCore.QString.number(header.sectionSize(index)))
             self.writer.writeAttribute('headerSections', l.join(","))
 
+        if widget.inherits('QToolBar'):
+            if not widget.isVisible():
+                self.writer.writeAttribute('visible', '0')
+
         for child in widget.children():
             if child.isWidgetType() and not child.objectName().isEmpty() \
                                     and not child.objectName().startsWith("qt_"):

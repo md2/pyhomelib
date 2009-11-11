@@ -65,6 +65,11 @@ class WindowStateReader(object):
                 for index in xrange(l.count()):
                     widget.horizontalHeader().resizeSection(index, l[index].toInt()[0])
 
+            if widget.inherits('QToolBar'):
+                if self.reader.attributes().hasAttribute('visible'):
+                    visible = self.reader.attributes().value('visible').toString().toInt()[0]
+                    widget.setVisible(visible)
+
         while not self.reader.atEnd():
             self.reader.readNext()
             if self.reader.isEndElement():

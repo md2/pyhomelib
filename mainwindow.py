@@ -205,6 +205,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksByGroupModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
 
         self.readStateFrom(self.uiSettingsFile)
+        self.actionRussianAlphabet.setChecked(self.ruLettersToolbar.isVisibleTo(self))
+        self.actionEnglishAlphabet.setChecked(self.enLettersToolbar.isVisibleTo(self))
 
         self.parserThread = FB2BookParserThread()
         self.parserThread.bookParsed.connect(self.bookParsed)
