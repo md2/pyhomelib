@@ -1953,22 +1953,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>dockWidget</sender>
-   <signal>visibilityChanged(bool)</signal>
-   <receiver>actionViewBookInfo</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>580</x>
-     <y>296</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionEnglishAlphabet</sender>
    <signal>toggled(bool)</signal>
    <receiver>enLettersToolbar</receiver>

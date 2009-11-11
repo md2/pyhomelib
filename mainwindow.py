@@ -636,3 +636,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         dlg = StatisticsDialog(self)
         dlg.exec_()
 
+    def on_dockWidget_visibilityChanged(self, visible):
+        self.actionViewBookInfo.setChecked(self.dockWidget.isVisibleTo(self))
+
