@@ -24,7 +24,8 @@ class XmlValidatorDialog(QtGui.QDialog):
         process.readyReadStandardOutput.connect(self.readStandardOutput)
         process.readyReadStandardError.connect(self.readStandardError)
         self.process = process
-        process.start("xmllint", sys.argv[1:])
+        args = [QtCore.QString.fromUtf8(arg) for arg in sys.argv[1:]]
+        process.start("xmllint", args)
         if not process.waitForStarted(10000):
             self.textEdit.append("<span style='color:red'>" +
                                  self.tr("Could not launch xmllint.") +

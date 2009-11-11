@@ -18,7 +18,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         model = GenreTreeModelReader('genres.xml')
 
         reader = FB2StreamReader()
-        filename = sys.argv[1]
+        filename = QtCore.QString.fromUtf8(sys.argv[1])
         reader.read(filename)
         info = reader.info
         for i in xrange(min(3, len(info.Authors))):

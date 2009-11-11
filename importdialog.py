@@ -66,7 +66,8 @@ if __name__ == '__main__':
     translator = QtCore.QTranslator()
     if translator.load("pyhomelib_" + QtCore.QLocale.system().name()):
         app.installTranslator(translator)
-    dlg = ImportDialog(sys.argv[1], sys.argv[2])
+    dlg = ImportDialog(QtCore.QString.fromUtf8(sys.argv[1]),
+                       QtCore.QString.fromUtf8(sys.argv[2]))
     dlg.show()
     ret = app.exec_()
     if len(sys.argv) >= 4 and sys.argv[3] == '--execvp':
