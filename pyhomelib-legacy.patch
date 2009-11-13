@@ -1,0 +1,739 @@
+diff -Naur --exclude=.git a/bookdblayer.py b/bookdblayer.py
+--- a/bookdblayer.py	2009-11-05 13:51:18.000000000 +0000
++++ b/bookdblayer.py	2009-11-12 06:38:47.000000000 +0000
+@@ -103,7 +103,7 @@
+     query = QtSql.QSqlQuery(db)
+     query.prepare(sql)
+     for value in values:
+-        query.addBindValue(value)
++        query.addBindValue(QtCore.QVariant(value))
+     if not query.exec_():
+         raise Exception, query.lastError().text()
+     return query.lastInsertId().toInt()[0]
+@@ -112,7 +112,7 @@
+     query = QtSql.QSqlQuery(db)
+     query.prepare(sql)
+     for value in values:
+-        query.addBindValue(value)
++        query.addBindValue(QtCore.QVariant(value))
+     if not query.exec_():
+         raise Exception, query.lastError().text()
+     if query.next():
+@@ -176,7 +176,7 @@
+ def getGroupsBookIn(bookid):
+     query = QtSql.QSqlQuery()
+     query.prepare("SELECT groupid, groupname FROM libgroup JOIN libgrouplist USING(groupid) WHERE bookid = ?")
+-    query.addBindValue(bookid)
++    query.addBindValue(QtCore.QVariant(bookid))
+     if not query.exec_():
+         raise Exception, query.lastError().text()
+     groups = []
+@@ -188,7 +188,7 @@
+ def getGroupsBookNotIn(bookid):
+     query = QtSql.QSqlQuery()
+     query.prepare("SELECT groupid, groupname FROM libgrouplist WHERE groupid NOT IN (SELECT groupid FROM libgroup WHERE bookid = ?)")
+-    query.addBindValue(bookid)
++    query.addBindValue(QtCore.QVariant(bookid))
+     if not query.exec_():
+         raise Exception, query.lastError().text()
+     groups = []
+diff -Naur --exclude=.git a/fb2bookparserthread.py b/fb2bookparserthread.py
+--- a/fb2bookparserthread.py	2009-11-06 13:34:54.000000000 +0000
++++ b/fb2bookparserthread.py	2009-11-12 04:08:22.000000000 +0000
+@@ -7,8 +7,6 @@
+ 
+ class FB2BookParserThread(QtCore.QThread):
+ 
+-    bookParsed = QtCore.pyqtSignal(FB2StreamReader)
+-
+     def __init__(self, parent=None):
+         super(FB2BookParserThread, self).__init__(parent)
+         self.bookid = 0
+@@ -48,7 +46,7 @@
+                 if filename:
+                     reader = FB2StreamReader()
+                     if reader.read(filename.toString()) and self.bookid == bookid:
+-                        self.bookParsed.emit(reader)
++                        self.emit(QtCore.SIGNAL("bookParsed"), reader)
+             self.mutex.lock()
+             if self.bookid == bookid:
+                 self.bookid = 0
+diff -Naur --exclude=.git a/fb2streamreader.py b/fb2streamreader.py
+--- a/fb2streamreader.py	2009-11-05 13:51:18.000000000 +0000
++++ b/fb2streamreader.py	2009-11-13 13:44:58.000000000 +0000
+@@ -265,7 +265,7 @@
+         self.info.Keywords = self.readElementText()
+ 
+     def readDate(self):
+-        if self.attributes().hasAttribute('value'):
++        if self.attributes().value('value') != "":
+             date = self.attributes().value('value').toString()
+             self.readElementText()
+         else:
+@@ -377,9 +377,9 @@
+ 
+     def readSequence(self):
+         seq = FB2SequenceInfo()
+-        if self.attributes().hasAttribute('name'):
++        if self.attributes().value('name') != "":
+             seq.sequenceName = self.attributes().value('name').toString()
+-        if self.attributes().hasAttribute('number'):
++        if self.attributes().value('number') != "":
+             seq.sequenceNumber = self.attributes().value('number').toString().toInt()[0]
+         if not seq.empty():
+             self.info.addSequence(seq)
+@@ -387,9 +387,9 @@
+ 
+     def readPublisherSequence(self):
+         seq = FB2SequenceInfo()
+-        if self.attributes().hasAttribute('name'):
++        if self.attributes().value('name') != "":
+             seq.sequenceName = self.attributes().value('name').toString()
+-        if self.attributes().hasAttribute('number'):
++        if self.attributes().value('number') != "":
+             seq.sequenceNumber = self.attributes().value('number').toString().toInt()[0]
+         if not seq.empty():
+             self.info.addPublisherSequence(seq)
+@@ -419,7 +419,7 @@
+         self.info.programUsed = self.readElementText()
+ 
+     def readDocumentDate(self):
+-        if self.attributes().hasAttribute('value'):
++        if self.attributes().value('value') != "":
+             date = self.attributes().value('value').toString()
+             self.readElementText()
+         else:
+diff -Naur --exclude=.git a/finderthread.py b/finderthread.py
+--- a/finderthread.py	2009-11-05 13:51:18.000000000 +0000
++++ b/finderthread.py	2009-11-12 04:08:35.000000000 +0000
+@@ -5,8 +5,6 @@
+ 
+ class FinderThread(QtCore.QThread):
+ 
+-    found = QtCore.pyqtSignal(QtCore.QString)
+-
+     def __init__(self, directory, parent=None):
+         super(FinderThread, self).__init__(parent)
+         self.directory = directory
+@@ -20,5 +18,5 @@
+                                  QtCore.QDirIterator.Subdirectories)
+         while it.hasNext() and not self.abort:
+             if it.next().endsWith('.fb2') and it.fileInfo().isFile():
+-                self.found.emit(it.filePath())
++                self.emit(QtCore.SIGNAL("found"), it.filePath())
+ 
+diff -Naur --exclude=.git a/genretreemodelreader.py b/genretreemodelreader.py
+--- a/genretreemodelreader.py	2009-11-05 13:51:18.000000000 +0000
++++ b/genretreemodelreader.py	2009-11-12 06:46:07.000000000 +0000
+@@ -16,9 +16,9 @@
+ 
+     def data(self, column):
+         if column == 0:
+-            return self.description
++            return QtCore.QVariant(self.description)
+         else:
+-            return None
++            return QtCore.QVariant()
+ 
+     def appendChild(self, item):
+         self.childItems.append(item)
+@@ -52,11 +52,11 @@
+ 
+     def data(self, column):
+         if column == 0:
+-            return self.description
++            return QtCore.QVariant(self.description)
+         elif column == 1:
+-            return self.id
++            return QtCore.QVariant(self.id)
+         else:
+-            return None
++            return QtCore.QVariant()
+ 
+ 
+ class GroupTreeItem(TreeItem):
+@@ -102,10 +102,10 @@
+ 
+     def data(self, index, role=QtCore.Qt.DisplayRole):
+         if not index.isValid():
+-            return None
++            return QtCore.QVariant()
+ 
+         if role != QtCore.Qt.DisplayRole:
+-            return None
++            return QtCore.QVariant()
+ 
+         item = index.internalPointer()
+ 
+diff -Naur --exclude=.git a/importdialog.py b/importdialog.py
+--- a/importdialog.py	2009-11-13 00:26:52.000000000 +0000
++++ b/importdialog.py	2009-11-13 14:25:08.000000000 +0000
+@@ -23,18 +23,18 @@
+                   (desktopGeometry.height() - self.height()) / 2)
+ 
+         self.importThread = ImportThread(dbname, directory)
+-        self.importThread.error.connect(self.textEdit.append)
+-        self.importThread.processed.connect(self.on_processed)
++        QtCore.QObject.connect(self.importThread, QtCore.SIGNAL("error"), self.textEdit.append)
++        QtCore.QObject.connect(self.importThread, QtCore.SIGNAL("processed"), self.on_processed)
+         self.importThread.start()
+         self.finderThread = FinderThread(directory)
+-        self.finderThread.found.connect(self.on_found)
+-        self.finderThread.found.connect(self.importThread.addFilename)
++        QtCore.QObject.connect(self.finderThread, QtCore.SIGNAL("found"), self.on_found)
++        QtCore.QObject.connect(self.finderThread, QtCore.SIGNAL("found"), self.importThread.addFilename)
+         self.finderThread.start()
+-        self.finished.connect(self.importThread.quit)
+-        self.finished.connect(self.finderThread.quit)
++        QtCore.QObject.connect(self, QtCore.SIGNAL("finished(int)"), self.importThread.quit)
++        QtCore.QObject.connect(self, QtCore.SIGNAL("finished(int)"), self.finderThread.quit)
+ 
+         timer = QtCore.QTimer(self)
+-        timer.timeout.connect(self.updateCounters)
++        QtCore.QObject.connect(timer, QtCore.SIGNAL("timeout()"), self.updateCounters)
+         timer.start(100)
+ 
+     def __del__(self):
+diff -Naur --exclude=.git a/importthread.py b/importthread.py
+--- a/importthread.py	2009-11-07 04:32:20.000000000 +0000
++++ b/importthread.py	2009-11-13 14:50:56.000000000 +0000
+@@ -8,9 +8,6 @@
+ 
+ class ImportThread(QtCore.QThread):
+ 
+-    error = QtCore.pyqtSignal(QtCore.QString)
+-    processed = QtCore.pyqtSignal(QtCore.QString)
+-
+     def __init__(self, dbname, directory, parent=None):
+         super(ImportThread, self).__init__(parent)
+         self.dbname = dbname
+@@ -69,9 +66,9 @@
+         query.prepare("SELECT authorid FROM libauthorname WHERE lastname=? AND firstname=? AND middlename=? AND nickname=?")
+         for s in (lastname, firstname, middlename, nickname):
+             if s.isNull():
+-                query.addBindValue("")
++                query.addBindValue(QtCore.QVariant(""))
+             else:
+-                query.addBindValue(s)
++                query.addBindValue(QtCore.QVariant(s))
+         if not query.exec_():
+             raise Exception, query.lastError().text()
+         if query.next():
+@@ -83,9 +80,9 @@
+         query.prepare("INSERT INTO libauthorname (firstname, middlename, lastname, nickname) VALUES(?,?,?,?)")
+         for s in (firstname, middlename, lastname, nickname):
+             if s.isNull():
+-                query.addBindValue("")
++                query.addBindValue(QtCore.QVariant(""))
+             else:
+-                query.addBindValue(s)
++                query.addBindValue(QtCore.QVariant(s))
+         if not query.exec_():
+             raise Exception, query.lastError().text()
+         return query.lastInsertId().toInt()[0]
+@@ -142,13 +139,13 @@
+                     md5 = self.MD5(filename)
+                     bookid = self.selectBookByMd5(db, md5)
+                     if bookid:
+-                        self.error.emit("<span style='color:red'>" +
++                        self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
+                                         self.tr("Non-unique md5") + "</span>: " +
+                                         QtCore.QDir(self.directory).relativeFilePath(filename))
+                 if not bookid:
+                     parser = FB2StreamReader()
+                     if not parser.read(filename):
+-                        self.error.emit("<span style='color:red'>" +
++                        self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
+                                         self.tr("Parser error") + "</span>: " +
+                                         QtCore.QDir(self.directory).relativeFilePath(filename))
+                     else:
+@@ -206,15 +203,15 @@
+                             self.insertFilename(db, bookid, filename)
+ 
+                         except Exception, msg:
+-                            self.error.emit("<span style='color:red'>" +
++                            self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
+                                             self.tr("Database error") + "</span>: " +
+                                             QtCore.QString.fromUtf8(str(msg)))
+                             db.rollback()
+ 
+                         else:
+                             if not db.commit():
+-                                self.error.emit("<span style='color:red'>" +
++                                self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
+                                                 self.tr("Database error") + "</span>: " +
+                                                 db.lastError().text())
+-                self.processed.emit(filename)
++                self.emit(QtCore.SIGNAL("processed"), filename)
+ 
+diff -Naur --exclude=.git a/mainwindow.py b/mainwindow.py
+--- a/mainwindow.py	2009-11-11 14:56:24.000000000 +0000
++++ b/mainwindow.py	2009-11-12 06:46:57.000000000 +0000
+@@ -107,8 +107,8 @@
+         self.authorsView.setModel(self.authorsModel)
+         self.setTableAuthorsModelQuery()
+         self.authorsView.hideColumn(0)
+-        self.authorsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Last name"))
+-        self.authorsView.model().setHeaderData(2, QtCore.Qt.Horizontal, self.tr("First name"))
++        self.authorsView.model().setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
++        self.authorsView.model().setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
+ 
+         self.sequencesModel = SqlQueryModelEx(self, "seqid, seqname",
+                                                     "libseqname",
+@@ -117,7 +117,7 @@
+         self.sequencesView.setModel(self.sequencesModel)
+         self.sequencesModel.select()
+         self.sequencesView.hideColumn(0)
+-        self.sequencesView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Sequence"))
++        self.sequencesView.model().setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
+ 
+         self.genresTree.setModel(genreModel)
+         self.genresTree.hideColumn(1)
+@@ -131,13 +131,13 @@
+         self.bookSearchView.setModel(self.bookSearchModel)
+         self.bookSearchModel.select()
+         self.bookSearchView.hideColumn(0)
+-        self.bookSearchModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
+-        self.bookSearchModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
+-        self.bookSearchModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
+-        self.bookSearchModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
+-        self.bookSearchModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Genre"))
+-        self.bookSearchModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Lang"))
+-        self.bookSearchModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
++        self.bookSearchModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
++        self.bookSearchModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
++        self.bookSearchModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
++        self.bookSearchModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
++        self.bookSearchModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
++        self.bookSearchModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
++        self.bookSearchModel.setHeaderData(7, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+ 
+         self.groupsModel = SqlQueryModelEx(self, "groupid, groupname",
+                                                  "libgrouplist",
+@@ -146,7 +146,7 @@
+         self.groupsView.setModel(self.groupsModel)
+         self.groupsModel.select()
+         self.groupsView.hideColumn(0)
+-        self.groupsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Group"))
++        self.groupsView.model().setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Group")))
+ 
+         self.booksByAuthorModel = SqlQueryModelEx(self, "bookid, title, seqname, genredesc, lang, year",
+                                                         "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
+@@ -155,11 +155,11 @@
+         self.booksByAuthorModel.addBindValue(0)
+         self.booksByAuthorModel.select()
+         self.booksByAuthorView.hideColumn(0)
+-        self.booksByAuthorModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Book Title"))
+-        self.booksByAuthorModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Sequence"))
+-        self.booksByAuthorModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Genre"))
+-        self.booksByAuthorModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Lang"))
+-        self.booksByAuthorModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Year"))
++        self.booksByAuthorModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
++        self.booksByAuthorModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
++        self.booksByAuthorModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
++        self.booksByAuthorModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
++        self.booksByAuthorModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+ 
+         self.booksBySeqModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, genredesc, lang, year",
+                                                      "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
+@@ -168,12 +168,12 @@
+         self.booksBySeqModel.addBindValue(0)
+         self.booksBySeqModel.select()
+         self.booksBySeqView.hideColumn(0)
+-        self.booksBySeqModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
+-        self.booksBySeqModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
+-        self.booksBySeqModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
+-        self.booksBySeqModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Genre"))
+-        self.booksBySeqModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Lang"))
+-        self.booksBySeqModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Year"))
++        self.booksBySeqModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
++        self.booksBySeqModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
++        self.booksBySeqModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
++        self.booksBySeqModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
++        self.booksBySeqModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
++        self.booksBySeqModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+ 
+         self.booksByGenreModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, seqname, lang, year",
+                                                        "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
+@@ -182,12 +182,12 @@
+         self.booksByGenreModel.addBindValue(0)
+         self.booksByGenreModel.select()
+         self.booksByGenreView.hideColumn(0)
+-        self.booksByGenreModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
+-        self.booksByGenreModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
+-        self.booksByGenreModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
+-        self.booksByGenreModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
+-        self.booksByGenreModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Lang"))
+-        self.booksByGenreModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Year"))
++        self.booksByGenreModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
++        self.booksByGenreModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
++        self.booksByGenreModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
++        self.booksByGenreModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
++        self.booksByGenreModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
++        self.booksByGenreModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+ 
+         self.booksByGroupModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
+                                                        "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
+@@ -196,20 +196,38 @@
+         self.booksByGroupModel.addBindValue(0)
+         self.booksByGroupModel.select()
+         self.booksByGroupView.hideColumn(0)
+-        self.booksByGroupModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
+-        self.booksByGroupModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
+-        self.booksByGroupModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
+-        self.booksByGroupModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
+-        self.booksByGroupModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Genre"))
+-        self.booksByGroupModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Lang"))
+-        self.booksByGroupModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
++        self.booksByGroupModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
++        self.booksByGroupModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
++        self.booksByGroupModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
++        self.booksByGroupModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
++        self.booksByGroupModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
++        self.booksByGroupModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
++        self.booksByGroupModel.setHeaderData(7, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+ 
+         self.readStateFrom(self.uiSettingsFile)
+         self.actionRussianAlphabet.setChecked(self.ruLettersToolbar.isVisibleTo(self))
+         self.actionEnglishAlphabet.setChecked(self.enLettersToolbar.isVisibleTo(self))
+ 
++        QtCore.QObject.connect(self.authorsView, QtCore.SIGNAL("rowSelected"), self.on_authorsView_rowSelected)
++        QtCore.QObject.connect(self.sequencesView, QtCore.SIGNAL("rowSelected"), self.on_sequencesView_rowSelected)
++        QtCore.QObject.connect(self.genresTree, QtCore.SIGNAL("rowSelected"), self.on_genresTree_rowSelected)
++        QtCore.QObject.connect(self.groupsView, QtCore.SIGNAL("rowSelected"), self.on_groupsView_rowSelected)
++        QtCore.QObject.connect(self.booksByAuthorView, QtCore.SIGNAL("rowSelected"), self.on_booksByAuthorView_rowSelected)
++        QtCore.QObject.connect(self.booksBySeqView, QtCore.SIGNAL("rowSelected"), self.on_booksBySeqView_rowSelected)
++        QtCore.QObject.connect(self.booksByGenreView, QtCore.SIGNAL("rowSelected"), self.on_booksByGenreView_rowSelected)
++        QtCore.QObject.connect(self.bookSearchView, QtCore.SIGNAL("rowSelected"), self.on_bookSearchView_rowSelected)
++        QtCore.QObject.connect(self.booksByGroupView, QtCore.SIGNAL("rowSelected"), self.on_booksByGroupView_rowSelected)
++        QtCore.QObject.connect(self.authorsView, QtCore.SIGNAL("rightButtonPressed"), self.on_authorsView_rightButtonPressed)
++        QtCore.QObject.connect(self.sequencesView, QtCore.SIGNAL("rightButtonPressed"), self.on_sequencesView_rightButtonPressed)
++        QtCore.QObject.connect(self.groupsView, QtCore.SIGNAL("rightButtonPressed"), self.on_groupsView_rightButtonPressed)
++        QtCore.QObject.connect(self.booksByAuthorView, QtCore.SIGNAL("rightButtonPressed"), self.on_booksByAuthorView_rightButtonPressed)
++        QtCore.QObject.connect(self.booksBySeqView, QtCore.SIGNAL("rightButtonPressed"), self.on_booksBySeqView_rightButtonPressed)
++        QtCore.QObject.connect(self.booksByGenreView, QtCore.SIGNAL("rightButtonPressed"), self.on_booksByGenreView_rightButtonPressed)
++        QtCore.QObject.connect(self.bookSearchView, QtCore.SIGNAL("rightButtonPressed"), self.on_bookSearchView_rightButtonPressed)
++        QtCore.QObject.connect(self.booksByGroupView, QtCore.SIGNAL("rightButtonPressed"), self.on_booksByGroupView_rightButtonPressed)
++
+         self.parserThread = FB2BookParserThread()
+-        self.parserThread.bookParsed.connect(self.bookParsed)
++        QtCore.QObject.connect(self.parserThread, QtCore.SIGNAL("bookParsed"), self.bookParsed)
+         self.parserThread.start()
+ 
+     def __del__(self):
+@@ -264,7 +282,7 @@
+         self.booksBySeqModel.select()
+ 
+     def on_genresTree_rowSelected(self, index):
+-        genredesc = self.genresTree.model().data(index)
++        genredesc = self.genresTree.model().data(index).toString()
+         newidx = self.genresTree.model().index(index.row(), 1, index.parent())
+         genreid = self.genresTree.model().data(newidx)
+         self.genreTitleLabel.setText(genredesc)
+@@ -287,7 +305,7 @@
+             self.writeStateTo(self.uiSettingsFile)
+         event.accept()
+ 
+-    @QtCore.pyqtSlot()
++    @QtCore.pyqtSignature("")
+     def on_actionDbProperties_triggered(self):
+         dialog = DbPropertiesDialog(self)
+         dialog.filenameEdit.setText(dbName())
+@@ -295,7 +313,7 @@
+         if dialog.exec_():
+             self.appendToTitle(getDbProperty('name').toString())
+     
+-    @QtCore.pyqtSlot()
++    @QtCore.pyqtSignature("")
+     def on_actionDbScanBookDir_triggered(self):
+         dirname = QtGui.QFileDialog.getExistingDirectory(self,
+                                             self.tr("Select directory"),
+@@ -388,7 +406,7 @@
+                     QtCore.QString(self.tr("Unable to start program: %1"))
+                     .arg(program))
+ 
+-    @QtCore.pyqtSlot()
++    @QtCore.pyqtSignature("")
+     def on_actionConfigure_triggered(self):
+         dialog = SettingsDialog(self.programSettings, self)
+         dialog.exec_()
+@@ -398,7 +416,7 @@
+         if bookid:
+             filename = filenameByBookId(bookid)
+             group = QtGui.QActionGroup(menu)
+-            group.triggered.connect(self.on_group1_triggered)
++            QtCore.QObject.connect(group, QtCore.SIGNAL("triggered(QAction*)"), self.on_group1_triggered)
+             for program in self.programSettings.getPrograms():
+                 if not program[1].isEmpty():
+                     if program[0].isEmpty():
+@@ -417,7 +435,7 @@
+                     menu.addSeparator()
+                 menu2 = QtGui.QMenu(self.tr("Add to group"), menu)
+                 group2 = QtGui.QActionGroup(menu2)
+-                group2.triggered.connect(self.on_group2_triggered)
++                QtCore.QObject.connect(group2, QtCore.SIGNAL("triggered(QAction*)"), self.on_group2_triggered)
+                 for group in groups:
+                     a = menu2.addAction(group[1])
+                     a.bookid = bookid
+@@ -430,7 +448,7 @@
+                     menu.addSeparator()
+                 menu3 = QtGui.QMenu(self.tr("Remove from group"), menu)
+                 group3 = QtGui.QActionGroup(menu3)
+-                group3.triggered.connect(self.on_group3_triggered)
++                QtCore.QObject.connect(group3, QtCore.SIGNAL("triggered(QAction*)"), self.on_group3_triggered)
+                 for group in groups:
+                     a = menu3.addAction(group[1])
+                     a.bookid = bookid
+@@ -492,7 +510,7 @@
+             authorid = self.authorsModel.record(index.row()).value(0).toInt()[0]
+             menu = QtGui.QMenu()
+             g = QtGui.QActionGroup(menu)
+-            g.triggered.connect(self.on_remove_author_action_triggered)
++            QtCore.QObject.connect(g, QtCore.SIGNAL("triggered(QAction*)"), self.on_remove_author_action_triggered)
+             a = menu.addAction(self.tr("Remove author"))
+             a.authorid = authorid
+             g.addAction(a)
+@@ -503,7 +521,7 @@
+             seqid = self.sequencesModel.record(index.row()).value(0).toInt()[0]
+             menu = QtGui.QMenu()
+             g = QtGui.QActionGroup(menu)
+-            g.triggered.connect(self.on_remove_sequence_action_triggered)
++            QtCore.QObject.connect(g, QtCore.SIGNAL("triggered(QAction*)"), self.on_remove_sequence_action_triggered)
+             a = menu.addAction(self.tr("Remove sequence"))
+             a.seqid = seqid
+             g.addAction(a)
+@@ -514,7 +532,7 @@
+             groupid = self.groupsModel.record(index.row()).value(0).toInt()[0]
+             menu = QtGui.QMenu()
+             g = QtGui.QActionGroup(menu)
+-            g.triggered.connect(self.on_remove_group_action_triggered)
++            QtCore.QObject.connect(g, QtCore.SIGNAL("triggered(QAction*)"), self.on_remove_group_action_triggered)
+             a = menu.addAction(self.tr("Remove group"))
+             a.groupid = groupid
+             g.addAction(a)
+@@ -535,11 +553,11 @@
+         removeGroup(action.groupid)
+         self.groupsModel.refresh()
+ 
+-    @QtCore.pyqtSlot()
++    @QtCore.pyqtSignature("")
+     def on_actionAboutQt_triggered(self):
+         QtGui.QMessageBox.aboutQt(self, self.tr("About Qt"))
+ 
+-    @QtCore.pyqtSlot()
++    @QtCore.pyqtSignature("")
+     def on_actionAbout_triggered(self):
+         msgbox = QtGui.QMessageBox(QtGui.QMessageBox.NoIcon,
+                                    self.tr("About PyHomeLib"),
+@@ -631,7 +649,7 @@
+             bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
+             self.parserThread.parse(bookid)
+ 
+-    @QtCore.pyqtSlot()
++    @QtCore.pyqtSignature("")
+     def on_actionStatistics_triggered(self):
+         dlg = StatisticsDialog(self)
+         dlg.exec_()
+diff -Naur --exclude=.git a/mysettings.py b/mysettings.py
+--- a/mysettings.py	2009-11-05 13:51:18.000000000 +0000
++++ b/mysettings.py	2009-11-12 06:36:29.000000000 +0000
+@@ -34,9 +34,9 @@
+ 
+     def writeBool(self, key, value):
+         if value:
+-            self.setValue(key, 1)
++            self.setValue(key, QtCore.QVariant(1))
+         else:
+-            self.setValue(key, 0)
++            self.setValue(key, QtCore.QVariant(0))
+ 
+     def getPrograms(self):
+         programs = []
+@@ -53,8 +53,8 @@
+         index = 0
+         for program in programs:
+             self.setArrayIndex(index)
+-            self.setValue('title', program[0])
+-            self.setValue('cmd', program[1])
++            self.setValue('title', QtCore.QVariant(program[0]))
++            self.setValue('cmd', QtCore.QVariant(program[1]))
+             index += 1
+         self.endArray()
+ 
+diff -Naur --exclude=.git a/sqlquerymodelex.py b/sqlquerymodelex.py
+--- a/sqlquerymodelex.py	2009-11-06 03:04:54.000000000 +0000
++++ b/sqlquerymodelex.py	2009-11-12 06:40:06.000000000 +0000
+@@ -61,7 +61,7 @@
+         if force or sql != self.oldsql or self.values != self.oldvalues:
+             self.query.prepare(sql)
+             for value in self.values:
+-                self.query.addBindValue(value)
++                self.query.addBindValue(QtCore.QVariant(value))
+             if not self.query.exec_():
+                 raise Exception, self.query.lastError().text()
+             self.setQuery(self.query)
+diff -Naur --exclude=.git a/tableviewex.py b/tableviewex.py
+--- a/tableviewex.py	2009-11-05 13:51:18.000000000 +0000
++++ b/tableviewex.py	2009-11-12 04:33:35.000000000 +0000
+@@ -5,8 +5,6 @@
+ 
+ class HeaderViewEx(QtGui.QHeaderView):
+ 
+-    rightButtonPressed = QtCore.pyqtSignal()
+-
+     def __init__(self, parent=None):
+         super(HeaderViewEx, self).__init__(QtCore.Qt.Horizontal, parent)
+         self.setMovable(True)
+@@ -15,7 +13,7 @@
+ 
+     def mousePressEvent(self, event):
+         if event.button() == QtCore.Qt.RightButton:
+-            self.rightButtonPressed.emit()
++            self.emit(QtCore.SIGNAL("rightButtonPressed"))
+             event.accept()
+         else:
+             QtGui.QHeaderView.mousePressEvent(self, event)
+@@ -23,13 +21,10 @@
+ 
+ class TableViewEx(QtGui.QTableView):
+ 
+-    rowSelected = QtCore.pyqtSignal(QtCore.QModelIndex)
+-    rightButtonPressed = QtCore.pyqtSignal(QtCore.QModelIndex)
+-
+     def __init__(self, parent=None):
+         super(TableViewEx, self).__init__(parent)
+         header = HeaderViewEx(self)
+-        header.rightButtonPressed.connect(self.on_header_rightButtonPressed)
++        QtCore.QObject.connect(header, QtCore.SIGNAL("rightButtonPressed"), self.on_header_rightButtonPressed)
+         self.setHorizontalHeader(header)
+         self.verticalHeader().hide()
+         self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+@@ -39,13 +34,13 @@
+     def selectionChanged(self, selected, deselected):
+         QtGui.QTableView.selectionChanged(self, selected, deselected)
+         if selected.indexes():
+-            self.rowSelected.emit(selected.indexes()[0])
++            self.emit(QtCore.SIGNAL("rowSelected"), selected.indexes()[0])
+ 
+     def on_header_rightButtonPressed(self):
+         menu = QtGui.QMenu()
+         group = QtGui.QActionGroup(menu)
+         group.setExclusive(False)
+-        group.triggered.connect(self.on_action_triggered)
++        QtCore.QObject.connect(group, QtCore.SIGNAL("triggered(QAction*)"), self.on_action_triggered)
+         for index in xrange(self.horizontalHeader().count()):
+             text = self.model().headerData(index, QtCore.Qt.Horizontal).toString()
+             a = menu.addAction(text)
+@@ -71,5 +66,5 @@
+         QtGui.QTableView.mousePressEvent(self, event)
+ 
+         if pressed:
+-            self.rightButtonPressed.emit(index)
++            self.emit(QtCore.SIGNAL("rightButtonPressed"), index)
+ 
+diff -Naur --exclude=.git a/treeviewex.py b/treeviewex.py
+--- a/treeviewex.py	2009-11-05 13:51:18.000000000 +0000
++++ b/treeviewex.py	2009-11-12 04:15:47.000000000 +0000
+@@ -5,8 +5,6 @@
+ 
+ class TreeViewEx(QtGui.QTreeView):
+ 
+-    rowSelected = QtCore.pyqtSignal(QtCore.QModelIndex)
+-
+     def __init__(self, parent=None):
+         super(TreeViewEx, self).__init__(parent)
+         self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+@@ -15,5 +13,5 @@
+     def selectionChanged(self, selected, deselected):
+         QtGui.QTreeView.selectionChanged(self, selected, deselected)
+         if selected.indexes():
+-            self.rowSelected.emit(selected.indexes()[0])
++            self.emit(QtCore.SIGNAL("rowSelected"), selected.indexes()[0])
+ 
+diff -Naur --exclude=.git a/ui_importdialog.py b/ui_importdialog.py
+--- a/ui_importdialog.py	2009-11-06 14:42:12.000000000 +0000
++++ b/ui_importdialog.py	2009-11-12 06:48:32.000000000 +0000
+@@ -46,7 +46,7 @@
+         self.filesProcessedLabel.setObjectName("filesProcessedLabel")
+         self.progressBar = QtGui.QProgressBar(ImportDialog)
+         self.progressBar.setGeometry(QtCore.QRect(10, 40, 381, 23))
+-        self.progressBar.setProperty("value", 0)
++        self.progressBar.setProperty("value", QtCore.QVariant(0))
+         self.progressBar.setObjectName("progressBar")
+ 
+         self.retranslateUi(ImportDialog)
+diff -Naur --exclude=.git a/ui_mainwindow.py b/ui_mainwindow.py
+--- a/ui_mainwindow.py	2009-11-11 14:56:38.000000000 +0000
++++ b/ui_mainwindow.py	2009-11-12 06:39:35.000000000 +0000
+@@ -34,7 +34,6 @@
+         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
+         self.tabWidget.setSizePolicy(sizePolicy)
+         self.tabWidget.setTabShape(QtGui.QTabWidget.Rounded)
+-        self.tabWidget.setDocumentMode(True)
+         self.tabWidget.setObjectName("tabWidget")
+         self.widget = QtGui.QWidget()
+         self.widget.setObjectName("widget")
+diff -Naur --exclude=.git a/validator.py b/validator.py
+--- a/validator.py	2009-11-11 19:42:57.000000000 +0000
++++ b/validator.py	2009-11-12 04:30:03.000000000 +0000
+@@ -21,8 +21,8 @@
+ 
+     def validate(self):
+         process = QtCore.QProcess(self)
+-        process.readyReadStandardOutput.connect(self.readStandardOutput)
+-        process.readyReadStandardError.connect(self.readStandardError)
++        QtCore.QObject.connect(process, QtCore.SIGNAL("readyReadStandardOutput()"), self.readStandardOutput)
++        QtCore.QObject.connect(process, QtCore.SIGNAL("readyReadStandardError()"), self.readStandardError)
+         self.process = process
+         args = [QtCore.QString.fromUtf8(arg) for arg in sys.argv[1:]]
+         process.start("xmllint", args)
+diff -Naur --exclude=.git a/windowstatereader.py b/windowstatereader.py
+--- a/windowstatereader.py	2009-11-11 14:18:02.000000000 +0000
++++ b/windowstatereader.py	2009-11-13 15:07:07.000000000 +0000
+@@ -31,30 +31,29 @@
+ 
+         if widget and widget.metaObject().className() == name:
+             if widget.property('currentIndex').isValid():
+-                if self.reader.attributes().hasAttribute('currentIndex'):
++                if self.reader.attributes().value('currentIndex') != "":
+                     currentIndex = self.reader.attributes().value('currentIndex').toString().toInt()[0]
+                     widget.setCurrentIndex(currentIndex)
+ 
+             if widget.inherits('QMainWindow'):
+-                if self.reader.attributes().hasAttribute('maximized') and \
+-                   self.reader.attributes().value('maximized') == '1':
++                if self.reader.attributes().value('maximized') == '1':
+                     widget.setWindowState(widget.windowState and QtCore.Qt.WindowMaximized)
+-                elif self.reader.attributes().hasAttribute('geometry'):
++                elif self.reader.attributes().value('geometry') != "":
+                     l = self.reader.attributes().value('geometry').toString().split(",")
+                     if len(l) == 4:
+                         widget.setGeometry(l[0].toInt()[0], l[1].toInt()[0],
+                                            l[2].toInt()[0], l[3].toInt()[0])
+ 
+             if widget.inherits('QDockWidget'):
+-                if self.reader.attributes().hasAttribute('visible'):
++                if self.reader.attributes().value('visible') != "":
+                     visible = self.reader.attributes().value('visible').toString().toInt()[0]
+                     widget.setVisible(visible)
+-                if self.reader.attributes().hasAttribute('area'):
+-                    area = self.reader.attributes().value('area').toString().toInt()[0]
++                if self.reader.attributes().value('area') != "":
++                    area = QtCore.Qt.DockWidgetArea(self.reader.attributes().value('area').toString().toInt()[0])
+                     widget.parent().addDockWidget(area, widget)
+ 
+             if widget.inherits('QSplitter'):
+-                if self.reader.attributes().hasAttribute('sizes'):
++                if self.reader.attributes().value('sizes') != "":
+                     sizes = []
+                     for size in self.reader.attributes().value('sizes').toString().split(","):
+                         sizes.append(size.toInt()[0])
+@@ -66,7 +65,7 @@
+                     widget.horizontalHeader().resizeSection(index, l[index].toInt()[0])
+ 
+             if widget.inherits('QToolBar'):
+-                if self.reader.attributes().hasAttribute('visible'):
++                if self.reader.attributes().value('visible') != "":
+                     visible = self.reader.attributes().value('visible').toString().toInt()[0]
+                     widget.setVisible(visible)
+ 
