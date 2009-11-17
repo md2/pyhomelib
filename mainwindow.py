@@ -450,7 +450,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
     def on_group3_triggered(self, action):
         self.fetchAll()
         removeBookFromGroup(action.bookid, action.groupid)
-        self.booksByGroupModel.refresh()
+        for index in self.booksByGroupView.selectionModel().selectedRows():
+            self.booksByGroupView.setRowHidden(index.row(), True)
 
     def on_booksByAuthorView_rightButtonPressed(self, index):
         if index.isValid():
@@ -523,17 +524,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
     def on_remove_author_action_triggered(self, action):
         self.fetchAll()
         removeAuthor(action.authorid)
-        self.authorsModel.refresh()
+        for index in self.authorsView.selectionModel().selectedRows():
+            self.authorsView.setRowHidden(index.row(), True)
 
     def on_remove_sequence_action_triggered(self, action):
         self.fetchAll()
         removeSequence(action.seqid)
-        self.sequencesModel.refresh()
+        for index in self.sequencesView.selectionModel().selectedRows():
+            self.sequencesView.setRowHidden(index.row(), True)
 
     def on_remove_group_action_triggered(self, action):
         self.fetchAll()
         removeGroup(action.groupid)
-        self.groupsModel.refresh()
+        for index in self.groupsView.selectionModel().selectedRows():
+            self.groupsView.setRowHidden(index.row(), True)
 
     @QtCore.pyqtSlot()
     def on_actionAboutQt_triggered(self):
