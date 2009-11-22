@@ -43,7 +43,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             dbname = self.userConfigDir + QtCore.QDir.separator() + \
                      'default.sqlite'
         else:
-            dbname = sys.argv[1]
+            dbname = QtCore.QString.fromUtf8(sys.argv[1])
 
         QtSql.QSqlDatabase.addDatabase("QSQLITE")
 
