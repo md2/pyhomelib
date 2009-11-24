@@ -53,7 +53,8 @@ class ImportDialog(QtGui.QDialog, Ui_ImportDialog):
         if self.found != 0:
             self.progressBar.setValue(100 * self.processed / self.found)
         if self.found == self.processed and not self.finderThread.isRunning():
-            self.close()
+            if self.closeAfterCompletingBox.isChecked():
+                self.close()
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
