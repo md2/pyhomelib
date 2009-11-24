@@ -80,3 +80,7 @@ class SqlQueryModelEx(QtSql.QSqlQueryModel):
             self.setOrderByClause(QtCore.QString("%1 DESC").arg(column + 1))
         self.refresh()
 
+    def undoSorting(self):
+        self.setOrderByClause(None);
+        self.refresh()
+

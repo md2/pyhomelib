@@ -30,6 +30,7 @@ class TableViewEx(QtGui.QTableView):
         super(TableViewEx, self).__init__(parent)
         header = HeaderViewEx(self)
         header.rightButtonPressed.connect(self.on_header_rightButtonPressed)
+        header.setSortIndicator(-1, QtCore.Qt.AscendingOrder)
         self.setHorizontalHeader(header)
         self.verticalHeader().hide()
         self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
@@ -43,6 +44,10 @@ class TableViewEx(QtGui.QTableView):
 
     def on_header_rightButtonPressed(self):
         menu = QtGui.QMenu()
+        if self.horizontalHeader().sortIndicatorSection() != -1:
+            a = menu.addAction(self.tr("Unsorted"))
+            a.triggered.connect(self.on_unsorted_triggered)
+            menu.addSeparator()
         group = QtGui.QActionGroup(menu)
         group.setExclusive(False)
         group.triggered.connect(self.on_action_triggered)
@@ -61,6 +66,10 @@ class TableViewEx(QtGui.QTableView):
         if action.isChecked() and self.horizontalHeader().sectionSize(action.index) == 0:
             self.horizontalHeader().resizeSection(action.index,
                                                   self.horizontalHeader().defaultSectionSize())
+
+    def on_unsorted_triggered(self, checked):
+        self.horizontalHeader().setSortIndicator(-1, QtCore.Qt.AscendingOrder)
+        self.model().undoSorting()
 
     def mousePressEvent(self, event):
         pressed = False
