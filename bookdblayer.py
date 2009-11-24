@@ -166,7 +166,7 @@ def setDbProperty(name, value):
                name, value)
 
 def bookCount():
-    return execScalar(db(), "SELECT COUNT(*) FROM libbook").toInt()[0]
+    return execScalar(db(), "SELECT COUNT(*) FROM libbook").toLongLong()[0]
 
 def filenameByBookId(bookid):
     return execScalar(db(),
