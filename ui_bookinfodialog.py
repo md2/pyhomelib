@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'bookinfodialog.ui'
 #
-# Created: Fri Nov  6 14:42:10 2009
+# Created: Wed Nov 25 18:33:25 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,6 +13,9 @@ class Ui_BookInfoDialog(object):
     def setupUi(self, BookInfoDialog):
         BookInfoDialog.setObjectName("BookInfoDialog")
         BookInfoDialog.resize(562, 642)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/pyhomelib.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        BookInfoDialog.setWindowIcon(icon)
         self.verticalLayout = QtGui.QVBoxLayout(BookInfoDialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.authorsLayout = QtGui.QVBoxLayout()
@@ -92,3 +95,4 @@ class Ui_BookInfoDialog(object):
     def retranslateUi(self, BookInfoDialog):
         BookInfoDialog.setWindowTitle(QtGui.QApplication.translate("BookInfoDialog", "Book info", None, QtGui.QApplication.UnicodeUTF8))
 
+import pyhomelib_rc
