@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Book info</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="pyhomelib.qrc">
+    <normaloff>:/pyhomelib.png</normaloff>:/pyhomelib.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QVBoxLayout" name="authorsLayout"/>
@@ -141,6 +145,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="pyhomelib.qrc"/>
+ </resources>
  <connections/>
 </ui>

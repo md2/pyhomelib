@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string notr="true">PyHomeLib</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="pyhomelib.qrc">
+    <normaloff>:/pyhomelib.png</normaloff>:/pyhomelib.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1918,7 +1922,9 @@
    <header>treeviewex.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="pyhomelib.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>tabWidget</sender>
