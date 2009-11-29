@@ -111,87 +111,87 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="56"/>
+        <location filename="mainwindow.ui" line="60"/>
         <source>Authors</source>
         <translation>Авторы</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="107"/>
+        <location filename="mainwindow.ui" line="111"/>
         <source>Search:</source>
         <translation>Найти:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="93"/>
+        <location filename="mainwindow.ui" line="97"/>
         <source>Sequences</source>
         <translation>Серии</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="142"/>
+        <location filename="mainwindow.ui" line="146"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="156"/>
+        <location filename="mainwindow.ui" line="160"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="508"/>
+        <location filename="mainwindow.ui" line="512"/>
         <source>Genre:</source>
         <translation>Жанр:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="426"/>
+        <location filename="mainwindow.ui" line="430"/>
         <source>Sequence:</source>
         <translation>Серия:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="190"/>
+        <location filename="mainwindow.ui" line="194"/>
         <source>Title:</source>
         <translation>Название:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="344"/>
+        <location filename="mainwindow.ui" line="348"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="294"/>
+        <location filename="mainwindow.ui" line="298"/>
         <source>Groups</source>
         <translation>Группы</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="590"/>
+        <location filename="mainwindow.ui" line="594"/>
         <source>Search results:</source>
         <translation>Найденное:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="675"/>
+        <location filename="mainwindow.ui" line="679"/>
         <source>Group:</source>
         <translation>Группа:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="763"/>
+        <location filename="mainwindow.ui" line="767"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="770"/>
+        <location filename="mainwindow.ui" line="774"/>
         <source>&amp;Database</source>
         <translation>&amp;База</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="782"/>
+        <location filename="mainwindow.ui" line="786"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="991"/>
+        <location filename="mainwindow.ui" line="995"/>
         <source>&amp;About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1857"/>
+        <location filename="mainwindow.ui" line="1861"/>
         <source>E&amp;xit</source>
         <translation>Выход</translation>
     </message>
@@ -226,27 +226,27 @@
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1868"/>
+        <location filename="mainwindow.ui" line="1872"/>
         <source>&amp;Info panel</source>
         <translation>Информационная панель</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1879"/>
+        <location filename="mainwindow.ui" line="1883"/>
         <source>&amp;Russian alphabet</source>
         <translation>Русский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1890"/>
+        <location filename="mainwindow.ui" line="1894"/>
         <source>&amp;English alphabet</source>
         <translation>Английский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="801"/>
+        <location filename="mainwindow.ui" line="805"/>
         <source>Russian alphabet</source>
         <translation>Русский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="844"/>
+        <location filename="mainwindow.ui" line="848"/>
         <source>English alphabet</source>
         <translation>Английский алфавит</translation>
     </message>
@@ -256,17 +256,17 @@
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="790"/>
+        <location filename="mainwindow.ui" line="794"/>
         <source>&amp;Settings</source>
         <translation>&amp;Настройка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1847"/>
+        <location filename="mainwindow.ui" line="1851"/>
         <source>&amp;Properties...</source>
         <translation>Свойства...</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1895"/>
+        <location filename="mainwindow.ui" line="1899"/>
         <source>&amp;Configure...</source>
         <translation>Настроить PyHomeLib...</translation>
     </message>
@@ -326,7 +326,7 @@
         <translation>&lt;b&gt;Домашняя страница&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="302"/>
+        <location filename="mainwindow.ui" line="306"/>
         <source>Add:</source>
         <translation>Добавить:</translation>
     </message>
@@ -356,12 +356,12 @@
         <translation>Выберите директорию</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1852"/>
+        <location filename="mainwindow.ui" line="1856"/>
         <source>&amp;Add directory...</source>
         <translation>Добавить директорию...</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="252"/>
+        <location filename="mainwindow.ui" line="256"/>
         <source>File author:</source>
         <translation>Автор файла:</translation>
     </message>
@@ -371,7 +371,7 @@
         <translation>Не удалось запустить программу: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1905"/>
+        <location filename="mainwindow.ui" line="1909"/>
         <source>&amp;Statistics</source>
         <translation>Статистика</translation>
     </message>
@@ -453,6 +453,14 @@
         <location filename="statisticsdialog.py" line="24"/>
         <source>bytes</source>
         <translation>байт</translation>
+    </message>
+</context>
+<context>
+    <name>TableViewEx</name>
+    <message>
+        <location filename="tableviewex.py" line="48"/>
+        <source>Unsorted</source>
+        <translation>Без сортировки</translation>
     </message>
 </context>
 <context>
