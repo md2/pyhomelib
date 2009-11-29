@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'importdialog.ui'
 #
-# Created: Fri Nov  6 14:42:11 2009
+# Created: Sun Nov 29 16:54:13 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ class Ui_ImportDialog(object):
         self.cancelButton.setGeometry(QtCore.QRect(310, 400, 80, 26))
         self.cancelButton.setObjectName("cancelButton")
         self.textEdit = QtGui.QTextEdit(ImportDialog)
-        self.textEdit.setGeometry(QtCore.QRect(10, 80, 381, 301))
+        self.textEdit.setGeometry(QtCore.QRect(10, 80, 381, 281))
         self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName("textEdit")
         self.label = QtGui.QLabel(ImportDialog)
@@ -48,14 +48,22 @@ class Ui_ImportDialog(object):
         self.progressBar.setGeometry(QtCore.QRect(10, 40, 381, 23))
         self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
+        self.closeAfterCompletingBox = QtGui.QCheckBox(ImportDialog)
+        self.closeAfterCompletingBox.setGeometry(QtCore.QRect(12, 370, 381, 21))
+        self.closeAfterCompletingBox.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.closeAfterCompletingBox.setChecked(True)
+        self.closeAfterCompletingBox.setObjectName("closeAfterCompletingBox")
 
         self.retranslateUi(ImportDialog)
         QtCore.QObject.connect(self.cancelButton, QtCore.SIGNAL("pressed()"), ImportDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(ImportDialog)
+        ImportDialog.setTabOrder(self.closeAfterCompletingBox, self.cancelButton)
+        ImportDialog.setTabOrder(self.cancelButton, self.textEdit)
 
     def retranslateUi(self, ImportDialog):
         ImportDialog.setWindowTitle(QtGui.QApplication.translate("ImportDialog", "Scanning directory", None, QtGui.QApplication.UnicodeUTF8))
         self.cancelButton.setText(QtGui.QApplication.translate("ImportDialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("ImportDialog", "Files found:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("ImportDialog", "Files processed:", None, QtGui.QApplication.UnicodeUTF8))
+        self.closeAfterCompletingBox.setText(QtGui.QApplication.translate("ImportDialog", "Close after completing", None, QtGui.QApplication.UnicodeUTF8))
 
