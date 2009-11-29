@@ -1,6 +1,6 @@
 diff -urpN a/bookdblayer.py b/bookdblayer.py
---- a/bookdblayer.py	2009-11-26 15:14:47.000000000 +0000
-+++ b/bookdblayer.py	2009-11-26 15:28:18.000000000 +0000
+--- a/bookdblayer.py	2009-11-29 16:31:31.000000000 +0000
++++ b/bookdblayer.py	2009-11-29 16:32:58.000000000 +0000
 @@ -103,7 +103,7 @@ def execUpdate(db, sql, *values):
      query = QtSql.QSqlQuery(db)
      query.prepare(sql)
@@ -39,7 +39,7 @@ diff -urpN a/bookdblayer.py b/bookdblayer.py
      groups = []
 diff -urpN a/fb2bookparserthread.py b/fb2bookparserthread.py
 --- a/fb2bookparserthread.py	2009-11-06 13:34:54.000000000 +0000
-+++ b/fb2bookparserthread.py	2009-11-26 15:28:18.000000000 +0000
++++ b/fb2bookparserthread.py	2009-11-29 16:32:58.000000000 +0000
 @@ -7,8 +7,6 @@ from bookdblayer import *
  
  class FB2BookParserThread(QtCore.QThread):
@@ -60,7 +60,7 @@ diff -urpN a/fb2bookparserthread.py b/fb2bookparserthread.py
                  self.bookid = 0
 diff -urpN a/fb2streamreader.py b/fb2streamreader.py
 --- a/fb2streamreader.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/fb2streamreader.py	2009-11-26 15:28:18.000000000 +0000
++++ b/fb2streamreader.py	2009-11-29 16:32:58.000000000 +0000
 @@ -265,7 +265,7 @@ class FB2StreamReader(QtCore.QXmlStreamR
          self.info.Keywords = self.readElementText()
  
@@ -105,7 +105,7 @@ diff -urpN a/fb2streamreader.py b/fb2streamreader.py
          else:
 diff -urpN a/finderthread.py b/finderthread.py
 --- a/finderthread.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/finderthread.py	2009-11-26 15:28:18.000000000 +0000
++++ b/finderthread.py	2009-11-29 16:32:58.000000000 +0000
 @@ -5,8 +5,6 @@ from PyQt4 import QtCore
  
  class FinderThread(QtCore.QThread):
@@ -124,7 +124,7 @@ diff -urpN a/finderthread.py b/finderthread.py
  
 diff -urpN a/genretreemodelreader.py b/genretreemodelreader.py
 --- a/genretreemodelreader.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/genretreemodelreader.py	2009-11-26 15:28:18.000000000 +0000
++++ b/genretreemodelreader.py	2009-11-29 16:32:58.000000000 +0000
 @@ -16,9 +16,9 @@ class TreeItem(object):
  
      def data(self, column):
@@ -167,7 +167,7 @@ diff -urpN a/genretreemodelreader.py b/genretreemodelreader.py
  
 diff -urpN a/importdialog.py b/importdialog.py
 --- a/importdialog.py	2009-11-24 15:26:42.000000000 +0000
-+++ b/importdialog.py	2009-11-26 15:28:18.000000000 +0000
++++ b/importdialog.py	2009-11-29 16:32:58.000000000 +0000
 @@ -23,18 +23,18 @@ class ImportDialog(QtGui.QDialog, Ui_Imp
                    (desktopGeometry.height() - self.height()) / 2)
  
@@ -195,8 +195,8 @@ diff -urpN a/importdialog.py b/importdialog.py
  
      def __del__(self):
 diff -urpN a/importthread.py b/importthread.py
---- a/importthread.py	2009-11-26 15:14:47.000000000 +0000
-+++ b/importthread.py	2009-11-26 15:28:18.000000000 +0000
+--- a/importthread.py	2009-11-29 16:31:31.000000000 +0000
++++ b/importthread.py	2009-11-29 16:32:58.000000000 +0000
 @@ -8,9 +8,6 @@ from bookdblayer import *
  
  class ImportThread(QtCore.QThread):
@@ -267,8 +267,8 @@ diff -urpN a/importthread.py b/importthread.py
 +                self.emit(QtCore.SIGNAL("processed"), filename)
  
 diff -urpN a/mainwindow.py b/mainwindow.py
---- a/mainwindow.py	2009-11-26 15:14:47.000000000 +0000
-+++ b/mainwindow.py	2009-11-26 15:28:18.000000000 +0000
+--- a/mainwindow.py	2009-11-29 16:31:31.000000000 +0000
++++ b/mainwindow.py	2009-11-29 16:32:58.000000000 +0000
 @@ -107,8 +107,8 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.authorsView.setModel(self.authorsModel)
          self.setTableAuthorsModelQuery()
@@ -536,7 +536,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          dlg.exec_()
 diff -urpN a/mysettings.py b/mysettings.py
 --- a/mysettings.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/mysettings.py	2009-11-26 15:28:18.000000000 +0000
++++ b/mysettings.py	2009-11-29 16:32:58.000000000 +0000
 @@ -34,9 +34,9 @@ class MySettings(QtCore.QSettings):
  
      def writeBool(self, key, value):
@@ -561,8 +561,8 @@ diff -urpN a/mysettings.py b/mysettings.py
          self.endArray()
  
 diff -urpN a/sqlquerymodelex.py b/sqlquerymodelex.py
---- a/sqlquerymodelex.py	2009-11-26 15:14:47.000000000 +0000
-+++ b/sqlquerymodelex.py	2009-11-26 15:28:18.000000000 +0000
+--- a/sqlquerymodelex.py	2009-11-29 16:10:26.000000000 +0000
++++ b/sqlquerymodelex.py	2009-11-29 16:32:58.000000000 +0000
 @@ -61,7 +61,7 @@ class SqlQueryModelEx(QtSql.QSqlQueryMod
          if force or sql != self.oldsql or self.values != self.oldvalues:
              self.query.prepare(sql)
@@ -573,8 +573,8 @@ diff -urpN a/sqlquerymodelex.py b/sqlquerymodelex.py
                  raise Exception, self.query.lastError().text()
              self.setQuery(self.query)
 diff -urpN a/tableviewex.py b/tableviewex.py
---- a/tableviewex.py	2009-11-26 15:14:47.000000000 +0000
-+++ b/tableviewex.py	2009-11-26 15:28:18.000000000 +0000
+--- a/tableviewex.py	2009-11-29 16:10:26.000000000 +0000
++++ b/tableviewex.py	2009-11-29 16:40:14.000000000 +0000
 @@ -5,8 +5,6 @@ from PyQt4 import QtCore, QtGui
  
  class HeaderViewEx(QtGui.QHeaderView):
@@ -605,10 +605,10 @@ diff -urpN a/tableviewex.py b/tableviewex.py
          header = HeaderViewEx(self)
 -        header.rightButtonPressed.connect(self.on_header_rightButtonPressed)
 +        QtCore.QObject.connect(header, QtCore.SIGNAL("rightButtonPressed"), self.on_header_rightButtonPressed)
+         header.setSortIndicator(-1, QtCore.Qt.AscendingOrder)
          self.setHorizontalHeader(header)
          self.verticalHeader().hide()
-         self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
-@@ -39,13 +34,13 @@ class TableViewEx(QtGui.QTableView):
+@@ -40,17 +35,17 @@ class TableViewEx(QtGui.QTableView):
      def selectionChanged(self, selected, deselected):
          QtGui.QTableView.selectionChanged(self, selected, deselected)
          if selected.indexes():
@@ -617,6 +617,11 @@ diff -urpN a/tableviewex.py b/tableviewex.py
  
      def on_header_rightButtonPressed(self):
          menu = QtGui.QMenu()
+         if self.horizontalHeader().sortIndicatorSection() != -1:
+             a = menu.addAction(self.tr("Unsorted"))
+-            a.triggered.connect(self.on_unsorted_triggered)
++            QtCore.QObject.connect(a, QtCore.SIGNAL("triggered(bool)"), self.on_unsorted_triggered)
+             menu.addSeparator()
          group = QtGui.QActionGroup(menu)
          group.setExclusive(False)
 -        group.triggered.connect(self.on_action_triggered)
@@ -624,7 +629,7 @@ diff -urpN a/tableviewex.py b/tableviewex.py
          for index in xrange(self.horizontalHeader().count()):
              text = self.model().headerData(index, QtCore.Qt.Horizontal).toString()
              a = menu.addAction(text)
-@@ -71,5 +66,5 @@ class TableViewEx(QtGui.QTableView):
+@@ -80,5 +75,5 @@ class TableViewEx(QtGui.QTableView):
          QtGui.QTableView.mousePressEvent(self, event)
  
          if pressed:
@@ -633,7 +638,7 @@ diff -urpN a/tableviewex.py b/tableviewex.py
  
 diff -urpN a/treeviewex.py b/treeviewex.py
 --- a/treeviewex.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/treeviewex.py	2009-11-26 15:28:18.000000000 +0000
++++ b/treeviewex.py	2009-11-29 16:32:58.000000000 +0000
 @@ -5,8 +5,6 @@ from PyQt4 import QtCore, QtGui
  
  class TreeViewEx(QtGui.QTreeView):
@@ -652,7 +657,7 @@ diff -urpN a/treeviewex.py b/treeviewex.py
  
 diff -urpN a/ui_importdialog.py b/ui_importdialog.py
 --- a/ui_importdialog.py	2009-11-25 17:42:36.000000000 +0000
-+++ b/ui_importdialog.py	2009-11-26 15:28:18.000000000 +0000
++++ b/ui_importdialog.py	2009-11-29 16:32:58.000000000 +0000
 @@ -46,7 +46,7 @@ class Ui_ImportDialog(object):
          self.filesProcessedLabel.setObjectName("filesProcessedLabel")
          self.progressBar = QtGui.QProgressBar(ImportDialog)
@@ -664,7 +669,7 @@ diff -urpN a/ui_importdialog.py b/ui_importdialog.py
          self.retranslateUi(ImportDialog)
 diff -urpN a/ui_mainwindow.py b/ui_mainwindow.py
 --- a/ui_mainwindow.py	2009-11-26 14:47:34.000000000 +0000
-+++ b/ui_mainwindow.py	2009-11-26 15:28:18.000000000 +0000
++++ b/ui_mainwindow.py	2009-11-29 16:32:58.000000000 +0000
 @@ -37,7 +37,6 @@ class Ui_MainWindow(object):
          sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
          self.tabWidget.setSizePolicy(sizePolicy)
@@ -675,7 +680,7 @@ diff -urpN a/ui_mainwindow.py b/ui_mainwindow.py
          self.widget.setObjectName("widget")
 diff -urpN a/validator.py b/validator.py
 --- a/validator.py	2009-11-11 19:42:58.000000000 +0000
-+++ b/validator.py	2009-11-26 15:28:18.000000000 +0000
++++ b/validator.py	2009-11-29 16:32:58.000000000 +0000
 @@ -21,8 +21,8 @@ class XmlValidatorDialog(QtGui.QDialog):
  
      def validate(self):
@@ -688,8 +693,8 @@ diff -urpN a/validator.py b/validator.py
          args = [QtCore.QString.fromUtf8(arg) for arg in sys.argv[1:]]
          process.start("xmllint", args)
 diff -urpN a/windowstatereader.py b/windowstatereader.py
---- a/windowstatereader.py	2009-11-26 15:25:42.000000000 +0000
-+++ b/windowstatereader.py	2009-11-26 15:28:37.000000000 +0000
+--- a/windowstatereader.py	2009-11-26 19:10:37.000000000 +0000
++++ b/windowstatereader.py	2009-11-29 16:32:58.000000000 +0000
 @@ -31,30 +31,29 @@ class WindowStateReader(object):
  
          if widget and widget.metaObject().className() == name:
