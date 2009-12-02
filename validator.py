@@ -3,6 +3,8 @@
 
 import sys
 from PyQt4 import QtCore, QtGui
+import pyhomelib_rc
+
 
 class XmlValidatorDialog(QtGui.QDialog):
 
@@ -13,6 +15,10 @@ class XmlValidatorDialog(QtGui.QDialog):
         desktopGeometry = QtGui.qApp.desktop().screenGeometry()
         self.move((desktopGeometry.width() - self.width()) / 2,
                   (desktopGeometry.height() - self.height()) / 2)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/pyhomelib.png"), QtGui.QIcon.Normal,
+                                                         QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
         self.textEdit = QtGui.QTextEdit(self)
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.textEdit)
@@ -40,6 +46,7 @@ class XmlValidatorDialog(QtGui.QDialog):
         text = QtCore.QString.fromUtf8(self.process.readAllStandardError())
         for par in text.split("\n"):
             self.textEdit.append(QtCore.QString("<p>%1</p>").arg(par))
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
