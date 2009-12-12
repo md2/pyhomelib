@@ -50,12 +50,10 @@ class MySettings(QtCore.QSettings):
 
     def writePrograms(self, programs):
         self.beginWriteArray(KEY_PROGRAMS)
-        index = 0
-        for program in programs:
+        for index, program in enumerate(programs):
             self.setArrayIndex(index)
             self.setValue('title', program[0])
             self.setValue('cmd', program[1])
-            index += 1
         self.endArray()
 
     def getSaveUiOnExitOption(self):

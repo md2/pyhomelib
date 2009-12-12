@@ -294,7 +294,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         dialog.nameEdit.setFocus()
         if dialog.exec_():
             self.appendToTitle(getDbProperty('name').toString())
-    
+
     @QtCore.pyqtSlot()
     def on_actionDbScanBookDir_triggered(self):
         dirname = QtGui.QFileDialog.getExistingDirectory(self,
@@ -609,6 +609,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         for widget in self.findChildren(QtGui.QTableView):
             while widget.model().canFetchMore():
                 widget.model().fetchMore()
+                QtGui.qApp.processEvents()
 
     def on_booksByAuthorView_clicked(self, index):
         if self.dockWidget.isVisible():

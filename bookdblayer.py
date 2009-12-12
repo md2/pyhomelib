@@ -206,7 +206,7 @@ def removeBookFromGroup(bookid, groupid):
                bookid, groupid)
 
 def addGroup(groupname):
-    execUpdate(db(), "INSERT INTO libgrouplist(groupname) VALUES(?)",
+    execUpdate(db(), "INSERT OR IGNORE INTO libgrouplist(groupname) VALUES(?)",
                groupname)
 
 def removeGroup(groupid):

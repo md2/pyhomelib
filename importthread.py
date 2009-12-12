@@ -165,9 +165,7 @@ class ImportThread(QtCore.QThread):
                                                      info.Lang, info.Year,
                                                      fileauthor, size, md5)
 
-                            _authorid = None
-                            _genreid = None
-                            _seqid = None
+                            _authorid, _genreid, _seqid = None, None, None
 
                             for author in info.Authors:
                                 authorid = self.selectAuthorByName(db,
@@ -176,7 +174,7 @@ class ImportThread(QtCore.QThread):
                                                                    author.lastName,
                                                                    author.nickName)
                                 if not authorid:
-                                    authorid = self.insertAuthor(db, 
+                                    authorid = self.insertAuthor(db,
                                                                  author.firstName,
                                                                  author.middleName,
                                                                  author.lastName,
