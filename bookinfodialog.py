@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# vim: ts=4 sw=4 et tw=79
+# vim: ts=4 sw=4 et tw=79 sts=4 ai si
 
 import sys
 from PyQt4 import QtCore, QtSql, QtGui
