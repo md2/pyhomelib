@@ -59,6 +59,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             createDb(dbname, 'Default', '', genreModel.list(),
                      [self.tr('Favorites')])
 
+        try:
+            import sqlite3ext
+            handle = db().driver().handle()
+            sqlite3ext.load_icu(handle.data().ascobject())
+        except ImportError:
+            pass
+
         self.setupUi(self)
         self.appTitle = self.windowTitle()
         self.appendToTitle(getDbProperty('name').toString())
