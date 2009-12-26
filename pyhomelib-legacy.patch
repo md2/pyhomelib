@@ -1,6 +1,6 @@
 diff -urpN a/bookdblayer.py b/bookdblayer.py
---- a/bookdblayer.py	2009-11-29 16:31:31.000000000 +0000
-+++ b/bookdblayer.py	2009-11-29 16:32:58.000000000 +0000
+--- a/bookdblayer.py
++++ b/bookdblayer.py
 @@ -103,7 +103,7 @@ def execUpdate(db, sql, *values):
      query = QtSql.QSqlQuery(db)
      query.prepare(sql)
@@ -38,8 +38,8 @@ diff -urpN a/bookdblayer.py b/bookdblayer.py
          raise Exception, query.lastError().text()
      groups = []
 diff -urpN a/fb2bookparserthread.py b/fb2bookparserthread.py
---- a/fb2bookparserthread.py	2009-11-06 13:34:54.000000000 +0000
-+++ b/fb2bookparserthread.py	2009-11-29 16:32:58.000000000 +0000
+--- a/fb2bookparserthread.py
++++ b/fb2bookparserthread.py
 @@ -7,8 +7,6 @@ from bookdblayer import *
  
  class FB2BookParserThread(QtCore.QThread):
@@ -59,8 +59,8 @@ diff -urpN a/fb2bookparserthread.py b/fb2bookparserthread.py
              if self.bookid == bookid:
                  self.bookid = 0
 diff -urpN a/fb2streamreader.py b/fb2streamreader.py
---- a/fb2streamreader.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/fb2streamreader.py	2009-11-29 16:32:58.000000000 +0000
+--- a/fb2streamreader.py
++++ b/fb2streamreader.py
 @@ -265,7 +265,7 @@ class FB2StreamReader(QtCore.QXmlStreamR
          self.info.Keywords = self.readElementText()
  
@@ -104,8 +104,8 @@ diff -urpN a/fb2streamreader.py b/fb2streamreader.py
              self.readElementText()
          else:
 diff -urpN a/finderthread.py b/finderthread.py
---- a/finderthread.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/finderthread.py	2009-11-29 16:32:58.000000000 +0000
+--- a/finderthread.py
++++ b/finderthread.py
 @@ -5,8 +5,6 @@ from PyQt4 import QtCore
  
  class FinderThread(QtCore.QThread):
@@ -123,8 +123,8 @@ diff -urpN a/finderthread.py b/finderthread.py
 +                self.emit(QtCore.SIGNAL("found"), it.filePath())
  
 diff -urpN a/genretreemodelreader.py b/genretreemodelreader.py
---- a/genretreemodelreader.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/genretreemodelreader.py	2009-11-29 16:32:58.000000000 +0000
+--- a/genretreemodelreader.py
++++ b/genretreemodelreader.py
 @@ -16,9 +16,9 @@ class TreeItem(object):
  
      def data(self, column):
@@ -166,11 +166,11 @@ diff -urpN a/genretreemodelreader.py b/genretreemodelreader.py
          item = index.internalPointer()
  
 diff -urpN a/importdialog.py b/importdialog.py
---- a/importdialog.py	2009-11-24 15:26:42.000000000 +0000
-+++ b/importdialog.py	2009-11-29 16:32:58.000000000 +0000
-@@ -23,18 +23,18 @@ class ImportDialog(QtGui.QDialog, Ui_Imp
-                   (desktopGeometry.height() - self.height()) / 2)
- 
+--- a/importdialog.py
++++ b/importdialog.py
+@@ -28,18 +28,18 @@ class ImportDialog(QtGui.QDialog, Ui_Imp
+                                                          QtGui.QIcon.Off)
+         self.setWindowIcon(icon)
          self.importThread = ImportThread(dbname, directory)
 -        self.importThread.error.connect(self.textEdit.append)
 -        self.importThread.processed.connect(self.on_processed)
@@ -195,8 +195,8 @@ diff -urpN a/importdialog.py b/importdialog.py
  
      def __del__(self):
 diff -urpN a/importthread.py b/importthread.py
---- a/importthread.py	2009-11-29 16:31:31.000000000 +0000
-+++ b/importthread.py	2009-11-29 16:32:58.000000000 +0000
+--- a/importthread.py
++++ b/importthread.py
 @@ -8,9 +8,6 @@ from bookdblayer import *
  
  class ImportThread(QtCore.QThread):
@@ -247,7 +247,7 @@ diff -urpN a/importthread.py b/importthread.py
                                          self.tr("Parser error") + "</span>: " +
                                          QtCore.QDir(self.directory).relativeFilePath(filename))
                      else:
-@@ -206,15 +203,15 @@ class ImportThread(QtCore.QThread):
+@@ -204,15 +201,15 @@ class ImportThread(QtCore.QThread):
                              self.insertFilename(db, bookid, filename)
  
                          except Exception, msg:
@@ -267,9 +267,9 @@ diff -urpN a/importthread.py b/importthread.py
 +                self.emit(QtCore.SIGNAL("processed"), filename)
  
 diff -urpN a/mainwindow.py b/mainwindow.py
---- a/mainwindow.py	2009-11-29 16:31:31.000000000 +0000
-+++ b/mainwindow.py	2009-11-29 16:32:58.000000000 +0000
-@@ -107,8 +107,8 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+--- a/mainwindow.py
++++ b/mainwindow.py
+@@ -114,8 +114,8 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.authorsView.setModel(self.authorsModel)
          self.setTableAuthorsModelQuery()
          self.authorsView.hideColumn(0)
@@ -280,7 +280,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.sequencesModel = SqlQueryModelEx(self, "seqid, seqname",
                                                      "libseqname",
-@@ -117,7 +117,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -124,7 +124,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.sequencesView.setModel(self.sequencesModel)
          self.sequencesModel.select()
          self.sequencesView.hideColumn(0)
@@ -289,7 +289,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.genresTree.setModel(genreModel)
          self.genresTree.hideColumn(1)
-@@ -131,13 +131,13 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -138,13 +138,13 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.bookSearchView.setModel(self.bookSearchModel)
          self.bookSearchModel.select()
          self.bookSearchView.hideColumn(0)
@@ -310,7 +310,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.groupsModel = SqlQueryModelEx(self, "groupid, groupname",
                                                   "libgrouplist",
-@@ -146,7 +146,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -153,7 +153,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.groupsView.setModel(self.groupsModel)
          self.groupsModel.select()
          self.groupsView.hideColumn(0)
@@ -319,7 +319,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksByAuthorModel = SqlQueryModelEx(self, "bookid, title, seqname, genredesc, lang, year",
                                                          "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-@@ -155,11 +155,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -162,11 +162,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksByAuthorModel.addBindValue(0)
          self.booksByAuthorModel.select()
          self.booksByAuthorView.hideColumn(0)
@@ -336,7 +336,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksBySeqModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, genredesc, lang, year",
                                                       "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-@@ -168,12 +168,12 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -175,12 +175,12 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksBySeqModel.addBindValue(0)
          self.booksBySeqModel.select()
          self.booksBySeqView.hideColumn(0)
@@ -355,7 +355,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksByGenreModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, seqname, lang, year",
                                                         "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
-@@ -182,12 +182,12 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -189,12 +189,12 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksByGenreModel.addBindValue(0)
          self.booksByGenreModel.select()
          self.booksByGenreView.hideColumn(0)
@@ -374,7 +374,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksByGroupModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
                                                         "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
-@@ -196,20 +196,38 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -203,20 +203,38 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksByGroupModel.addBindValue(0)
          self.booksByGroupModel.select()
          self.booksByGroupView.hideColumn(0)
@@ -421,7 +421,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          self.parserThread.start()
  
      def __del__(self):
-@@ -264,7 +282,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -271,7 +289,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksBySeqModel.select()
  
      def on_genresTree_rowSelected(self, index):
@@ -430,7 +430,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          newidx = self.genresTree.model().index(index.row(), 1, index.parent())
          genreid = self.genresTree.model().data(newidx)
          self.genreTitleLabel.setText(genredesc)
-@@ -287,7 +305,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -294,7 +312,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              self.writeStateTo(self.uiSettingsFile)
          event.accept()
  
@@ -439,16 +439,16 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionDbProperties_triggered(self):
          dialog = DbPropertiesDialog(self)
          dialog.filenameEdit.setText(dbName())
-@@ -295,7 +313,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -302,7 +320,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          if dialog.exec_():
              self.appendToTitle(getDbProperty('name').toString())
-     
+ 
 -    @QtCore.pyqtSlot()
 +    @QtCore.pyqtSignature("")
      def on_actionDbScanBookDir_triggered(self):
          dirname = QtGui.QFileDialog.getExistingDirectory(self,
                                              self.tr("Select directory"),
-@@ -388,7 +406,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -395,7 +413,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      QtCore.QString(self.tr("Unable to start program: %1"))
                      .arg(program))
  
@@ -457,7 +457,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionConfigure_triggered(self):
          dialog = SettingsDialog(self.programSettings, self)
          dialog.exec_()
-@@ -398,7 +416,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -405,7 +423,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          if bookid:
              filename = filenameByBookId(bookid)
              group = QtGui.QActionGroup(menu)
@@ -466,7 +466,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              for program in self.programSettings.getPrograms():
                  if not program[1].isEmpty():
                      if program[0].isEmpty():
-@@ -417,7 +435,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -424,7 +442,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      menu.addSeparator()
                  menu2 = QtGui.QMenu(self.tr("Add to group"), menu)
                  group2 = QtGui.QActionGroup(menu2)
@@ -475,7 +475,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
                  for group in groups:
                      a = menu2.addAction(group[1])
                      a.bookid = bookid
-@@ -430,7 +448,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -437,7 +455,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      menu.addSeparator()
                  menu3 = QtGui.QMenu(self.tr("Remove from group"), menu)
                  group3 = QtGui.QActionGroup(menu3)
@@ -484,7 +484,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
                  for group in groups:
                      a = menu3.addAction(group[1])
                      a.bookid = bookid
-@@ -493,7 +511,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -500,7 +518,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              authorid = self.authorsModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -493,7 +493,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove author"))
              a.authorid = authorid
              g.addAction(a)
-@@ -504,7 +522,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -511,7 +529,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              seqid = self.sequencesModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -502,7 +502,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove sequence"))
              a.seqid = seqid
              g.addAction(a)
-@@ -515,7 +533,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -522,7 +540,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              groupid = self.groupsModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -511,7 +511,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove group"))
              a.groupid = groupid
              g.addAction(a)
-@@ -539,11 +557,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -546,11 +564,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          for index in self.groupsView.selectionModel().selectedRows():
              self.groupsView.setRowHidden(index.row(), True)
  
@@ -525,7 +525,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionAbout_triggered(self):
          msgbox = QtGui.QMessageBox(QtGui.QMessageBox.NoIcon,
                                     self.tr("About PyHomeLib"),
-@@ -635,7 +653,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -643,7 +661,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
              self.parserThread.parse(bookid)
  
@@ -535,8 +535,8 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          dlg = StatisticsDialog(self)
          dlg.exec_()
 diff -urpN a/mysettings.py b/mysettings.py
---- a/mysettings.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/mysettings.py	2009-11-29 16:32:58.000000000 +0000
+--- a/mysettings.py
++++ b/mysettings.py
 @@ -34,9 +34,9 @@ class MySettings(QtCore.QSettings):
  
      def writeBool(self, key, value):
@@ -549,20 +549,20 @@ diff -urpN a/mysettings.py b/mysettings.py
  
      def getPrograms(self):
          programs = []
-@@ -53,8 +53,8 @@ class MySettings(QtCore.QSettings):
-         index = 0
-         for program in programs:
+@@ -52,8 +52,8 @@ class MySettings(QtCore.QSettings):
+         self.beginWriteArray(KEY_PROGRAMS)
+         for index, program in enumerate(programs):
              self.setArrayIndex(index)
 -            self.setValue('title', program[0])
 -            self.setValue('cmd', program[1])
 +            self.setValue('title', QtCore.QVariant(program[0]))
 +            self.setValue('cmd', QtCore.QVariant(program[1]))
-             index += 1
          self.endArray()
  
+     def getSaveUiOnExitOption(self):
 diff -urpN a/sqlquerymodelex.py b/sqlquerymodelex.py
---- a/sqlquerymodelex.py	2009-11-29 16:10:26.000000000 +0000
-+++ b/sqlquerymodelex.py	2009-11-29 16:32:58.000000000 +0000
+--- a/sqlquerymodelex.py
++++ b/sqlquerymodelex.py
 @@ -61,7 +61,7 @@ class SqlQueryModelEx(QtSql.QSqlQueryMod
          if force or sql != self.oldsql or self.values != self.oldvalues:
              self.query.prepare(sql)
@@ -573,8 +573,8 @@ diff -urpN a/sqlquerymodelex.py b/sqlquerymodelex.py
                  raise Exception, self.query.lastError().text()
              self.setQuery(self.query)
 diff -urpN a/tableviewex.py b/tableviewex.py
---- a/tableviewex.py	2009-11-29 16:10:26.000000000 +0000
-+++ b/tableviewex.py	2009-11-29 16:40:14.000000000 +0000
+--- a/tableviewex.py
++++ b/tableviewex.py
 @@ -5,8 +5,6 @@ from PyQt4 import QtCore, QtGui
  
  class HeaderViewEx(QtGui.QHeaderView):
@@ -637,8 +637,8 @@ diff -urpN a/tableviewex.py b/tableviewex.py
 +            self.emit(QtCore.SIGNAL("rightButtonPressed"), index)
  
 diff -urpN a/treeviewex.py b/treeviewex.py
---- a/treeviewex.py	2009-11-05 13:51:18.000000000 +0000
-+++ b/treeviewex.py	2009-11-29 16:32:58.000000000 +0000
+--- a/treeviewex.py
++++ b/treeviewex.py
 @@ -5,8 +5,6 @@ from PyQt4 import QtCore, QtGui
  
  class TreeViewEx(QtGui.QTreeView):
@@ -656,8 +656,8 @@ diff -urpN a/treeviewex.py b/treeviewex.py
 +            self.emit(QtCore.SIGNAL("rowSelected"), selected.indexes()[0])
  
 diff -urpN a/ui_importdialog.py b/ui_importdialog.py
---- a/ui_importdialog.py	2009-11-25 17:42:36.000000000 +0000
-+++ b/ui_importdialog.py	2009-11-29 16:32:58.000000000 +0000
+--- a/ui_importdialog.py
++++ b/ui_importdialog.py
 @@ -46,7 +46,7 @@ class Ui_ImportDialog(object):
          self.filesProcessedLabel.setObjectName("filesProcessedLabel")
          self.progressBar = QtGui.QProgressBar(ImportDialog)
@@ -665,11 +665,11 @@ diff -urpN a/ui_importdialog.py b/ui_importdialog.py
 -        self.progressBar.setProperty("value", 0)
 +        self.progressBar.setProperty("value", QtCore.QVariant(0))
          self.progressBar.setObjectName("progressBar")
- 
-         self.retranslateUi(ImportDialog)
+         self.closeAfterCompletingBox = QtGui.QCheckBox(ImportDialog)
+         self.closeAfterCompletingBox.setGeometry(QtCore.QRect(12, 370, 381, 21))
 diff -urpN a/ui_mainwindow.py b/ui_mainwindow.py
---- a/ui_mainwindow.py	2009-11-26 14:47:34.000000000 +0000
-+++ b/ui_mainwindow.py	2009-11-29 16:32:58.000000000 +0000
+--- a/ui_mainwindow.py
++++ b/ui_mainwindow.py
 @@ -37,7 +37,6 @@ class Ui_MainWindow(object):
          sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
          self.tabWidget.setSizePolicy(sizePolicy)
@@ -679,9 +679,9 @@ diff -urpN a/ui_mainwindow.py b/ui_mainwindow.py
          self.widget = QtGui.QWidget()
          self.widget.setObjectName("widget")
 diff -urpN a/validator.py b/validator.py
---- a/validator.py	2009-11-11 19:42:58.000000000 +0000
-+++ b/validator.py	2009-11-29 16:32:58.000000000 +0000
-@@ -21,8 +21,8 @@ class XmlValidatorDialog(QtGui.QDialog):
+--- a/validator.py
++++ b/validator.py
+@@ -27,8 +27,8 @@ class XmlValidatorDialog(QtGui.QDialog):
  
      def validate(self):
          process = QtCore.QProcess(self)
@@ -693,8 +693,8 @@ diff -urpN a/validator.py b/validator.py
          args = [QtCore.QString.fromUtf8(arg) for arg in sys.argv[1:]]
          process.start("xmllint", args)
 diff -urpN a/windowstatereader.py b/windowstatereader.py
---- a/windowstatereader.py	2009-11-26 19:10:37.000000000 +0000
-+++ b/windowstatereader.py	2009-11-29 16:32:58.000000000 +0000
+--- a/windowstatereader.py
++++ b/windowstatereader.py
 @@ -31,30 +31,29 @@ class WindowStateReader(object):
  
          if widget and widget.metaObject().className() == name:
