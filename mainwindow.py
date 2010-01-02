@@ -114,8 +114,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.authorsView.setModel(self.authorsModel)
         self.setTableAuthorsModelQuery()
         self.authorsView.hideColumn(0)
-        self.authorsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Last name"))
-        self.authorsView.model().setHeaderData(2, QtCore.Qt.Horizontal, self.tr("First name"))
+        for index, name in enumerate([self.tr("authorid"),
+                                      self.tr("Last name"),
+                                      self.tr("First name")]):
+            self.authorsView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.sequencesModel = SqlQueryModelEx(self, "seqid, seqname",
                                                     "libseqname",
@@ -124,7 +126,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.sequencesView.setModel(self.sequencesModel)
         self.sequencesModel.select()
         self.sequencesView.hideColumn(0)
-        self.sequencesView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Sequence"))
+        for index, name in enumerate([self.tr("seqid"),
+                                      self.tr("Sequence")]):
+            self.sequencesView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.genresTree.setModel(genreModel)
         self.genresTree.hideColumn(1)
@@ -138,13 +142,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.bookSearchView.setModel(self.bookSearchModel)
         self.bookSearchModel.select()
         self.bookSearchView.hideColumn(0)
-        self.bookSearchModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
-        self.bookSearchModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
-        self.bookSearchModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
-        self.bookSearchModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
-        self.bookSearchModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Genre"))
-        self.bookSearchModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Lang"))
-        self.bookSearchModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
+        for index, name in enumerate([self.tr("bookid"),
+                                      self.tr("First name"),
+                                      self.tr("Last name"),
+                                      self.tr("Book Title"),
+                                      self.tr("Sequence"),
+                                      self.tr("Genre"),
+                                      self.tr("Lang"),
+                                      self.tr("Year")]):
+            self.bookSearchModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.groupsModel = SqlQueryModelEx(self, "groupid, groupname",
                                                  "libgrouplist",
@@ -153,7 +159,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.groupsView.setModel(self.groupsModel)
         self.groupsModel.select()
         self.groupsView.hideColumn(0)
-        self.groupsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Group"))
+        for index, name in enumerate([self.tr("groupid"),
+                                      self.tr("Group")]):
+            self.groupsView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.booksByAuthorModel = SqlQueryModelEx(self, "bookid, title, seqname, genredesc, lang, year",
                                                         "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
@@ -162,11 +170,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksByAuthorModel.addBindValue(0)
         self.booksByAuthorModel.select()
         self.booksByAuthorView.hideColumn(0)
-        self.booksByAuthorModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Book Title"))
-        self.booksByAuthorModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Sequence"))
-        self.booksByAuthorModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Genre"))
-        self.booksByAuthorModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Lang"))
-        self.booksByAuthorModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Year"))
+        for index, name in enumerate([self.tr("bookid"),
+                                      self.tr("Book Title"),
+                                      self.tr("Sequence"),
+                                      self.tr("Genre"),
+                                      self.tr("Lang"),
+                                      self.tr("Year")]):
+            self.booksByAuthorModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.booksBySeqModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, genredesc, lang, year",
                                                      "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
@@ -175,12 +185,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksBySeqModel.addBindValue(0)
         self.booksBySeqModel.select()
         self.booksBySeqView.hideColumn(0)
-        self.booksBySeqModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
-        self.booksBySeqModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
-        self.booksBySeqModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
-        self.booksBySeqModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Genre"))
-        self.booksBySeqModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Lang"))
-        self.booksBySeqModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Year"))
+        for index, name in enumerate([self.tr("bookid"),
+                                      self.tr("First name"),
+                                      self.tr("Last name"),
+                                      self.tr("Book Title"),
+                                      self.tr("Genre"),
+                                      self.tr("Lang"),
+                                      self.tr("Year")]):
+            self.booksBySeqModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.booksByGenreModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, seqname, lang, year",
                                                        "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
@@ -189,12 +201,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksByGenreModel.addBindValue(0)
         self.booksByGenreModel.select()
         self.booksByGenreView.hideColumn(0)
-        self.booksByGenreModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
-        self.booksByGenreModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
-        self.booksByGenreModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
-        self.booksByGenreModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
-        self.booksByGenreModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Lang"))
-        self.booksByGenreModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Year"))
+        for index, name in enumerate([self.tr("bookid"),
+                                      self.tr("First name"),
+                                      self.tr("Last name"),
+                                      self.tr("Book Title"),
+                                      self.tr("Sequence"),
+                                      self.tr("Lang"),
+                                      self.tr("Year")]):
+            self.booksByGenreModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.booksByGroupModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
                                                        "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
@@ -203,13 +217,15 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksByGroupModel.addBindValue(0)
         self.booksByGroupModel.select()
         self.booksByGroupView.hideColumn(0)
-        self.booksByGroupModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
-        self.booksByGroupModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
-        self.booksByGroupModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
-        self.booksByGroupModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
-        self.booksByGroupModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Genre"))
-        self.booksByGroupModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Lang"))
-        self.booksByGroupModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
+        for index, name in enumerate([self.tr("bookid"),
+                                      self.tr("First name"),
+                                      self.tr("Last name"),
+                                      self.tr("Book Title"),
+                                      self.tr("Sequence"),
+                                      self.tr("Genre"),
+                                      self.tr("Lang"),
+                                      self.tr("Year")]):
+            self.booksByGroupModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
         self.readStateFrom(self.uiSettingsFile)
         self.actionRussianAlphabet.setChecked(self.ruLettersToolbar.isVisibleTo(self))
