@@ -269,129 +269,75 @@ diff -urpN a/importthread.py b/importthread.py
 diff -urpN a/mainwindow.py b/mainwindow.py
 --- a/mainwindow.py
 +++ b/mainwindow.py
-@@ -114,8 +114,8 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.authorsView.setModel(self.authorsModel)
-         self.setTableAuthorsModelQuery()
-         self.authorsView.hideColumn(0)
--        self.authorsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Last name"))
--        self.authorsView.model().setHeaderData(2, QtCore.Qt.Horizontal, self.tr("First name"))
-+        self.authorsView.model().setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
-+        self.authorsView.model().setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
+@@ -117,7 +117,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+         for index, name in enumerate([self.tr("authorid"),
+                                       self.tr("Last name"),
+                                       self.tr("First name")]):
+-            self.authorsView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.authorsView.model().setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.sequencesModel = SqlQueryModelEx(self, "seqid, seqname",
                                                      "libseqname",
-@@ -124,7 +124,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.sequencesView.setModel(self.sequencesModel)
-         self.sequencesModel.select()
+@@ -128,7 +128,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.sequencesView.hideColumn(0)
--        self.sequencesView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Sequence"))
-+        self.sequencesView.model().setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
+         for index, name in enumerate([self.tr("seqid"),
+                                       self.tr("Sequence")]):
+-            self.sequencesView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.sequencesView.model().setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.genresTree.setModel(genreModel)
          self.genresTree.hideColumn(1)
-@@ -138,13 +138,13 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.bookSearchView.setModel(self.bookSearchModel)
-         self.bookSearchModel.select()
-         self.bookSearchView.hideColumn(0)
--        self.bookSearchModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
--        self.bookSearchModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
--        self.bookSearchModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
--        self.bookSearchModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
--        self.bookSearchModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Genre"))
--        self.bookSearchModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Lang"))
--        self.bookSearchModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
-+        self.bookSearchModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
-+        self.bookSearchModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
-+        self.bookSearchModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
-+        self.bookSearchModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
-+        self.bookSearchModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
-+        self.bookSearchModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
-+        self.bookSearchModel.setHeaderData(7, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+@@ -150,7 +150,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+                                       self.tr("Genre"),
+                                       self.tr("Lang"),
+                                       self.tr("Year")]):
+-            self.bookSearchModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.bookSearchModel.setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.groupsModel = SqlQueryModelEx(self, "groupid, groupname",
                                                   "libgrouplist",
-@@ -153,7 +153,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.groupsView.setModel(self.groupsModel)
-         self.groupsModel.select()
+@@ -161,7 +161,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.groupsView.hideColumn(0)
--        self.groupsView.model().setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Group"))
-+        self.groupsView.model().setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Group")))
+         for index, name in enumerate([self.tr("groupid"),
+                                       self.tr("Group")]):
+-            self.groupsView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.groupsView.model().setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.booksByAuthorModel = SqlQueryModelEx(self, "bookid, title, seqname, genredesc, lang, year",
                                                          "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-@@ -162,11 +162,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.booksByAuthorModel.addBindValue(0)
-         self.booksByAuthorModel.select()
-         self.booksByAuthorView.hideColumn(0)
--        self.booksByAuthorModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("Book Title"))
--        self.booksByAuthorModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Sequence"))
--        self.booksByAuthorModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Genre"))
--        self.booksByAuthorModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Lang"))
--        self.booksByAuthorModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Year"))
-+        self.booksByAuthorModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
-+        self.booksByAuthorModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
-+        self.booksByAuthorModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
-+        self.booksByAuthorModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
-+        self.booksByAuthorModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+@@ -176,7 +176,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+                                       self.tr("Genre"),
+                                       self.tr("Lang"),
+                                       self.tr("Year")]):
+-            self.booksByAuthorModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.booksByAuthorModel.setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.booksBySeqModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, genredesc, lang, year",
                                                       "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-@@ -175,12 +175,12 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.booksBySeqModel.addBindValue(0)
-         self.booksBySeqModel.select()
-         self.booksBySeqView.hideColumn(0)
--        self.booksBySeqModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
--        self.booksBySeqModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
--        self.booksBySeqModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
--        self.booksBySeqModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Genre"))
--        self.booksBySeqModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Lang"))
--        self.booksBySeqModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Year"))
-+        self.booksBySeqModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
-+        self.booksBySeqModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
-+        self.booksBySeqModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
-+        self.booksBySeqModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
-+        self.booksBySeqModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
-+        self.booksBySeqModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+@@ -192,7 +192,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+                                       self.tr("Genre"),
+                                       self.tr("Lang"),
+                                       self.tr("Year")]):
+-            self.booksBySeqModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.booksBySeqModel.setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.booksByGenreModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, seqname, lang, year",
                                                         "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
-@@ -189,12 +189,12 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.booksByGenreModel.addBindValue(0)
-         self.booksByGenreModel.select()
-         self.booksByGenreView.hideColumn(0)
--        self.booksByGenreModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
--        self.booksByGenreModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
--        self.booksByGenreModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
--        self.booksByGenreModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
--        self.booksByGenreModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Lang"))
--        self.booksByGenreModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Year"))
-+        self.booksByGenreModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
-+        self.booksByGenreModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
-+        self.booksByGenreModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
-+        self.booksByGenreModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
-+        self.booksByGenreModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
-+        self.booksByGenreModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+@@ -208,7 +208,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+                                       self.tr("Sequence"),
+                                       self.tr("Lang"),
+                                       self.tr("Year")]):
+-            self.booksByGenreModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.booksByGenreModel.setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.booksByGroupModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
                                                         "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
-@@ -203,20 +203,38 @@ class MainWindow(QtGui.QMainWindow, Ui_M
-         self.booksByGroupModel.addBindValue(0)
-         self.booksByGroupModel.select()
-         self.booksByGroupView.hideColumn(0)
--        self.booksByGroupModel.setHeaderData(1, QtCore.Qt.Horizontal, self.tr("First name"))
--        self.booksByGroupModel.setHeaderData(2, QtCore.Qt.Horizontal, self.tr("Last name"))
--        self.booksByGroupModel.setHeaderData(3, QtCore.Qt.Horizontal, self.tr("Book Title"))
--        self.booksByGroupModel.setHeaderData(4, QtCore.Qt.Horizontal, self.tr("Sequence"))
--        self.booksByGroupModel.setHeaderData(5, QtCore.Qt.Horizontal, self.tr("Genre"))
--        self.booksByGroupModel.setHeaderData(6, QtCore.Qt.Horizontal, self.tr("Lang"))
--        self.booksByGroupModel.setHeaderData(7, QtCore.Qt.Horizontal, self.tr("Year"))
-+        self.booksByGroupModel.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("First name")))
-+        self.booksByGroupModel.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Last name")))
-+        self.booksByGroupModel.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Book Title")))
-+        self.booksByGroupModel.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Sequence")))
-+        self.booksByGroupModel.setHeaderData(5, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Genre")))
-+        self.booksByGroupModel.setHeaderData(6, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Lang")))
-+        self.booksByGroupModel.setHeaderData(7, QtCore.Qt.Horizontal, QtCore.QVariant(self.tr("Year")))
+@@ -225,14 +225,32 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+                                       self.tr("Genre"),
+                                       self.tr("Lang"),
+                                       self.tr("Year")]):
+-            self.booksByGroupModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
++            self.booksByGroupModel.setHeaderData(index, QtCore.Qt.Horizontal, QtCore.QVariant(name))
  
          self.readStateFrom(self.uiSettingsFile)
          self.actionRussianAlphabet.setChecked(self.ruLettersToolbar.isVisibleTo(self))
@@ -421,7 +367,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          self.parserThread.start()
  
      def __del__(self):
-@@ -271,7 +289,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -287,7 +305,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksBySeqModel.select()
  
      def on_genresTree_rowSelected(self, index):
@@ -430,7 +376,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          newidx = self.genresTree.model().index(index.row(), 1, index.parent())
          genreid = self.genresTree.model().data(newidx)
          self.genreTitleLabel.setText(genredesc)
-@@ -294,7 +312,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -310,7 +328,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              self.writeStateTo(self.uiSettingsFile)
          event.accept()
  
@@ -439,7 +385,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionDbProperties_triggered(self):
          dialog = DbPropertiesDialog(self)
          dialog.filenameEdit.setText(dbName())
-@@ -302,7 +320,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -318,7 +336,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          if dialog.exec_():
              self.appendToTitle(getDbProperty('name').toString())
  
@@ -448,7 +394,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionDbScanBookDir_triggered(self):
          dirname = QtGui.QFileDialog.getExistingDirectory(self,
                                              self.tr("Select directory"),
-@@ -395,7 +413,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -411,7 +429,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      QtCore.QString(self.tr("Unable to start program: %1"))
                      .arg(program))
  
@@ -457,7 +403,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionConfigure_triggered(self):
          dialog = SettingsDialog(self.programSettings, self)
          dialog.exec_()
-@@ -405,7 +423,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -421,7 +439,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          if bookid:
              filename = filenameByBookId(bookid)
              group = QtGui.QActionGroup(menu)
@@ -466,7 +412,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              for program in self.programSettings.getPrograms():
                  if not program[1].isEmpty():
                      if program[0].isEmpty():
-@@ -424,7 +442,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -440,7 +458,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      menu.addSeparator()
                  menu2 = QtGui.QMenu(self.tr("Add to group"), menu)
                  group2 = QtGui.QActionGroup(menu2)
@@ -475,7 +421,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
                  for group in groups:
                      a = menu2.addAction(group[1])
                      a.bookid = bookid
-@@ -437,7 +455,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -453,7 +471,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      menu.addSeparator()
                  menu3 = QtGui.QMenu(self.tr("Remove from group"), menu)
                  group3 = QtGui.QActionGroup(menu3)
@@ -484,7 +430,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
                  for group in groups:
                      a = menu3.addAction(group[1])
                      a.bookid = bookid
-@@ -500,7 +518,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -516,7 +534,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              authorid = self.authorsModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -493,7 +439,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove author"))
              a.authorid = authorid
              g.addAction(a)
-@@ -511,7 +529,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -527,7 +545,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              seqid = self.sequencesModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -502,7 +448,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove sequence"))
              a.seqid = seqid
              g.addAction(a)
-@@ -522,7 +540,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -538,7 +556,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              groupid = self.groupsModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -511,7 +457,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove group"))
              a.groupid = groupid
              g.addAction(a)
-@@ -546,11 +564,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -562,11 +580,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          for index in self.groupsView.selectionModel().selectedRows():
              self.groupsView.setRowHidden(index.row(), True)
  
@@ -525,7 +471,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionAbout_triggered(self):
          msgbox = QtGui.QMessageBox(QtGui.QMessageBox.NoIcon,
                                     self.tr("About PyHomeLib"),
-@@ -643,7 +661,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -659,7 +677,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
              self.parserThread.parse(bookid)
  
