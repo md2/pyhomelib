@@ -1,5 +1,7 @@
 include pyhomelib.pro
 
+yo = 0
+
 all: forms translations
 	chmod 755 pyhomelib.py
 
@@ -16,7 +18,7 @@ ui_%.py: %.ui
 ext: sqlite3ext.so libSqliteIcu.so
 
 libSqliteIcu.so: icu.c
-	gcc -fPIC -shared icu.c `icu-config --ldflags` -o libSqliteIcu.so
+	gcc -fPIC -shared icu.c `icu-config --ldflags` -DASSUME_YO_EQ_E=$(yo) -o libSqliteIcu.so
 
 sqlite3ext.so: sqlite3ext.c sqlite3extsetup.py
 	python sqlite3extsetup.py build_ext -i

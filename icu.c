@@ -133,6 +133,10 @@ static int icuLikeCompare(
       U8_NEXT_UNSAFE(zString, iString, uString);
       uString = u_foldCase(uString, U_FOLD_CASE_DEFAULT);
       uPattern = u_foldCase(uPattern, U_FOLD_CASE_DEFAULT);
+#if ASSUME_YO_EQ_E == 1
+      if (uString == L'ё') uString = L'е';
+      if (uPattern == L'ё') uPattern = L'е';
+#endif
       if( uString!=uPattern ){
         return 0;
       }
