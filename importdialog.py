@@ -3,7 +3,7 @@
 
 import os
 import sys
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui, QtSql
 from ui_importdialog import Ui_ImportDialog
 from fb2streamreader import FB2StreamReader
 from importthread import ImportThread
@@ -73,11 +73,15 @@ if __name__ == '__main__':
     translator = QtCore.QTranslator()
     if translator.load("pyhomelib_" + QtCore.QLocale.system().name()):
         app.installTranslator(translator)
-    dlg = ImportDialog(QtCore.QString.fromUtf8(sys.argv[1]),
-                       QtCore.QString.fromUtf8(sys.argv[2]))
+
+    dbname = QtCore.QString.fromUtf8(sys.argv[1])
+    dirname = QtCore.QString.fromUtf8(sys.argv[2])
+    db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
+    db.setDatabaseName(dbname)
+    if not db.open():
+        raise Exception, db.lastError().text()
+
+    dlg = ImportDialog(dbname, dirname)
     dlg.show()
-    ret = app.exec_()
-    if len(sys.argv) >= 4 and sys.argv[3] == '--execvp':
-        os.execvp('python', ('python', 'pyhomelib.py', sys.argv[1]))
-    sys.exit(ret)
+    sys.exit(app.exec_())
 

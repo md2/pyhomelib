@@ -46,26 +46,26 @@ class ImportThread(QtCore.QThread):
         return QtCore.QCryptographicHash.hash(file.readAll(),
                                         QtCore.QCryptographicHash.Md5).toHex()
 
-    def selectBookByFilename(self, db, filename):
-        bookid = execScalar(db, "SELECT bookid FROM libfilename WHERE filename = ? LIMIT 1",
+    def selectBookByFilename(self, filename):
+        bookid = execScalar(self.db, "SELECT bookid FROM libfilename WHERE filename = ? LIMIT 1",
                             filename)
         if bookid:
             return bookid.toInt()[0]
         return None
 
-    def selectBookByMd5(self, db, md5):
-        bookid = execScalar(db, "SELECT bookid FROM libbook WHERE md5 = ? LIMIT 1",
+    def selectBookByMd5(self, md5):
+        bookid = execScalar(self.db, "SELECT bookid FROM libbook WHERE md5 = ? LIMIT 1",
                             md5)
         if bookid:
             return bookid.toInt()[0]
         return None
 
-    def insertBook(self, db, title, lang, year, fileauthor, size, md5):
-        return execUpdate(db, "INSERT INTO libbook(title, lang, year, fileauthor, filesize, md5) VALUES(?,?,?,?,?,?)",
+    def insertBook(self, title, lang, year, fileauthor, size, md5):
+        return execUpdate(self.db, "INSERT INTO libbook(title, lang, year, fileauthor, filesize, md5) VALUES(?,?,?,?,?,?)",
                           title, lang, year, fileauthor, size, md5)
 
-    def selectAuthorByName(self, db, firstname, middlename, lastname, nickname):
-        query = QtSql.QSqlQuery(db)
+    def selectAuthorByName(self, firstname, middlename, lastname, nickname):
+        query = QtSql.QSqlQuery(self.db)
         query.prepare("SELECT authorid FROM libauthorname WHERE lastname=? AND firstname=? AND middlename=? AND nickname=?")
         for s in (lastname, firstname, middlename, nickname):
             if s.isNull():
@@ -78,8 +78,8 @@ class ImportThread(QtCore.QThread):
             return query.value(0).toInt()[0]
         return None
 
-    def insertAuthor(self, db, firstname, middlename, lastname, nickname):
-        query = QtSql.QSqlQuery(db)
+    def insertAuthor(self, firstname, middlename, lastname, nickname):
+        query = QtSql.QSqlQuery(self.db)
         query.prepare("INSERT INTO libauthorname (firstname, middlename, lastname, nickname) VALUES(?,?,?,?)")
         for s in (firstname, middlename, lastname, nickname):
             if s.isNull():
@@ -90,57 +90,53 @@ class ImportThread(QtCore.QThread):
             raise Exception, query.lastError().text()
         return query.lastInsertId().toInt()[0]
 
-    def insertBookAuthorRelation(self, db, bookid, authorid):
-        execUpdate(db, "INSERT OR IGNORE INTO libauthor(bookid, authorid) VALUES(?,?)",
+    def insertBookAuthorRelation(self, bookid, authorid):
+        execUpdate(self.db, "INSERT OR IGNORE INTO libauthor(bookid, authorid) VALUES(?,?)",
                    bookid, authorid)
 
-    def selectGenreByCode(self, db, genrecode):
-        genreid = execScalar(db, "SELECT genreid FROM libgenrelist WHERE genrecode = ?",
+    def selectGenreByCode(self, genrecode):
+        genreid = execScalar(self.db, "SELECT genreid FROM libgenrelist WHERE genrecode = ?",
                              genrecode)
         if genreid:
             return genreid.toInt()[0]
         return None
 
-    def insertBookGenreRelation(self, db, bookid, genreid):
-        execUpdate(db, "INSERT OR IGNORE INTO libgenre(bookid, genreid) VALUES(?,?)",
+    def insertBookGenreRelation(self, bookid, genreid):
+        execUpdate(self.db, "INSERT OR IGNORE INTO libgenre(bookid, genreid) VALUES(?,?)",
                    bookid, genreid)
 
-    def selectSequenceByName(self, db, seqname):
-        seqid = execScalar(db, "SELECT seqid FROM libseqname WHERE seqname = ?",
+    def selectSequenceByName(self, seqname):
+        seqid = execScalar(self.db, "SELECT seqid FROM libseqname WHERE seqname = ?",
                            seqname)
         if seqid:
             return seqid.toInt()[0]
         return None
 
-    def insertBookSeqRelation(self, db, bookid, seqid, seqnum):
-        execUpdate(db, "INSERT OR IGNORE INTO libsequence(bookid, seqid, seqnum) VALUES(?,?,?)",
+    def insertBookSeqRelation(self, bookid, seqid, seqnum):
+        execUpdate(self.db, "INSERT OR IGNORE INTO libsequence(bookid, seqid, seqnum) VALUES(?,?,?)",
                    bookid, seqid, seqnum)
 
-    def insertSequence(self, db, seqname):
-        return execUpdate(db, "INSERT INTO libseqname (seqname) VALUES(?)",
+    def insertSequence(self, seqname):
+        return execUpdate(self.db, "INSERT INTO libseqname (seqname) VALUES(?)",
                           seqname)
 
-    def updateBookInfo(self, db, bookid, authorid, genreid, seqid):
-        execUpdate(db, "UPDATE libbook SET authorid = ?, genreid = ?, seqid = ? WHERE bookid = ?",
+    def updateBookInfo(self, bookid, authorid, genreid, seqid):
+        execUpdate(self.db, "UPDATE libbook SET authorid = ?, genreid = ?, seqid = ? WHERE bookid = ?",
                    authorid, genreid, seqid, bookid)
 
-    def insertFilename(self, db, bookid, filename):
-        execUpdate(db, "INSERT INTO libfilename(bookid, filename) VALUES(?,?)",
+    def insertFilename(self, bookid, filename):
+        execUpdate(self.db, "INSERT INTO libfilename(bookid, filename) VALUES(?,?)",
                    bookid, filename)
 
     def run(self):
-        db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
-        db.setDatabaseName(self.dbname)
-        if not db.open():
-            raise Exception, db.lastError().text()
-
+        self.db = db()
         while not self.abort:
             filename = self.takeFilename()
             if filename:
-                bookid = self.selectBookByFilename(db, filename)
+                bookid = self.selectBookByFilename(filename)
                 if not bookid:
                     md5 = self.MD5(filename)
-                    bookid = self.selectBookByMd5(db, md5)
+                    bookid = self.selectBookByMd5(md5)
                     if bookid:
                         self.error.emit("<span style='color:red'>" +
                                         self.tr("Non-unique md5") + "</span>: " +
@@ -156,63 +152,61 @@ class ImportThread(QtCore.QThread):
                         size = QtCore.QFileInfo(filename).size()
 
                         try:
-                            db.transaction()
+                            self.db.transaction()
                             if info.documentAuthors:
                                 fileauthor = info.documentAuthors[0].makeName()
                             else:
                                 fileauthor = None
-                            bookid = self.insertBook(db, info.bookTitle,
+                            bookid = self.insertBook(info.bookTitle,
                                                      info.Lang, info.Year,
                                                      fileauthor, size, md5)
 
                             _authorid, _genreid, _seqid = None, None, None
 
                             for author in info.Authors:
-                                authorid = self.selectAuthorByName(db,
-                                                                   author.firstName,
+                                authorid = self.selectAuthorByName(author.firstName,
                                                                    author.middleName,
                                                                    author.lastName,
                                                                    author.nickName)
                                 if not authorid:
-                                    authorid = self.insertAuthor(db,
-                                                                 author.firstName,
+                                    authorid = self.insertAuthor(author.firstName,
                                                                  author.middleName,
                                                                  author.lastName,
                                                                  author.nickName)
-                                self.insertBookAuthorRelation(db, bookid, authorid)
+                                self.insertBookAuthorRelation(bookid, authorid)
                                 if not _authorid:
                                     _authorid = authorid
 
                             for genrecode in info.Genres:
-                                genreid = self.selectGenreByCode(db, genrecode)
+                                genreid = self.selectGenreByCode(genrecode)
                                 if genreid:
-                                    self.insertBookGenreRelation(db, bookid, genreid)
+                                    self.insertBookGenreRelation(bookid, genreid)
                                     if not _genreid:
                                         _genreid = genreid
 
                             for seq in info.Sequences + info.publisherSequences:
-                                seqid = self.selectSequenceByName(db, seq.sequenceName)
+                                seqid = self.selectSequenceByName(seq.sequenceName)
                                 if not seqid:
-                                    seqid = self.insertSequence(db, seq.sequenceName)
-                                self.insertBookSeqRelation(db, bookid, seqid, seq.sequenceNumber)
+                                    seqid = self.insertSequence(seq.sequenceName)
+                                self.insertBookSeqRelation(bookid, seqid, seq.sequenceNumber)
                                 if not _seqid:
                                     _seqid = seqid
 
                             if _authorid or _genreid or _seqid:
-                                self.updateBookInfo(db, bookid, _authorid, _genreid, _seqid)
+                                self.updateBookInfo(bookid, _authorid, _genreid, _seqid)
 
-                            self.insertFilename(db, bookid, filename)
+                            self.insertFilename(bookid, filename)
 
                         except Exception, msg:
                             self.error.emit("<span style='color:red'>" +
                                             self.tr("Database error") + "</span>: " +
                                             QtCore.QString.fromUtf8(str(msg)))
-                            db.rollback()
+                            self.db.rollback()
 
                         else:
-                            if not db.commit():
+                            if not self.db.commit():
                                 self.error.emit("<span style='color:red'>" +
                                                 self.tr("Database error") + "</span>: " +
-                                                db.lastError().text())
+                                                self.db.lastError().text())
                 self.processed.emit(filename)
 

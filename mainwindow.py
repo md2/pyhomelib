@@ -17,6 +17,7 @@ from sqlquerymodelex import SqlQueryModelEx
 from settingsdialog import SettingsDialog
 from statisticsdialog import StatisticsDialog
 from mysettings import MySettings
+from importdialog import ImportDialog
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                  WindowStateReader, WindowStateWriter):
@@ -325,12 +326,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                             QtCore.QDir.homePath(),
                                             QtGui.QFileDialog.ShowDirsOnly)
         if not dirname.isEmpty():
-            if self.programSettings.getSaveUiOnExitOption():
-                self.writeStateTo(self.uiSettingsFile)
-            os.execvp('python', ('python', 'importdialog.py',
-                                 dbName(),
-                                 QtCore.QDir(dirname).absolutePath(),
-                                 '--execvp'))
+            self.fetchAll()
+            dlg = ImportDialog(dbName(), QtCore.QDir(dirname).absolutePath(),
+                               self)
+            dlg.exec_()
+            for widget in self.findChildren(QtGui.QTableView):
+                widget.model().refresh()
+                QtGui.qApp.processEvents()
 
 
     def bookParsed(self, reader):
