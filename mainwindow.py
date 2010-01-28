@@ -349,7 +349,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                 if pixmap.width() <= 200:
                     self.coverpageLabel.setPixmap(pixmap)
                 else:
-                    self.coverpageLabel.setPixmap(pixmap.scaledToWidth(200))
+                    self.coverpageLabel.setPixmap(pixmap.scaledToWidth(200, QtCore.Qt.SmoothTransformation))
 
     def on_booksByAuthorView_rowSelected(self, index):
         if self.dockWidget.isVisible():
