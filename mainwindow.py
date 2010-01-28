@@ -69,7 +69,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
         self.setupUi(self)
         self.appTitle = self.windowTitle()
-        self.appendToTitle(getDbProperty('name').toString())
+        self.prependToTitle(getDbProperty('name').toString())
         self.actionRuLetterA.setText(u"А")
         self.actionRuLetterB.setText(u"Б")
         self.actionRuLetterV.setText(u"В")
@@ -302,8 +302,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.booksByGroupModel.addBindValue(groupid)
         self.booksByGroupModel.select()
 
-    def appendToTitle(self, str):
-        self.setWindowTitle(self.appTitle + " - " + str)
+    def prependToTitle(self, str):
+        self.setWindowTitle(str + " - " + self.appTitle)
 
     def closeEvent(self, event):
         self.parserThread.quit()
@@ -317,7 +317,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         dialog.filenameEdit.setText(dbName())
         dialog.nameEdit.setFocus()
         if dialog.exec_():
-            self.appendToTitle(getDbProperty('name').toString())
+            self.prependToTitle(getDbProperty('name').toString())
 
     @QtCore.pyqtSlot()
     def on_actionDbScanBookDir_triggered(self):
