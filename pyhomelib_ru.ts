@@ -57,7 +57,7 @@
         <translation>Свойства</translation>
     </message>
     <message>
-        <location filename="dbpropertiesdialog.py" line="32"/>
+        <location filename="dbpropertiesdialog.py" line="30"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
@@ -93,17 +93,17 @@
 <context>
     <name>ImportThread</name>
     <message>
-        <location filename="importthread.py" line="145"/>
+        <location filename="importthread.py" line="141"/>
         <source>Non-unique md5</source>
         <translation>Неуникальный md5</translation>
     </message>
     <message>
-        <location filename="importthread.py" line="151"/>
+        <location filename="importthread.py" line="147"/>
         <source>Parser error</source>
         <translation>Ошибка парсера</translation>
     </message>
     <message>
-        <location filename="importthread.py" line="216"/>
+        <location filename="importthread.py" line="208"/>
         <source>Database error</source>
         <translation>Ошибка БД</translation>
     </message>
@@ -196,32 +196,32 @@
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="200"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>Last name</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="199"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>First name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="202"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>Sequence</source>
         <translation>Серия</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="201"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>Book Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="204"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>Lang</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="205"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
@@ -251,7 +251,7 @@
         <translation>Английский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="203"/>
+        <location filename="mainwindow.py" line="221"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
@@ -271,87 +271,82 @@
         <translation>Настроить PyHomeLib...</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="387"/>
+        <location filename="mainwindow.py" line="412"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="544"/>
+        <location filename="mainwindow.py" line="569"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="56"/>
+        <location filename="mainwindow.py" line="57"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="56"/>
+        <location filename="mainwindow.py" line="57"/>
         <source>Database doesn&apos;t exists, recreating: %1</source>
         <translation>База данных не существует, воссоздаю: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="315"/>
+        <location filename="mainwindow.py" line="340"/>
         <source>Parser error</source>
         <translation>Ошибка парсера</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="320"/>
+        <location filename="mainwindow.py" line="345"/>
         <source>No coverpage</source>
         <translation>Нет обложки</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="149"/>
+        <location filename="mainwindow.py" line="163"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="418"/>
+        <location filename="mainwindow.py" line="443"/>
         <source>Add to group</source>
         <translation>Добавить в группу</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="431"/>
+        <location filename="mainwindow.py" line="456"/>
         <source>Remove from group</source>
         <translation>Удалить из группы</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="548"/>
+        <location filename="mainwindow.py" line="573"/>
         <source>About PyHomeLib</source>
         <translation>О программе PyHomeLib</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="548"/>
+        <location filename="mainwindow.py" line="573"/>
         <source>&lt;b&gt;Homepage&lt;/b&gt;: %1</source>
         <translation>&lt;b&gt;Домашняя страница&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="306"/>
-        <source>Add:</source>
-        <translation>Добавить:</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.py" line="497"/>
+        <location filename="mainwindow.py" line="522"/>
         <source>Remove author</source>
         <translation>Удалить автора</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="508"/>
+        <location filename="mainwindow.py" line="533"/>
         <source>Remove sequence</source>
         <translation>Удалить серию</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="519"/>
+        <location filename="mainwindow.py" line="544"/>
         <source>Remove group</source>
         <translation>Удалить группу</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="59"/>
+        <location filename="mainwindow.py" line="60"/>
         <source>Favorites</source>
         <translation>Избранное</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="300"/>
+        <location filename="mainwindow.py" line="324"/>
         <source>Select directory</source>
         <translation>Выберите директорию</translation>
     </message>
@@ -366,7 +361,7 @@
         <translation>Автор файла:</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="387"/>
+        <location filename="mainwindow.py" line="412"/>
         <source>Unable to start program: %1</source>
         <translation>Не удалось запустить программу: %1</translation>
     </message>
@@ -374,6 +369,31 @@
         <location filename="mainwindow.ui" line="1909"/>
         <source>&amp;Statistics</source>
         <translation>Статистика</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="306"/>
+        <source>New:</source>
+        <translation type="unfinished">Создать:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.py" line="118"/>
+        <source>authorid</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.py" line="130"/>
+        <source>seqid</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.py" line="221"/>
+        <source>bookid</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.py" line="163"/>
+        <source>groupid</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -466,12 +486,12 @@
 <context>
     <name>XmlValidatorDialog</name>
     <message>
-        <location filename="validator.py" line="11"/>
+        <location filename="validator.py" line="13"/>
         <source>Validator</source>
         <translation>Валидатор</translation>
     </message>
     <message>
-        <location filename="validator.py" line="30"/>
+        <location filename="validator.py" line="36"/>
         <source>Could not launch xmllint.</source>
         <translation>Не удалось запустить xmllint.</translation>
     </message>
