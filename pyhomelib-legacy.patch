@@ -231,9 +231,9 @@ diff -urpN a/importthread.py b/importthread.py
          if not query.exec_():
              raise Exception, query.lastError().text()
          return query.lastInsertId().toInt()[0]
-@@ -142,13 +139,13 @@ class ImportThread(QtCore.QThread):
+@@ -138,13 +135,13 @@ class ImportThread(QtCore.QThread):
                      md5 = self.MD5(filename)
-                     bookid = self.selectBookByMd5(db, md5)
+                     bookid = self.selectBookByMd5(md5)
                      if bookid:
 -                        self.error.emit("<span style='color:red'>" +
 +                        self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
@@ -247,29 +247,29 @@ diff -urpN a/importthread.py b/importthread.py
                                          self.tr("Parser error") + "</span>: " +
                                          QtCore.QDir(self.directory).relativeFilePath(filename))
                      else:
-@@ -204,15 +201,15 @@ class ImportThread(QtCore.QThread):
-                             self.insertFilename(db, bookid, filename)
+@@ -198,15 +195,15 @@ class ImportThread(QtCore.QThread):
+                             self.insertFilename(bookid, filename)
  
                          except Exception, msg:
 -                            self.error.emit("<span style='color:red'>" +
 +                            self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
                                              self.tr("Database error") + "</span>: " +
                                              QtCore.QString.fromUtf8(str(msg)))
-                             db.rollback()
+                             self.db.rollback()
  
                          else:
-                             if not db.commit():
+                             if not self.db.commit():
 -                                self.error.emit("<span style='color:red'>" +
 +                                self.emit(QtCore.SIGNAL("error"), "<span style='color:red'>" +
                                                  self.tr("Database error") + "</span>: " +
-                                                 db.lastError().text())
+                                                 self.db.lastError().text())
 -                self.processed.emit(filename)
 +                self.emit(QtCore.SIGNAL("processed"), filename)
  
 diff -urpN a/mainwindow.py b/mainwindow.py
 --- a/mainwindow.py
 +++ b/mainwindow.py
-@@ -117,7 +117,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -118,7 +118,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          for index, name in enumerate([self.tr("authorid"),
                                        self.tr("Last name"),
                                        self.tr("First name")]):
@@ -278,7 +278,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.sequencesModel = SqlQueryModelEx(self, "seqid, seqname",
                                                      "libseqname",
-@@ -128,7 +128,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -129,7 +129,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.sequencesView.hideColumn(0)
          for index, name in enumerate([self.tr("seqid"),
                                        self.tr("Sequence")]):
@@ -287,7 +287,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.genresTree.setModel(genreModel)
          self.genresTree.hideColumn(1)
-@@ -150,7 +150,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -151,7 +151,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                                        self.tr("Genre"),
                                        self.tr("Lang"),
                                        self.tr("Year")]):
@@ -296,7 +296,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.groupsModel = SqlQueryModelEx(self, "groupid, groupname",
                                                   "libgrouplist",
-@@ -161,7 +161,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -162,7 +162,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.groupsView.hideColumn(0)
          for index, name in enumerate([self.tr("groupid"),
                                        self.tr("Group")]):
@@ -305,7 +305,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksByAuthorModel = SqlQueryModelEx(self, "bookid, title, seqname, genredesc, lang, year",
                                                          "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-@@ -176,7 +176,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -177,7 +177,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                                        self.tr("Genre"),
                                        self.tr("Lang"),
                                        self.tr("Year")]):
@@ -314,7 +314,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksBySeqModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, genredesc, lang, year",
                                                       "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-@@ -192,7 +192,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -193,7 +193,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                                        self.tr("Genre"),
                                        self.tr("Lang"),
                                        self.tr("Year")]):
@@ -323,7 +323,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksByGenreModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, seqname, lang, year",
                                                         "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
-@@ -208,7 +208,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -209,7 +209,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                                        self.tr("Sequence"),
                                        self.tr("Lang"),
                                        self.tr("Year")]):
@@ -332,7 +332,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
  
          self.booksByGroupModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
                                                         "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
-@@ -225,14 +225,32 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -226,14 +226,32 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                                        self.tr("Genre"),
                                        self.tr("Lang"),
                                        self.tr("Year")]):
@@ -367,7 +367,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          self.parserThread.start()
  
      def __del__(self):
-@@ -287,7 +305,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -288,7 +306,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          self.booksBySeqModel.select()
  
      def on_genresTree_rowSelected(self, index):
@@ -376,7 +376,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
          newidx = self.genresTree.model().index(index.row(), 1, index.parent())
          genreid = self.genresTree.model().data(newidx)
          self.genreTitleLabel.setText(genredesc)
-@@ -310,7 +328,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -311,7 +329,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              self.writeStateTo(self.uiSettingsFile)
          event.accept()
  
@@ -385,16 +385,16 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionDbProperties_triggered(self):
          dialog = DbPropertiesDialog(self)
          dialog.filenameEdit.setText(dbName())
-@@ -318,7 +336,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -319,7 +337,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          if dialog.exec_():
-             self.appendToTitle(getDbProperty('name').toString())
+             self.prependToTitle(getDbProperty('name').toString())
  
 -    @QtCore.pyqtSlot()
 +    @QtCore.pyqtSignature("")
      def on_actionDbScanBookDir_triggered(self):
          dirname = QtGui.QFileDialog.getExistingDirectory(self,
                                              self.tr("Select directory"),
-@@ -411,7 +429,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -413,7 +431,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      QtCore.QString(self.tr("Unable to start program: %1"))
                      .arg(program))
  
@@ -403,7 +403,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionConfigure_triggered(self):
          dialog = SettingsDialog(self.programSettings, self)
          dialog.exec_()
-@@ -421,7 +439,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -423,7 +441,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          if bookid:
              filename = filenameByBookId(bookid)
              group = QtGui.QActionGroup(menu)
@@ -412,7 +412,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              for program in self.programSettings.getPrograms():
                  if not program[1].isEmpty():
                      if program[0].isEmpty():
-@@ -440,7 +458,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -442,7 +460,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      menu.addSeparator()
                  menu2 = QtGui.QMenu(self.tr("Add to group"), menu)
                  group2 = QtGui.QActionGroup(menu2)
@@ -421,7 +421,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
                  for group in groups:
                      a = menu2.addAction(group[1])
                      a.bookid = bookid
-@@ -453,7 +471,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -455,7 +473,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
                      menu.addSeparator()
                  menu3 = QtGui.QMenu(self.tr("Remove from group"), menu)
                  group3 = QtGui.QActionGroup(menu3)
@@ -430,7 +430,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
                  for group in groups:
                      a = menu3.addAction(group[1])
                      a.bookid = bookid
-@@ -516,7 +534,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -518,7 +536,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              authorid = self.authorsModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -439,7 +439,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove author"))
              a.authorid = authorid
              g.addAction(a)
-@@ -527,7 +545,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -529,7 +547,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              seqid = self.sequencesModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -448,7 +448,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove sequence"))
              a.seqid = seqid
              g.addAction(a)
-@@ -538,7 +556,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -540,7 +558,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              groupid = self.groupsModel.record(index.row()).value(0).toInt()[0]
              menu = QtGui.QMenu()
              g = QtGui.QActionGroup(menu)
@@ -457,7 +457,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
              a = menu.addAction(self.tr("Remove group"))
              a.groupid = groupid
              g.addAction(a)
-@@ -562,11 +580,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -564,11 +582,11 @@ class MainWindow(QtGui.QMainWindow, Ui_M
          for index in self.groupsView.selectionModel().selectedRows():
              self.groupsView.setRowHidden(index.row(), True)
  
@@ -471,7 +471,7 @@ diff -urpN a/mainwindow.py b/mainwindow.py
      def on_actionAbout_triggered(self):
          msgbox = QtGui.QMessageBox(QtGui.QMessageBox.NoIcon,
                                     self.tr("About PyHomeLib"),
-@@ -659,7 +677,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
+@@ -661,7 +679,7 @@ class MainWindow(QtGui.QMainWindow, Ui_M
              bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
              self.parserThread.parse(bookid)
  
