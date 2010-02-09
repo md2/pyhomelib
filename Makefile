@@ -2,12 +2,16 @@ include pyhomelib.pro
 
 yo = 0
 
-all: forms translations
+all: forms translations resources
 	chmod 755 pyhomelib.py
 
 forms: $(foreach f,$(FORMS),ui_$(subst .ui,.py,$(f)))
 
 translations: $(foreach t,$(TRANSLATIONS),$(subst .ts,.qm,$(t)))
+
+resources: pyhomelib_rc.py
+pyhomelib_rc.py: pyhomelib.qrc
+	pyrcc4 $< > $@
 
 %.qm: %.ts
 	lrelease-qt4 $<
