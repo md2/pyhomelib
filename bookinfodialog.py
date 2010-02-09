@@ -11,7 +11,7 @@ from genretreemodelreader import GenreTreeModelReader
 class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
 
     def __init__(self, parent=None):
-        QtGui.QDialog.__init__(self, parent)
+        QtGui.QDialog.__init__(self, parent, QtCore.Qt.Window)
 
         self.setupUi(self)
 
