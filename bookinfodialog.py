@@ -21,6 +21,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         filename = QtCore.QString.fromUtf8(sys.argv[1])
         reader.read(filename)
         info = reader.info
+        self.setWindowTitle(info.bookTitle + " - " + self.windowTitle())
         for i in xrange(min(3, len(info.Authors))):
             self.authorsLayout.addWidget(self.makeLabel(info.Authors[i].makeName()))
         if len(info.Authors) > 3:
