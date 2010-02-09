@@ -599,12 +599,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
     def on_searchByFileAuthorEdit_returnPressed(self):
         self.setSearchModelQuery()
 
+    def on_searchByMd5Edit_returnPressed(self):
+        self.setSearchModelQuery()
+
     def setSearchModelQuery(self):
         author = self.searchByAuthorEdit.text().trimmed()
         title = self.searchByTitleEdit.text().trimmed()
         seq = self.searchBySeqEdit.text().trimmed()
         genre = self.searchByGenreEdit.text().trimmed()
         fileauthor = self.searchByFileAuthorEdit.text().trimmed()
+        md5 = self.searchByMd5Edit.text().trimmed()
         l = QtCore.QStringList()
         if not author.isEmpty():
             l.append("lastname LIKE ?")
@@ -625,6 +629,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         if not fileauthor.isEmpty():
             l.append("fileauthor LIKE ?")
             self.bookSearchModel.addBindValue(fileauthor.append('%'))
+        if not md5.isEmpty():
+            l.append("md5 = ?")
+            self.bookSearchModel.addBindValue(md5.toLower().toAscii())
         sql = l.join(" AND ")
         if not sql.isEmpty():
             self.bookSearchModel.setWhereClause(sql)

@@ -276,6 +276,32 @@
              </property>
             </spacer>
            </item>
+           <item row="10" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>MD5:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
+            <widget class="QLineEdit" name="searchByMd5Edit"/>
+           </item>
+           <item row="9" column="1">
+            <spacer name="verticalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>5</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </item>
          <item>

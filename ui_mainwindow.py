@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Thu Jan 28 15:03:03 2010
-#      by: PyQt4 UI code generator 4.6
+# Created: Tue Feb  9 21:26:41 2010
+#      by: PyQt4 UI code generator 4.7
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -136,9 +136,17 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.searchByFileAuthorEdit, 8, 1, 1, 1)
         spacerItem3 = QtGui.QSpacerItem(20, 5, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem3, 7, 1, 1, 1)
+        self.label_11 = QtGui.QLabel(self.widget_4)
+        self.label_11.setObjectName("label_11")
+        self.gridLayout.addWidget(self.label_11, 10, 0, 1, 1)
+        self.searchByMd5Edit = QtGui.QLineEdit(self.widget_4)
+        self.searchByMd5Edit.setObjectName("searchByMd5Edit")
+        self.gridLayout.addWidget(self.searchByMd5Edit, 10, 1, 1, 1)
+        spacerItem4 = QtGui.QSpacerItem(20, 5, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem4, 9, 1, 1, 1)
         self.verticalLayout_6.addLayout(self.gridLayout)
-        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_6.addItem(spacerItem4)
+        spacerItem5 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem5)
         self.tabWidget.addTab(self.widget_4, "")
         self.widget_5 = QtGui.QWidget()
         self.widget_5.setObjectName("widget_5")
@@ -1046,6 +1054,7 @@ class Ui_MainWindow(object):
         self.label_5.setText(QtGui.QApplication.translate("MainWindow", "Title:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("MainWindow", "Author:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "File author:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_11.setText(QtGui.QApplication.translate("MainWindow", "MD5:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.widget_4), QtGui.QApplication.translate("MainWindow", "Search", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("MainWindow", "New:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.widget_5), QtGui.QApplication.translate("MainWindow", "Groups", None, QtGui.QApplication.UnicodeUTF8))
