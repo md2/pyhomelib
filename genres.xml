@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genres>
+<genres xml:lang="ru">
   <group description="Деловая литература">
     <genre id="132" code="banking" description="Банковское дело"/>
     <genre id="133" code="accounting" description="Бухучет, налогообложение, аудит"/>
