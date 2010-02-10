@@ -815,7 +815,7 @@
     <addaction name="actionRussianAlphabet"/>
     <addaction name="actionEnglishAlphabet"/>
    </widget>
-   <widget class="QMenu" name="menuSettings">
+   <widget class="QMenu" name="settingsMenu">
     <property name="title">
      <string>&amp;Settings</string>
     </property>
@@ -823,7 +823,7 @@
    </widget>
    <addaction name="databaseMenu"/>
    <addaction name="viewMenu"/>
-   <addaction name="menuSettings"/>
+   <addaction name="settingsMenu"/>
    <addaction name="helpMenu"/>
   </widget>
   <widget class="QToolBar" name="ruLettersToolbar">
