@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>pyhomelib.css</file>
     <file>pyhomelib.png</file>
   </qresource>
 </RCC>

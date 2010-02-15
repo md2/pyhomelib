@@ -68,6 +68,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             pass
 
         self.setupUi(self)
+        QtGui.qApp.setStyleSheet(QtCore.QResource(":/pyhomelib.css").data())
         self.appTitle = self.windowTitle()
         self.prependToTitle(getDbProperty('name').toString())
         self.actionRuLetterA.setText(u"А")

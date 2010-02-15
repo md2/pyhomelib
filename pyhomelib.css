@@ -1,0 +1,9 @@
+QLabel#authorTitleLabel,
+QLabel#seqTitleLabel,
+QLabel#genreTitleLabel,
+QLabel#resultsTitleLabel,
+QLabel#groupTitleLabel {
+	font-size: 14pt;
+	font-weight: bold;
+	color: navy;
+}
