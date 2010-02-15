@@ -194,6 +194,8 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
                     self.readBookId()
                 elif self.name() == 'version':
                     self.readVersion()
+                elif self.name() == 'history':
+                    self.readHistory()
                 else:
                     self.readUnknownElement()
 
@@ -437,6 +439,19 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
 
     def readVersion(self):
         self.info.Version = self.readElementText()
+
+    def readHistory(self):
+        history = QtCore.QString()
+        while not self.atEnd():
+            self.readNext()
+            if self.isEndElement():
+                break
+            if self.isStartElement():
+                if self.name() == 'p':
+                    history.append(self.readParagraph())
+                else:
+                    self.readUnknownElement()
+        self.info.History = history
 
     def readBookName(self):
         self.info.bookName = self.readElementText()

@@ -107,6 +107,11 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         self.layout2.addWidget(self.makeLabel("<b>version:</b>"), row, 0)
         self.layout2.addWidget(self.makeLabel(info.Version), row, 1)
         row += 1
+        self.layout2.addWidget(self.makeLabel("<b>history:</b>"), row, 0)
+        edit = QtGui.QTextEdit(info.History, self)
+        edit.setReadOnly(True)
+        self.layout2.addWidget(edit, row, 1)
+        row += 1
         self.layout2.addWidget(self.makeLabel("<b style='color:red'>&lt;publish-info&gt;</b>"), row, 0)
         row += 1
         self.layout2.addWidget(self.makeLabel("<b>book-name:</b>"), row, 0)
