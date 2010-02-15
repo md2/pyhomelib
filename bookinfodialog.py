@@ -37,7 +37,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
             pixmap = QtGui.QPixmap()
             pixmap.loadFromData(info.Coverpage)
             if pixmap.width() > 200:
-                pixmap = pixmap.scaledToWidth(200)
+                pixmap = pixmap.scaledToWidth(200, QtCore.Qt.SmoothTransformation)
             self.coverpageLabel.setPixmap(pixmap)
             self.annotationEdit.setMaximumHeight(max(pixmap.height(), 200))
         self.annotationEdit.setText(info.Annotation)
