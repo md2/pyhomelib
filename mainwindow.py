@@ -233,6 +233,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.actionRussianAlphabet.setChecked(self.ruLettersToolbar.isVisibleTo(self))
         self.actionEnglishAlphabet.setChecked(self.enLettersToolbar.isVisibleTo(self))
 
+        if not self.programSettings.getRowHeight():
+            self.programSettings.writeRowHeight(self.authorsView.verticalHeader().defaultSectionSize())
+        else:
+            self.setRowHeight(self.programSettings.getRowHeight())
+
         self.parserThread = FB2BookParserThread()
         self.parserThread.bookParsed.connect(self.bookParsed)
         self.parserThread.start()
@@ -417,7 +422,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
     @QtCore.pyqtSlot()
     def on_actionConfigure_triggered(self):
         dialog = SettingsDialog(self.programSettings, self)
+        dialog.rowHeightChanged.connect(self.setRowHeight)
         dialog.exec_()
+
+    @QtCore.pyqtSlot(int)
+    def setRowHeight(self, value):
+        for view in self.findChildren(QtGui.QTableView):
+            view.verticalHeader().setDefaultSectionSize(value)
 
     def makePopupMenu(self, bookid):
         menu = QtGui.QMenu()

@@ -5,6 +5,7 @@ from PyQt4 import QtCore
 
 KEY_PROGRAMS = 'programs'
 KEY_SAVE_UI_ON_EXIT = 'other/save_ui_on_exit'
+KEY_ROW_HEIGHT = 'other/row_height'
 
 class MySettings(QtCore.QSettings):
 
@@ -61,4 +62,10 @@ class MySettings(QtCore.QSettings):
 
     def writeSaveUiOnExitOption(self, value):
         self.writeBool(KEY_SAVE_UI_ON_EXIT, value)
+
+    def getRowHeight(self):
+        return self.value(KEY_ROW_HEIGHT).toInt()[0]
+
+    def writeRowHeight(self, value):
+        self.setValue(KEY_ROW_HEIGHT, QtCore.QString.number(value))
 

@@ -4,7 +4,7 @@
 <context>
     <name>BookInfoDialog</name>
     <message>
-        <location filename="bookinfodialog.py" line="34"/>
+        <location filename="bookinfodialog.py" line="35"/>
         <source>No coverpage</source>
         <translation>Нет обложки</translation>
     </message>
@@ -14,22 +14,22 @@
         <translation>Информация о книге</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="27"/>
+        <location filename="bookinfodialog.py" line="28"/>
         <source>etc.</source>
         <translation>и др.</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="44"/>
+        <location filename="bookinfodialog.py" line="45"/>
         <source>&lt;b&gt;Filename:&lt;/b&gt;</source>
         <translation>&lt;b&gt;Путь к файлу:&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="46"/>
+        <location filename="bookinfodialog.py" line="47"/>
         <source>&lt;b&gt;Size:&lt;/b&gt;</source>
         <translation>&lt;b&gt;Размер:&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="48"/>
+        <location filename="bookinfodialog.py" line="49"/>
         <source>&lt;b&gt;MD5:&lt;/b&gt;</source>
         <translation>&lt;b&gt;MD5:&lt;/b&gt;</translation>
     </message>
@@ -136,12 +136,12 @@
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="512"/>
+        <location filename="mainwindow.ui" line="450"/>
         <source>Genre:</source>
         <translation>Жанр:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="430"/>
+        <location filename="mainwindow.ui" line="412"/>
         <source>Sequence:</source>
         <translation>Серия:</translation>
     </message>
@@ -151,132 +151,132 @@
         <translation>Название:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="348"/>
+        <location filename="mainwindow.ui" line="374"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="298"/>
+        <location filename="mainwindow.ui" line="324"/>
         <source>Groups</source>
         <translation>Группы</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="594"/>
+        <location filename="mainwindow.ui" line="488"/>
         <source>Search results:</source>
         <translation>Найденное:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="679"/>
+        <location filename="mainwindow.ui" line="529"/>
         <source>Group:</source>
         <translation>Группа:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="767"/>
+        <location filename="mainwindow.ui" line="573"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="774"/>
+        <location filename="mainwindow.ui" line="580"/>
         <source>&amp;Database</source>
         <translation>&amp;База</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="786"/>
+        <location filename="mainwindow.ui" line="592"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="995"/>
+        <location filename="mainwindow.ui" line="801"/>
         <source>&amp;About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1861"/>
+        <location filename="mainwindow.ui" line="1667"/>
         <source>E&amp;xit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>Last name</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>First name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>Sequence</source>
         <translation>Серия</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>Book Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>Lang</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1872"/>
+        <location filename="mainwindow.ui" line="1678"/>
         <source>&amp;Info panel</source>
         <translation>Информационная панель</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1883"/>
+        <location filename="mainwindow.ui" line="1689"/>
         <source>&amp;Russian alphabet</source>
         <translation>Русский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1894"/>
+        <location filename="mainwindow.ui" line="1700"/>
         <source>&amp;English alphabet</source>
         <translation>Английский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="805"/>
+        <location filename="mainwindow.ui" line="611"/>
         <source>Russian alphabet</source>
         <translation>Русский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="848"/>
+        <location filename="mainwindow.ui" line="654"/>
         <source>English alphabet</source>
         <translation>Английский алфавит</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="794"/>
+        <location filename="mainwindow.ui" line="600"/>
         <source>&amp;Settings</source>
         <translation>&amp;Настройка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1851"/>
+        <location filename="mainwindow.ui" line="1657"/>
         <source>&amp;Properties...</source>
         <translation>Свойства...</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1899"/>
+        <location filename="mainwindow.ui" line="1705"/>
         <source>&amp;Configure...</source>
         <translation>Настроить PyHomeLib...</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="412"/>
+        <location filename="mainwindow.py" line="416"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="569"/>
+        <location filename="mainwindow.py" line="579"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
@@ -291,52 +291,52 @@
         <translation>База данных не существует, воссоздаю: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="340"/>
+        <location filename="mainwindow.py" line="344"/>
         <source>Parser error</source>
         <translation>Ошибка парсера</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="345"/>
+        <location filename="mainwindow.py" line="349"/>
         <source>No coverpage</source>
         <translation>Нет обложки</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="163"/>
+        <location filename="mainwindow.py" line="164"/>
         <source>Group</source>
         <translation>Группа</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="443"/>
+        <location filename="mainwindow.py" line="453"/>
         <source>Add to group</source>
         <translation>Добавить в группу</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="456"/>
+        <location filename="mainwindow.py" line="466"/>
         <source>Remove from group</source>
         <translation>Удалить из группы</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="573"/>
+        <location filename="mainwindow.py" line="583"/>
         <source>About PyHomeLib</source>
         <translation>О программе PyHomeLib</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="573"/>
+        <location filename="mainwindow.py" line="583"/>
         <source>&lt;b&gt;Homepage&lt;/b&gt;: %1</source>
         <translation>&lt;b&gt;Домашняя страница&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="522"/>
+        <location filename="mainwindow.py" line="532"/>
         <source>Remove author</source>
         <translation>Удалить автора</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="533"/>
+        <location filename="mainwindow.py" line="543"/>
         <source>Remove sequence</source>
         <translation>Удалить серию</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="544"/>
+        <location filename="mainwindow.py" line="554"/>
         <source>Remove group</source>
         <translation>Удалить группу</translation>
     </message>
@@ -346,12 +346,12 @@
         <translation>Избранное</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="324"/>
+        <location filename="mainwindow.py" line="328"/>
         <source>Select directory</source>
         <translation>Выберите директорию</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1856"/>
+        <location filename="mainwindow.ui" line="1662"/>
         <source>&amp;Add directory...</source>
         <translation>Добавить директорию...</translation>
     </message>
@@ -361,50 +361,55 @@
         <translation>Автор файла:</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="412"/>
+        <location filename="mainwindow.py" line="416"/>
         <source>Unable to start program: %1</source>
         <translation>Не удалось запустить программу: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="1909"/>
+        <location filename="mainwindow.ui" line="1715"/>
         <source>&amp;Statistics</source>
         <translation>Статистика</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="306"/>
+        <location filename="mainwindow.ui" line="332"/>
         <source>New:</source>
-        <translation type="unfinished">Создать:</translation>
+        <translation>Создать:</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="118"/>
+        <location filename="mainwindow.py" line="119"/>
         <source>authorid</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="130"/>
+        <location filename="mainwindow.py" line="131"/>
         <source>seqid</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="221"/>
+        <location filename="mainwindow.py" line="222"/>
         <source>bookid</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="163"/>
+        <location filename="mainwindow.py" line="164"/>
         <source>groupid</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="282"/>
+        <source>MD5:</source>
+        <translation>MD5:</translation>
     </message>
 </context>
 <context>
     <name>MySettings</name>
     <message>
-        <location filename="mysettings.py" line="19"/>
+        <location filename="mysettings.py" line="20"/>
         <source>Validation</source>
         <translation>Валидация</translation>
     </message>
     <message>
-        <location filename="mysettings.py" line="19"/>
+        <location filename="mysettings.py" line="20"/>
         <source>Book info</source>
         <translation>Информация о книге</translation>
     </message>
@@ -422,7 +427,7 @@
         <translation>Программы</translation>
     </message>
     <message>
-        <location filename="settingsdialog.ui" line="609"/>
+        <location filename="settingsdialog.ui" line="611"/>
         <source>Other</source>
         <translation>Другое</translation>
     </message>
@@ -437,9 +442,14 @@
         <translation>Командная строка</translation>
     </message>
     <message>
-        <location filename="settingsdialog.ui" line="616"/>
+        <location filename="settingsdialog.ui" line="618"/>
         <source>Don&apos;t save UI settings on exit</source>
         <translation>Не сохранять настройки UI при выходе</translation>
+    </message>
+    <message>
+        <location filename="settingsdialog.ui" line="633"/>
+        <source>Row height:</source>
+        <translation>Высота строки в таблицах:</translation>
     </message>
 </context>
 <context>

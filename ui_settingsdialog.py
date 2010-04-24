@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'settingsdialog.ui'
 #
-# Created: Fri Nov  6 14:42:11 2009
-#      by: PyQt4 UI code generator 4.6
+# Created: Sat Apr 24 19:06:10 2010
+#      by: PyQt4 UI code generator 4.7
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -248,7 +248,9 @@ class Ui_SettingsDialog(object):
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QtGui.QWidget()
         self.page_2.setObjectName("page_2")
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.page_2)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout(self.page_2)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label_2 = QtGui.QLabel(self.page_2)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
@@ -287,8 +289,31 @@ class Ui_SettingsDialog(object):
         self.dontSaveUiOnExitBox = QtGui.QCheckBox(self.page_2)
         self.dontSaveUiOnExitBox.setObjectName("dontSaveUiOnExitBox")
         self.verticalLayout_2.addWidget(self.dontSaveUiOnExitBox)
-        spacerItem10 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem10)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label_15 = QtGui.QLabel(self.page_2)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
+        self.label_15.setSizePolicy(sizePolicy)
+        self.label_15.setObjectName("label_15")
+        self.horizontalLayout_2.addWidget(self.label_15)
+        self.rowHeightBox = QtGui.QSpinBox(self.page_2)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.rowHeightBox.sizePolicy().hasHeightForWidth())
+        self.rowHeightBox.setSizePolicy(sizePolicy)
+        self.rowHeightBox.setProperty("value", 30)
+        self.rowHeightBox.setObjectName("rowHeightBox")
+        self.horizontalLayout_2.addWidget(self.rowHeightBox)
+        spacerItem10 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem10)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        spacerItem11 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem11)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_2)
         self.stackedWidget.addWidget(self.page_2)
         self.verticalLayout_3.addWidget(self.stackedWidget)
         self.buttonBox = QtGui.QDialogButtonBox(SettingsDialog)
@@ -336,4 +361,5 @@ class Ui_SettingsDialog(object):
         self.label_6.setText(QtGui.QApplication.translate("SettingsDialog", "Command line", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("SettingsDialog", "Other", None, QtGui.QApplication.UnicodeUTF8))
         self.dontSaveUiOnExitBox.setText(QtGui.QApplication.translate("SettingsDialog", "Don\'t save UI settings on exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_15.setText(QtGui.QApplication.translate("SettingsDialog", "Row height:", None, QtGui.QApplication.UnicodeUTF8))
 

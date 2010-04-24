@@ -6,6 +6,8 @@ from ui_settingsdialog import Ui_SettingsDialog
 
 class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
 
+    rowHeightChanged = QtCore.pyqtSignal(int)
+
     def __init__(self, settings, parent=None):
         QtGui.QDialog.__init__(self, parent)
         self.settings = settings
@@ -25,6 +27,7 @@ class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
             edit2.setText(programs[index][1])
 
         self.dontSaveUiOnExitBox.setChecked(not self.settings.getSaveUiOnExitOption())
+        self.rowHeightBox.setValue(self.settings.getRowHeight())
 
     def writeSettings(self):
         programs = []
@@ -39,8 +42,14 @@ class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
         self.settings.writePrograms(programs)
 
         self.settings.writeSaveUiOnExitOption(not self.dontSaveUiOnExitBox.isChecked())
+        self.settings.writeRowHeight(self.rowHeightBox.value())
+
+    @QtCore.pyqtSlot(int)
+    def on_rowHeightBox_valueChanged(self, value):
+        self.rowHeightChanged.emit(value)
 
     def on_buttonBox_accepted(self):
         self.writeSettings()
         self.accept()
+
 
