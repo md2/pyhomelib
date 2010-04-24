@@ -51,7 +51,7 @@ class TableViewEx(QtGui.QTableView):
         group = QtGui.QActionGroup(menu)
         group.setExclusive(False)
         group.triggered.connect(self.on_action_triggered)
-        for index in xrange(self.horizontalHeader().count()):
+        for index in range(self.horizontalHeader().count()):
             text = self.model().headerData(index, QtCore.Qt.Horizontal).toString()
             a = menu.addAction(text)
             a.setCheckable(True)

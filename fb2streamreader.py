@@ -469,7 +469,7 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
         self.info.ISBN = self.readElementText()
 
     def readImage(self):
-        for i in xrange(self.attributes().size()):
+        for i in range(self.attributes().size()):
             if self.attributes().at(i).qualifiedName().toString().endsWith(':href'):
                 href = self.attributes().at(i).value().toString()
                 if href.startsWith('#'):

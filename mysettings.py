@@ -42,7 +42,7 @@ class MySettings(QtCore.QSettings):
     def getPrograms(self):
         programs = []
         size = self.beginReadArray(KEY_PROGRAMS)
-        for i in xrange(min(size, 9)):
+        for i in range(min(size, 9)):
             self.setArrayIndex(i)
             programs.append((self.value('title').toString(),
                              self.value('cmd').toString()))

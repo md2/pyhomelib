@@ -18,7 +18,7 @@ class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
 
     def readSettings(self):
         programs = self.settings.getPrograms()
-        for index in xrange(min(len(programs), 9)):
+        for index in range(min(len(programs), 9)):
             edit1 = self.findChild(QtGui.QLineEdit,
                                    QtCore.QString('titleEdit%1').arg(index + 1))
             edit2 = self.findChild(QtGui.QLineEdit,
@@ -31,7 +31,7 @@ class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
 
     def writeSettings(self):
         programs = []
-        for index in xrange(9):
+        for index in range(9):
             edit1 = self.findChild(QtGui.QLineEdit,
                                    QtCore.QString('titleEdit%1').arg(index + 1))
             edit2 = self.findChild(QtGui.QLineEdit,

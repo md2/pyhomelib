@@ -62,11 +62,11 @@ class WindowStateReader(object):
 
             if widget.inherits('QTableView'):
                 l = self.reader.attributes().value('headerSections').toString().split(",")
-                for index in xrange(l.count()):
+                for index in range(l.count()):
                     widget.horizontalHeader().resizeSection(index, l[index].toInt()[0])
                 if self.reader.attributes().hasAttribute('visualOrder'):
                     l = self.reader.attributes().value('visualOrder').toString().split(",")
-                    for index in xrange(l.count()):
+                    for index in range(l.count()):
                         widget.horizontalHeader().swapSections(widget.horizontalHeader().visualIndex(index),
                                                                l[index].toInt()[0])
 
