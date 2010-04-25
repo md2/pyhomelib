@@ -19,19 +19,19 @@
         <translation>и др.</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="45"/>
-        <source>&lt;b&gt;Filename:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Путь к файлу:&lt;/b&gt;</translation>
+        <location filename="bookinfodialog.ui" line="162"/>
+        <source>File name:</source>
+        <translation>Путь к файлу:</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="47"/>
-        <source>&lt;b&gt;Size:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Размер:&lt;/b&gt;</translation>
+        <location filename="bookinfodialog.ui" line="217"/>
+        <source>MD5:</source>
+        <translation>MD5:</translation>
     </message>
     <message>
-        <location filename="bookinfodialog.py" line="49"/>
-        <source>&lt;b&gt;MD5:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;MD5:&lt;/b&gt;</translation>
+        <location filename="bookinfodialog.ui" line="246"/>
+        <source>Size:</source>
+        <translation>Размер:</translation>
     </message>
 </context>
 <context>
@@ -271,12 +271,12 @@
         <translation>Настроить PyHomeLib...</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="416"/>
+        <location filename="mainwindow.py" line="418"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="579"/>
+        <location filename="mainwindow.py" line="581"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
@@ -291,12 +291,12 @@
         <translation>База данных не существует, воссоздаю: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="344"/>
+        <location filename="mainwindow.py" line="346"/>
         <source>Parser error</source>
         <translation>Ошибка парсера</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="349"/>
+        <location filename="mainwindow.py" line="351"/>
         <source>No coverpage</source>
         <translation>Нет обложки</translation>
     </message>
@@ -306,37 +306,37 @@
         <translation>Группа</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="453"/>
+        <location filename="mainwindow.py" line="455"/>
         <source>Add to group</source>
         <translation>Добавить в группу</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="466"/>
+        <location filename="mainwindow.py" line="468"/>
         <source>Remove from group</source>
         <translation>Удалить из группы</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="583"/>
+        <location filename="mainwindow.py" line="585"/>
         <source>About PyHomeLib</source>
         <translation>О программе PyHomeLib</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="583"/>
+        <location filename="mainwindow.py" line="585"/>
         <source>&lt;b&gt;Homepage&lt;/b&gt;: %1</source>
         <translation>&lt;b&gt;Домашняя страница&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="532"/>
+        <location filename="mainwindow.py" line="534"/>
         <source>Remove author</source>
         <translation>Удалить автора</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="543"/>
+        <location filename="mainwindow.py" line="545"/>
         <source>Remove sequence</source>
         <translation>Удалить серию</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="554"/>
+        <location filename="mainwindow.py" line="556"/>
         <source>Remove group</source>
         <translation>Удалить группу</translation>
     </message>
@@ -346,7 +346,7 @@
         <translation>Избранное</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="328"/>
+        <location filename="mainwindow.py" line="330"/>
         <source>Select directory</source>
         <translation>Выберите директорию</translation>
     </message>
@@ -361,7 +361,7 @@
         <translation>Автор файла:</translation>
     </message>
     <message>
-        <location filename="mainwindow.py" line="416"/>
+        <location filename="mainwindow.py" line="418"/>
         <source>Unable to start program: %1</source>
         <translation>Не удалось запустить программу: %1</translation>
     </message>

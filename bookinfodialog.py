@@ -42,102 +42,113 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
             self.annotationEdit.setMaximumHeight(max(pixmap.height(), 200))
         self.annotationEdit.setText(info.Annotation)
 
-        self.fileinfoLayout.addWidget(self.makeLabel(self.tr("<b>Filename:</b>") +
-            " " + filename))
-        self.fileinfoLayout.addWidget(self.makeLabel(self.tr("<b>Size:</b>") +
-            " " + QtCore.QString.number(QtCore.QFileInfo(filename).size())))
-        self.fileinfoLayout.addWidget(self.makeLabel(self.tr("<b>MD5:</b>") +
-            " " + QtCore.QString(self.MD5(filename))))
+        self.filenameLabel.setText(filename)
+        self.sizeLabel.setText(QtCore.QString.number(QtCore.QFileInfo(filename).size()))
+        self.md5Label.setText(QtCore.QString(self.MD5(filename)))
 
         row = 0
-        self.layout1.addWidget(self.makeLabel("<b style='color:red'>&lt;title-info&gt;</b>"), row, 0)
+        self.layout1.addWidget(self.makeTitleLabel("title-info"), row, 1, 1, 2)
         row += 1
         for genre in info.Genres:
-            self.layout1.addWidget(self.makeLabel("<b>genre:</b>"), row, 0)
-            self.layout1.addWidget(self.makeLabel(genre), row, 1)
+            self.layout1.addWidget(self.makeLabel("genre:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(genre), row, 2)
             row += 1
-        self.layout1.addWidget(self.makeLabel("<b>keywords:</b>"), row, 0)
-        self.layout1.addWidget(self.makeLabel(info.Keywords), row, 1)
-        row += 1
-        self.layout1.addWidget(self.makeLabel("<b>date:</b>"), row, 0)
-        self.layout1.addWidget(self.makeLabel(info.Date), row, 1)
-        row += 1
-        self.layout1.addWidget(self.makeLabel("<b>lang:</b>"), row, 0)
-        self.layout1.addWidget(self.makeLabel(info.Lang), row, 1)
-        row += 1
-        self.layout1.addWidget(self.makeLabel("<b>src-lang:</b>"), row, 0)
-        self.layout1.addWidget(self.makeLabel(info.srcLang), row, 1)
-        row += 1
+        if info.Keywords:
+            self.layout1.addWidget(self.makeLabel("keywords:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.Keywords), row, 2)
+            row += 1
+        if info.Date:
+            self.layout1.addWidget(self.makeLabel("date:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.Date), row, 2)
+            row += 1
+        if info.Lang:
+            self.layout1.addWidget(self.makeLabel("lang:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.Lang, 30), row, 2)
+            row += 1
+        if info.srcLang:
+            self.layout1.addWidget(self.makeLabel("src-lang:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.srcLang, 30), row, 2)
+            row += 1
         for tr in info.Translators:
-            self.layout1.addWidget(self.makeLabel("<b>translator:</b>"), row, 0)
-            self.layout1.addWidget(self.makeLabel(tr.makeName()), row, 1)
+            self.layout1.addWidget(self.makeLabel("translator:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(tr.makeName()), row, 2)
             row +=1
         for seq in info.Sequences:
-            self.layout1.addWidget(self.makeLabel("<b>sequence:</b>"), row, 0)
-            self.layout1.addWidget(self.makeLabel(seq.sequenceName + ", <b>number:</b> " +
-                                           QtCore.QString.number(seq.sequenceNumber)), row, 1)
+            self.layout1.addWidget(self.makeLabel("sequence:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(seq.sequenceName + " #" +
+                                           QtCore.QString.number(seq.sequenceNumber)), row, 2)
+
+        row += 1
+
+        self.layout1.addWidget(self.makeTitleLabel("document-info"), row, 1, 1, 2)
+        row += 1
+        for author in info.documentAuthors:
+            self.layout1.addWidget(self.makeLabel("author:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(author.makeName()), row, 2)
             row += 1
+        if info.programUsed:
+            self.layout1.addWidget(self.makeLabel("program-used:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.programUsed), row, 2)
+            row += 1
+        if info.documentDate:
+            self.layout1.addWidget(self.makeLabel("date:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.documentDate), row, 2)
+            row += 1
+        if info.srcUrl:
+            self.layout1.addWidget(self.makeLabel("src-url:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.srcUrl), row, 2)
+            row += 1
+        if info.srcOcr:
+            self.layout1.addWidget(self.makeLabel("src-ocr:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.srcOcr), row, 2)
+            row += 1
+        if info.Id:
+            self.layout1.addWidget(self.makeLabel("id:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.Id), row, 2)
+            row += 1
+        if info.Version:
+            self.layout1.addWidget(self.makeLabel("version:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.Version, 40), row, 2)
+            row += 1
+        if info.History:
+            self.layout1.addWidget(self.makeLabel("history:"), row, 1)
+            edit = QtGui.QTextEdit(info.History, self)
+            edit.setReadOnly(True)
+            edit.setFrameStyle(QtGui.QFrame.NoFrame)
+            self.layout1.addWidget(edit, row, 2)
+            row += 1
+
+        self.layout1.addWidget(self.makeTitleLabel("publish-info"), row, 1, 1, 2)
+        row += 1
+        if info.bookName:
+            self.layout1.addWidget(self.makeLabel("book-name:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.bookName), row, 2)
+            row += 1
+        if info.Publisher:
+            self.layout1.addWidget(self.makeLabel("publisher:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.Publisher), row, 2)
+            row += 1
+        if info.City:
+            self.layout1.addWidget(self.makeLabel("city:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.City), row, 2)
+            row += 1
+        if info.Year:
+            self.layout1.addWidget(self.makeLabel("year:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(QtCore.QString.number(info.Year), 50), row, 2)
+            row += 1
+        if info.ISBN:
+            self.layout1.addWidget(self.makeLabel("isbn:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(info.ISBN), row, 2)
+            row += 1
+        for seq in info.publisherSequences:
+            self.layout1.addWidget(self.makeLabel("sequence:"), row, 1)
+            self.layout1.addWidget(self.makeEdit(seq.sequenceName + " #" +
+                                           QtCore.QString.number(seq.sequenceNumber)), row, 2)
+            row += 1
+
         spacer = QtGui.QSpacerItem(0, 0, QtGui.QSizePolicy.Fixed,
                                          QtGui.QSizePolicy.Expanding)
         self.layout1.addItem(spacer, row, 0)
-
-
-        row = 0
-        self.layout2.addWidget(self.makeLabel("<b style='color:red'>&lt;document-info&gt;</b>"), row, 0)
-        row += 1
-        for author in info.documentAuthors:
-            self.layout2.addWidget(self.makeLabel("<b>author:</b>"), row, 0)
-            self.layout2.addWidget(self.makeLabel(author.makeName()), row, 1)
-            row += 1
-        self.layout2.addWidget(self.makeLabel("<b>program-used:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.programUsed), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>date:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.documentDate), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>src-url:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.srcUrl), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>src-ocr:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.srcOcr), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>id:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.Id), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>version:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.Version), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>history:</b>"), row, 0)
-        edit = QtGui.QTextEdit(info.History, self)
-        edit.setReadOnly(True)
-        self.layout2.addWidget(edit, row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b style='color:red'>&lt;publish-info&gt;</b>"), row, 0)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>book-name:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.bookName), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>publisher:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.Publisher), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>city:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.City), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>year:</b>"), row, 0)
-        if info.Year:
-            self.layout2.addWidget(self.makeLabel(QtCore.QString.number(info.Year)), row, 1)
-        row += 1
-        self.layout2.addWidget(self.makeLabel("<b>isbn:</b>"), row, 0)
-        self.layout2.addWidget(self.makeLabel(info.ISBN), row, 1)
-        row += 1
-        for seq in info.publisherSequences:
-            self.layout2.addWidget(self.makeLabel("<b>sequence:</b>"), row, 0)
-            self.layout2.addWidget(self.makeLabel(seq.sequenceName + ", <b>number:</b> " +
-                                           QtCore.QString.number(seq.sequenceNumber)), row, 1)
-            row += 1
-        spacer = QtGui.QSpacerItem(0, 0, QtGui.QSizePolicy.Fixed,
-                                         QtGui.QSizePolicy.Expanding)
-        self.layout2.addItem(spacer, row, 0)
 
         self.centered = False
 
@@ -145,8 +156,57 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         label = QtGui.QLabel(text, self)
         label.setSizePolicy(QtGui.QSizePolicy.Fixed,
                             QtGui.QSizePolicy.Fixed)
-        label.setTextInteractionFlags(label.textInteractionFlags() |
-                                      QtCore.Qt.TextSelectableByMouse)
+        return label
+
+    def makeEdit(self, text, maxw=None):
+        edit = QtGui.QLineEdit(text, self)
+        edit.setReadOnly(True)
+        edit.setFrame(False)
+        edit.home(False)
+        if maxw:
+            edit.setMaximumWidth(maxw)
+        return edit
+
+    def makeTitleLabel(self, text):
+        label = QtGui.QLabel(text, self)
+        label.setSizePolicy(QtGui.QSizePolicy.Preferred,
+                            QtGui.QSizePolicy.Fixed)
+        label.setAlignment(QtCore.Qt.AlignHCenter)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setWeight(75)
+        font.setBold(True)
+        label.setFont(font)
+        label.setAutoFillBackground(True)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(183, 181, 180))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(183, 181, 180))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(146, 145, 144))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(183, 181, 180))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(183, 181, 180))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        label.setPalette(palette)
         return label
 
     def MD5(self, filename):
