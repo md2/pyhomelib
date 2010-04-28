@@ -347,7 +347,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             self.annotationEdit.setText("")
         else:
             self.annotationEdit.setText(reader.info.Annotation)
-            if reader.info.Coverpage.isEmpty():
+            if reader.info.Coverpage.isEmpty() or reader.info.Coverpage.size() <= 2:
                 self.coverpageLabel.setText(self.tr("No coverpage"))
             else:
                 pixmap = QtGui.QPixmap()
