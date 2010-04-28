@@ -470,8 +470,10 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
 
     def readImage(self):
         for i in range(self.attributes().size()):
-            if self.attributes().at(i).qualifiedName().toString().endsWith(':href'):
-                href = self.attributes().at(i).value().toString()
+            attr = self.attributes().at(i)
+            name = attr.qualifiedName().toString()
+            if name.endsWith(':href'):
+                href = attr.value().toString()
                 if href.startsWith('#'):
                     self.binaryId = href.mid(1)
         self.readElementText()
