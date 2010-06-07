@@ -3,6 +3,7 @@
 
 from PyQt4 import QtCore, QtGui
 
+
 class TreeViewEx(QtGui.QTreeView):
 
     rowSelected = QtCore.pyqtSignal(QtCore.QModelIndex)

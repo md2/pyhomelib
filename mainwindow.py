@@ -19,6 +19,7 @@ from statisticsdialog import StatisticsDialog
 from mysettings import MySettings
 from importdialog import ImportDialog
 
+
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                  WindowStateReader, WindowStateWriter):
 
@@ -258,52 +259,58 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.setTableSequencesModelQuery()
 
     def setTableAuthorsModelQuery(self):
+        model = self.authorsModel
         if not self.authorEdit.text().isEmpty():
-            self.authorsModel.setWhereClause("lastname LIKE ?")
-            self.authorsModel.addBindValue(self.authorEdit.text() + "%")
+            model.setWhereClause("lastname LIKE ?")
+            model.addBindValue(self.authorEdit.text() + "%")
         else:
             checkedLetter = self.lettersGroup.checkedAction()
             if checkedLetter and checkedLetter.text() != '*':
-                self.authorsModel.setWhereClause("lastname LIKE ?")
-                self.authorsModel.addBindValue(checkedLetter.text() + "%")
+                model.setWhereClause("lastname LIKE ?")
+                model.addBindValue(checkedLetter.text() + "%")
             else:
-                self.authorsModel.setWhereClause(None)
-        self.authorsModel.select()
+                model.setWhereClause(None)
+        model.select()
 
     def setTableSequencesModelQuery(self):
+        model = self.sequencesModel
         if self.sequenceEdit.text().isEmpty():
-            self.sequencesModel.setWhereClause(None)
+            model.setWhereClause(None)
         else:
-            self.sequencesModel.setWhereClause("seqname LIKE ?")
-            self.sequencesModel.addBindValue(self.sequenceEdit.text() + "%")
-        self.sequencesModel.select()
+            model.setWhereClause("seqname LIKE ?")
+            model.addBindValue(self.sequenceEdit.text() + "%")
+        model.select()
 
     def on_authorsView_rowSelected(self, index):
-        authorid = self.authorsModel.record(index.row()).value(0).toInt()[0]
-        text = self.authorsModel.record(index.row()).value(2).toString().append(" ") + \
-               self.authorsModel.record(index.row()).value(1).toString()
+        model = self.authorsModel
+        authorid = model.record(index.row()).value(0).toInt()[0]
+        text = model.record(index.row()).value(2).toString().append(" ") + \
+               model.record(index.row()).value(1).toString()
         self.authorTitleLabel.setText(text)
         self.booksByAuthorModel.addBindValue(authorid)
         self.booksByAuthorModel.select()
 
     def on_sequencesView_rowSelected(self, index):
-        seqid = self.sequencesModel.record(index.row()).value(0).toInt()[0]
-        text = self.sequencesModel.record(index.row()).value(1).toString()
+        model = self.sequencesModel
+        seqid = model.record(index.row()).value(0).toInt()[0]
+        text = model.record(index.row()).value(1).toString()
         self.seqTitleLabel.setText(text)
         self.booksBySeqModel.addBindValue(seqid)
         self.booksBySeqModel.select()
 
     def on_genresTree_rowSelected(self, index):
-        genredesc = self.genresTree.model().data(index)
-        newidx = self.genresTree.model().index(index.row(), 1, index.parent())
-        genreid = self.genresTree.model().data(newidx)
+        model = self.genresTree.model()
+        genredesc = model.data(index)
+        newidx = model.index(index.row(), 1, index.parent())
+        genreid = model.data(newidx)
         self.genreTitleLabel.setText(genredesc)
         self.booksByGenreModel.addBindValue(genreid)
         self.booksByGenreModel.select()
 
     def on_groupsView_rowSelected(self, index):
-        groupid = self.groupsModel.record(index.row()).value(0).toInt()[0]
-        text = self.groupsModel.record(index.row()).value(1).toString()
+        model = self.groupsModel
+        groupid = model.record(index.row()).value(0).toInt()[0]
+        text = model.record(index.row()).value(1).toString()
         self.groupTitleLabel.setText(text)
         self.booksByGroupModel.addBindValue(groupid)
         self.booksByGroupModel.select()
@@ -342,64 +349,76 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
 
     def bookParsed(self, reader):
+        label = self.coverpageLabel
+        edit = self.annotationEdit
         if reader.hasError():
-            self.coverpageLabel.setText(self.tr("Parser error"))
-            self.annotationEdit.setText("")
+            label.setText(self.tr("Parser error"))
+            edit.setText("")
         else:
-            self.annotationEdit.setText(reader.info.Annotation)
+            edit.setText(reader.info.Annotation)
             if reader.info.Coverpage.isEmpty() or reader.info.Coverpage.size() <= 2:
-                self.coverpageLabel.setText(self.tr("No coverpage"))
+                label.setText(self.tr("No coverpage"))
             else:
                 pixmap = QtGui.QPixmap()
                 pixmap.loadFromData(reader.info.Coverpage)
                 if pixmap.width() <= 200:
-                    self.coverpageLabel.setPixmap(pixmap)
+                    label.setPixmap(pixmap)
                 else:
-                    self.coverpageLabel.setPixmap(pixmap.scaledToWidth(200, QtCore.Qt.SmoothTransformation))
+                    label.setPixmap(pixmap.scaledToWidth(200, QtCore.Qt.SmoothTransformation))
 
     def on_booksByAuthorView_rowSelected(self, index):
+        model = self.booksByAuthorModel
         if self.dockWidget.isVisible():
-            bookid = self.booksByAuthorModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksBySeqView_rowSelected(self, index):
+        model = self.booksBySeqModel
         if self.dockWidget.isVisible():
-            bookid = self.booksBySeqModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_bookSearchView_rowSelected(self, index):
+        model = self.bookSearchModel
         if self.dockWidget.isVisible():
-            bookid = self.bookSearchModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksByGenreView_rowSelected(self, index):
+        model = self.booksByGenreModel
         if self.dockWidget.isVisible():
-            bookid = self.booksByGenreModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksByGroupView_rowSelected(self, index):
+        model = self.booksByGroupModel
         if self.dockWidget.isVisible():
-            bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksByAuthorView_doubleClicked(self, index):
-        bookid = self.booksByAuthorModel.record(index.row()).value(0).toInt()[0]
+        model = self.booksByAuthorModel
+        bookid = model.record(index.row()).value(0).toInt()[0]
         self.startDefaultProgramUsingBookId(bookid)
 
     def on_booksBySeqView_doubleClicked(self, index):
-        bookid = self.booksBySeqModel.record(index.row()).value(0).toInt()[0]
+        model = self.booksBySeqModel
+        bookid = model.record(index.row()).value(0).toInt()[0]
         self.startDefaultProgramUsingBookId(bookid)
 
     def on_booksByGenreView_doubleClicked(self, index):
-        bookid = self.booksByGenreModel.record(index.row()).value(0).toInt()[0]
+        model = self.booksByGenreModel
+        bookid = model.record(index.row()).value(0).toInt()[0]
         self.startDefaultProgramUsingBookId(bookid)
 
     def on_bookSearchView_doubleClicked(self, index):
-        bookid = self.bookSearchModel.record(index.row()).value(0).toInt()[0]
+        model = self.bookSearchModel
+        bookid = model.record(index.row()).value(0).toInt()[0]
         self.startDefaultProgramUsingBookId(bookid)
 
     def on_booksByGroupView_doubleClicked(self, index):
-        bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
+        model = self.booksByGroupModel
+        bookid = model.record(index.row()).value(0).toInt()[0]
         self.startDefaultProgramUsingBookId(bookid)
 
     def startDefaultProgramUsingBookId(self, bookid):
@@ -491,43 +510,39 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             self.booksByGroupView.setRowHidden(index.row(), True)
 
     def on_booksByAuthorView_rightButtonPressed(self, index):
+        model = self.booksByAuthorModel
         if index.isValid():
-            bookid = self.booksByAuthorModel.record(index.row()).value(0).toInt()[0]
-        else:
-            bookid = None
-        self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
+            bookid = model.record(index.row()).value(0).toInt()[0]
+            self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
 
     def on_booksBySeqView_rightButtonPressed(self, index):
+        model = self.booksBySeqModel
         if index.isValid():
-            bookid = self.booksBySeqModel.record(index.row()).value(0).toInt()[0]
-        else:
-            bookid = None
-        self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
+            bookid = model.record(index.row()).value(0).toInt()[0]
+            self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
 
     def on_booksByGenreView_rightButtonPressed(self, index):
+        model = self.booksByGenreModel
         if index.isValid():
-            bookid = self.booksByGenreModel.record(index.row()).value(0).toInt()[0]
-        else:
-            bookid = None
-        self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
+            bookid = model.record(index.row()).value(0).toInt()[0]
+            self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
 
     def on_bookSearchView_rightButtonPressed(self, index):
+        model = self.bookSearchModel
         if index.isValid():
-            bookid = self.bookSearchModel.record(index.row()).value(0).toInt()[0]
-        else:
-            bookid = None
-        self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
+            bookid = model.record(index.row()).value(0).toInt()[0]
+            self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
 
     def on_booksByGroupView_rightButtonPressed(self, index):
+        model = self.booksByGroupModel
         if index.isValid():
-            bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
-        else:
-            bookid = None
-        self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
+            bookid = model.record(index.row()).value(0).toInt()[0]
+            self.makePopupMenu(bookid).exec_(QtGui.QCursor.pos())
 
     def on_authorsView_rightButtonPressed(self, index):
+        model = self.authorsModel
         if index.isValid():
-            authorid = self.authorsModel.record(index.row()).value(0).toInt()[0]
+            authorid = model.record(index.row()).value(0).toInt()[0]
             menu = QtGui.QMenu()
             g = QtGui.QActionGroup(menu)
             g.triggered.connect(self.on_remove_author_action_triggered)
@@ -537,8 +552,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             menu.exec_(QtGui.QCursor.pos())
 
     def on_sequencesView_rightButtonPressed(self, index):
+        model = self.sequencesModel
         if index.isValid():
-            seqid = self.sequencesModel.record(index.row()).value(0).toInt()[0]
+            seqid = model.record(index.row()).value(0).toInt()[0]
             menu = QtGui.QMenu()
             g = QtGui.QActionGroup(menu)
             g.triggered.connect(self.on_remove_sequence_action_triggered)
@@ -548,8 +564,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             menu.exec_(QtGui.QCursor.pos())
 
     def on_groupsView_rightButtonPressed(self, index):
+        model = self.groupsModel
         if index.isValid():
-            groupid = self.groupsModel.record(index.row()).value(0).toInt()[0]
+            groupid = model.record(index.row()).value(0).toInt()[0]
             menu = QtGui.QMenu()
             g = QtGui.QActionGroup(menu)
             g.triggered.connect(self.on_remove_group_action_triggered)
@@ -615,6 +632,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.setSearchModelQuery()
 
     def setSearchModelQuery(self):
+        model = self.bookSearchModel
         author = self.searchByAuthorEdit.text().trimmed()
         title = self.searchByTitleEdit.text().trimmed()
         seq = self.searchBySeqEdit.text().trimmed()
@@ -624,30 +642,30 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         l = QtCore.QStringList()
         if not author.isEmpty():
             l.append("lastname LIKE ?")
-            self.bookSearchModel.addBindValue(author.append('%'))
+            model.addBindValue(author.append('%'))
         if not title.isEmpty():
             l.append("title LIKE ?")
-            self.bookSearchModel.addBindValue(title.append('%'))
+            model.addBindValue(title.append('%'))
         if not seq.isEmpty():
             l.append("seqname LIKE ?")
-            self.bookSearchModel.addBindValue(seq.append('%'))
+            model.addBindValue(seq.append('%'))
         if not genre.isEmpty():
             char = genre[0].toAscii()
             if char >= 'a' and char <= 'z':
                 l.append("genrecode LIKE ?")
             else:
                 l.append("genredesc LIKE ?")
-            self.bookSearchModel.addBindValue(genre.append('%'))
+            model.addBindValue(genre.append('%'))
         if not fileauthor.isEmpty():
             l.append("fileauthor LIKE ?")
-            self.bookSearchModel.addBindValue(fileauthor.append('%'))
+            model.addBindValue(fileauthor.append('%'))
         if not md5.isEmpty():
             l.append("md5 = ?")
-            self.bookSearchModel.addBindValue(md5.toLower().toAscii())
+            model.addBindValue(md5.toLower().toAscii())
         sql = l.join(" AND ")
         if not sql.isEmpty():
-            self.bookSearchModel.setWhereClause(sql)
-            self.bookSearchModel.select()
+            model.setWhereClause(sql)
+            model.select()
 
     def fetchAll(self):
         for widget in self.findChildren(QtGui.QTableView):
@@ -656,28 +674,33 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                 QtGui.qApp.processEvents()
 
     def on_booksByAuthorView_clicked(self, index):
+        model = self.booksByAuthorModel
         if self.dockWidget.isVisible():
-            bookid = self.booksByAuthorModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksBySeqView_clicked(self, index):
+        model = self.booksBySeqModel
         if self.dockWidget.isVisible():
-            bookid = self.booksBySeqModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_bookSearchView_clicked(self, index):
+        model = self.bookSearchModel
         if self.dockWidget.isVisible():
-            bookid = self.bookSearchModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksByGenreView_clicked(self, index):
+        model = self.booksByGenreModel
         if self.dockWidget.isVisible():
-            bookid = self.booksByGenreModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     def on_booksByGroupView_clicked(self, index):
+        model = self.booksByGroupModel
         if self.dockWidget.isVisible():
-            bookid = self.booksByGroupModel.record(index.row()).value(0).toInt()[0]
+            bookid = model.record(index.row()).value(0).toInt()[0]
             self.parserThread.parse(bookid)
 
     @QtCore.pyqtSlot()

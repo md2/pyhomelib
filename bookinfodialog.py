@@ -31,7 +31,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         for genre in info.Genres:
             genres.append(model.genreDescByCode(genre))
         self.genresLabel.setText(genres.join(", "))
-        if info.Coverpage.isEmpty() or reader.info.Coverpage.size() <= 2:
+        if info.Coverpage.isEmpty() or info.Coverpage.size() <= 2:
             self.coverpageLabel.setText(self.tr("No coverpage"))
         else:
             pixmap = QtGui.QPixmap()
@@ -46,109 +46,110 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         self.sizeLabel.setText(QtCore.QString.number(QtCore.QFileInfo(filename).size()))
         self.md5Label.setText(QtCore.QString(self.MD5(filename)))
 
+        layout = self.layout1
         row = 0
-        self.layout1.addWidget(self.makeTitleLabel("title-info"), row, 1, 1, 2)
+        layout.addWidget(self.makeTitleLabel("title-info"), row, 1, 1, 2)
         row += 1
         for genre in info.Genres:
-            self.layout1.addWidget(self.makeLabel("genre:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(genre), row, 2)
+            layout.addWidget(self.makeLabel("genre:"), row, 1)
+            layout.addWidget(self.makeEdit(genre), row, 2)
             row += 1
         if info.Keywords:
-            self.layout1.addWidget(self.makeLabel("keywords:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.Keywords), row, 2)
+            layout.addWidget(self.makeLabel("keywords:"), row, 1)
+            layout.addWidget(self.makeEdit(info.Keywords), row, 2)
             row += 1
         if info.Date:
-            self.layout1.addWidget(self.makeLabel("date:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.Date), row, 2)
+            layout.addWidget(self.makeLabel("date:"), row, 1)
+            layout.addWidget(self.makeEdit(info.Date), row, 2)
             row += 1
         if info.Lang:
-            self.layout1.addWidget(self.makeLabel("lang:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.Lang, 30), row, 2)
+            layout.addWidget(self.makeLabel("lang:"), row, 1)
+            layout.addWidget(self.makeEdit(info.Lang, 30), row, 2)
             row += 1
         if info.srcLang:
-            self.layout1.addWidget(self.makeLabel("src-lang:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.srcLang, 30), row, 2)
+            layout.addWidget(self.makeLabel("src-lang:"), row, 1)
+            layout.addWidget(self.makeEdit(info.srcLang, 30), row, 2)
             row += 1
         for tr in info.Translators:
-            self.layout1.addWidget(self.makeLabel("translator:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(tr.makeName()), row, 2)
+            layout.addWidget(self.makeLabel("translator:"), row, 1)
+            layout.addWidget(self.makeEdit(tr.makeName()), row, 2)
             row +=1
         for seq in info.Sequences:
-            self.layout1.addWidget(self.makeLabel("sequence:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(seq.sequenceName + " #" +
+            layout.addWidget(self.makeLabel("sequence:"), row, 1)
+            layout.addWidget(self.makeEdit(seq.sequenceName + " #" +
                                            QtCore.QString.number(seq.sequenceNumber)), row, 2)
 
         row += 1
 
-        self.layout1.addWidget(self.makeTitleLabel("document-info"), row, 1, 1, 2)
+        layout.addWidget(self.makeTitleLabel("document-info"), row, 1, 1, 2)
         row += 1
         for author in info.documentAuthors:
-            self.layout1.addWidget(self.makeLabel("author:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(author.makeName()), row, 2)
+            layout.addWidget(self.makeLabel("author:"), row, 1)
+            layout.addWidget(self.makeEdit(author.makeName()), row, 2)
             row += 1
         if info.programUsed:
-            self.layout1.addWidget(self.makeLabel("program-used:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.programUsed), row, 2)
+            layout.addWidget(self.makeLabel("program-used:"), row, 1)
+            layout.addWidget(self.makeEdit(info.programUsed), row, 2)
             row += 1
         if info.documentDate:
-            self.layout1.addWidget(self.makeLabel("date:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.documentDate), row, 2)
+            layout.addWidget(self.makeLabel("date:"), row, 1)
+            layout.addWidget(self.makeEdit(info.documentDate), row, 2)
             row += 1
         if info.srcUrl:
-            self.layout1.addWidget(self.makeLabel("src-url:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.srcUrl), row, 2)
+            layout.addWidget(self.makeLabel("src-url:"), row, 1)
+            layout.addWidget(self.makeEdit(info.srcUrl), row, 2)
             row += 1
         if info.srcOcr:
-            self.layout1.addWidget(self.makeLabel("src-ocr:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.srcOcr), row, 2)
+            layout.addWidget(self.makeLabel("src-ocr:"), row, 1)
+            layout.addWidget(self.makeEdit(info.srcOcr), row, 2)
             row += 1
         if info.Id:
-            self.layout1.addWidget(self.makeLabel("id:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.Id), row, 2)
+            layout.addWidget(self.makeLabel("id:"), row, 1)
+            layout.addWidget(self.makeEdit(info.Id), row, 2)
             row += 1
         if info.Version:
-            self.layout1.addWidget(self.makeLabel("version:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.Version, 40), row, 2)
+            layout.addWidget(self.makeLabel("version:"), row, 1)
+            layout.addWidget(self.makeEdit(info.Version, 40), row, 2)
             row += 1
         if info.History:
-            self.layout1.addWidget(self.makeLabel("history:"), row, 1)
+            layout.addWidget(self.makeLabel("history:"), row, 1)
             edit = QtGui.QTextEdit(info.History, self)
             edit.setReadOnly(True)
             edit.setFrameStyle(QtGui.QFrame.NoFrame)
-            self.layout1.addWidget(edit, row, 2)
+            layout.addWidget(edit, row, 2)
             row += 1
 
-        self.layout1.addWidget(self.makeTitleLabel("publish-info"), row, 1, 1, 2)
+        layout.addWidget(self.makeTitleLabel("publish-info"), row, 1, 1, 2)
         row += 1
         if info.bookName:
-            self.layout1.addWidget(self.makeLabel("book-name:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.bookName), row, 2)
+            layout.addWidget(self.makeLabel("book-name:"), row, 1)
+            layout.addWidget(self.makeEdit(info.bookName), row, 2)
             row += 1
         if info.Publisher:
-            self.layout1.addWidget(self.makeLabel("publisher:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.Publisher), row, 2)
+            layout.addWidget(self.makeLabel("publisher:"), row, 1)
+            layout.addWidget(self.makeEdit(info.Publisher), row, 2)
             row += 1
         if info.City:
-            self.layout1.addWidget(self.makeLabel("city:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.City), row, 2)
+            layout.addWidget(self.makeLabel("city:"), row, 1)
+            layout.addWidget(self.makeEdit(info.City), row, 2)
             row += 1
         if info.Year:
-            self.layout1.addWidget(self.makeLabel("year:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(QtCore.QString.number(info.Year), 50), row, 2)
+            layout.addWidget(self.makeLabel("year:"), row, 1)
+            layout.addWidget(self.makeEdit(QtCore.QString.number(info.Year), 50), row, 2)
             row += 1
         if info.ISBN:
-            self.layout1.addWidget(self.makeLabel("isbn:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(info.ISBN), row, 2)
+            layout.addWidget(self.makeLabel("isbn:"), row, 1)
+            layout.addWidget(self.makeEdit(info.ISBN), row, 2)
             row += 1
         for seq in info.publisherSequences:
-            self.layout1.addWidget(self.makeLabel("sequence:"), row, 1)
-            self.layout1.addWidget(self.makeEdit(seq.sequenceName + " #" +
+            layout.addWidget(self.makeLabel("sequence:"), row, 1)
+            layout.addWidget(self.makeEdit(seq.sequenceName + " #" +
                                            QtCore.QString.number(seq.sequenceNumber)), row, 2)
             row += 1
 
         spacer = QtGui.QSpacerItem(0, 0, QtGui.QSizePolicy.Fixed,
                                          QtGui.QSizePolicy.Expanding)
-        self.layout1.addItem(spacer, row, 0)
+        layout.addItem(spacer, row, 0)
 
         self.centered = False
 
@@ -212,7 +213,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
     def MD5(self, filename):
         file = QtCore.QFile(filename)
         if not file.open(QtCore.QFile.ReadOnly):
-            return ""
+            return "<error>"
         return QtCore.QCryptographicHash.hash(file.readAll(),
                                         QtCore.QCryptographicHash.Md5).toHex()
 

@@ -4,6 +4,7 @@
 from PyQt4 import QtCore, QtGui
 from ui_settingsdialog import Ui_SettingsDialog
 
+
 class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
 
     rowHeightChanged = QtCore.pyqtSignal(int)
@@ -39,10 +40,11 @@ class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):
             title = edit1.text().trimmed()
             cmd = edit2.text().trimmed()
             programs.append((title, cmd))
-        self.settings.writePrograms(programs)
+        settings = self.settings
+        settings.writePrograms(programs)
 
-        self.settings.writeSaveUiOnExitOption(not self.dontSaveUiOnExitBox.isChecked())
-        self.settings.writeRowHeight(self.rowHeightBox.value())
+        settings.writeSaveUiOnExitOption(not self.dontSaveUiOnExitBox.isChecked())
+        settings.writeRowHeight(self.rowHeightBox.value())
 
     @QtCore.pyqtSlot(int)
     def on_rowHeightBox_valueChanged(self, value):

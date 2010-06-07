@@ -3,6 +3,7 @@
 
 from PyQt4 import QtCore
 
+
 KEY_PROGRAMS = 'programs'
 KEY_SAVE_UI_ON_EXIT = 'other/save_ui_on_exit'
 KEY_ROW_HEIGHT = 'other/row_height'

@@ -3,6 +3,7 @@
 
 from PyQt4 import QtCore
 
+
 class FB2AuthorInfo(object):
 
     def __init__(self):
@@ -267,8 +268,9 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
         self.info.Keywords = self.readElementText()
 
     def readDate(self):
-        if self.attributes().hasAttribute('value'):
-            date = self.attributes().value('value').toString()
+        attrs = self.attributes()
+        if attrs.hasAttribute('value'):
+            date = attrs.value('value').toString()
             self.readElementText()
         else:
             date = self.readElementText()
@@ -379,20 +381,22 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
 
     def readSequence(self):
         seq = FB2SequenceInfo()
-        if self.attributes().hasAttribute('name'):
-            seq.sequenceName = self.attributes().value('name').toString()
-        if self.attributes().hasAttribute('number'):
-            seq.sequenceNumber = self.attributes().value('number').toString().toInt()[0]
+        attrs = self.attributes()
+        if attrs.hasAttribute('name'):
+            seq.sequenceName = attrs.value('name').toString()
+        if attrs.hasAttribute('number'):
+            seq.sequenceNumber = attrs.value('number').toString().toInt()[0]
         if not seq.empty():
             self.info.addSequence(seq)
         self.readElementText()
 
     def readPublisherSequence(self):
         seq = FB2SequenceInfo()
-        if self.attributes().hasAttribute('name'):
-            seq.sequenceName = self.attributes().value('name').toString()
-        if self.attributes().hasAttribute('number'):
-            seq.sequenceNumber = self.attributes().value('number').toString().toInt()[0]
+        attrs = self.attributes()
+        if attrs.hasAttribute('name'):
+            seq.sequenceName = attrs.value('name').toString()
+        if attrs.hasAttribute('number'):
+            seq.sequenceNumber = attrs.value('number').toString().toInt()[0]
         if not seq.empty():
             self.info.addPublisherSequence(seq)
         self.readElementText()
@@ -421,8 +425,9 @@ class FB2StreamReader(QtCore.QXmlStreamReader):
         self.info.programUsed = self.readElementText()
 
     def readDocumentDate(self):
-        if self.attributes().hasAttribute('value'):
-            date = self.attributes().value('value').toString()
+        attrs = self.attributes()
+        if attrs.hasAttribute('value'):
+            date = attrs.value('value').toString()
             self.readElementText()
         else:
             date = self.readElementText()

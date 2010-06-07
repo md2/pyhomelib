@@ -3,6 +3,7 @@
 
 from PyQt4 import QtCore
 
+
 class TreeItem(object):
 
     def __init__(self, description=None):
@@ -171,54 +172,60 @@ class GenreTreeModelReader(QtCore.QAbstractItemModel):
         self.read()
 
     def read(self):
-        while not self.xml.atEnd():
-            self.xml.readNext()
-            if self.xml.isStartElement():
-                if self.xml.name() == 'genres':
+        xml = self.xml
+        while not xml.atEnd():
+            xml.readNext()
+            if xml.isStartElement():
+                if xml.name() == 'genres':
                     self.readGenres()
                 else:
-                    self.xml.raiseError("Parser error")
-        return not self.xml.hasError()
+                    xml.raiseError("Parser error")
+        return not xml.hasError()
 
     def readUnknownElement(self):
-        while not self.xml.atEnd():
-            self.xml.readNext()
-            if self.xml.isEndElement():
+        xml = self.xml
+        while not xml.atEnd():
+            xml.readNext()
+            if xml.isEndElement():
                 break
-            if self.xml.isStartElement():
+            if xml.isStartElement():
                 self.readUnknownElement()
 
     def readGenres(self):
-        while not self.xml.atEnd():
-            self.xml.readNext()
-            if self.xml.isEndElement():
+        xml = self.xml
+        while not xml.atEnd():
+            xml.readNext()
+            if xml.isEndElement():
                 break
-            if self.xml.isStartElement():
-                if self.xml.name() == 'group':
+            if xml.isStartElement():
+                if xml.name() == 'group':
                     self.readGroup()
                 else:
                     self.readUnknownElement()
 
     def readGroup(self):
-        desc = self.xml.attributes().value('description').toString()
+        xml = self.xml
+        desc = xml.attributes().value('description').toString()
         group = GroupTreeItem(desc)
         self.groups.append(group)
         self.rootItem.appendChild(group)
-        while not self.xml.atEnd():
-            self.xml.readNext()
-            if self.xml.isEndElement():
+        while not xml.atEnd():
+            xml.readNext()
+            if xml.isEndElement():
                 break
-            if self.xml.isStartElement():
-                if self.xml.name() == 'genre':
+            if xml.isStartElement():
+                if xml.name() == 'genre':
                     self.readGenre()
                 else:
                     self.readUnknownElement()
 
     def readGenre(self):
-        id = self.xml.attributes().value('id').toString().toInt()[0]
-        code = self.xml.attributes().value('code').toString()
-        desc = self.xml.attributes().value('description').toString()
-        self.xml.readNext()
+        xml = self.xml
+        attrs = xml.attributes()
+        id = attrs.value('id').toString().toInt()[0]
+        code = attrs.value('code').toString()
+        desc = attrs.value('description').toString()
+        xml.readNext()
         genre = GenreTreeItem(id, code, desc)
         self.groups[-1].appendChild(genre)
 

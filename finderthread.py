@@ -3,6 +3,7 @@
 
 from PyQt4 import QtCore
 
+
 class FinderThread(QtCore.QThread):
 
     found = QtCore.pyqtSignal(QtCore.QString)

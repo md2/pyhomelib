@@ -3,6 +3,7 @@
 
 from PyQt4 import QtCore, QtGui
 
+
 class HeaderViewEx(QtGui.QHeaderView):
 
     rightButtonPressed = QtCore.pyqtSignal()
@@ -43,29 +44,30 @@ class TableViewEx(QtGui.QTableView):
             self.rowSelected.emit(selected.indexes()[0])
 
     def on_header_rightButtonPressed(self):
+        header = self.horizontalHeader()
         menu = QtGui.QMenu()
-        if self.horizontalHeader().sortIndicatorSection() != -1:
+        if header.sortIndicatorSection() != -1:
             a = menu.addAction(self.tr("Unsorted"))
             a.triggered.connect(self.on_unsorted_triggered)
             menu.addSeparator()
         group = QtGui.QActionGroup(menu)
         group.setExclusive(False)
         group.triggered.connect(self.on_action_triggered)
-        for index in range(self.horizontalHeader().count()):
+        for index in range(header.count()):
             text = self.model().headerData(index, QtCore.Qt.Horizontal).toString()
             a = menu.addAction(text)
             a.setCheckable(True)
             a.index = index
             a.setChecked(not (self.isColumnHidden(index) or
-                              self.horizontalHeader().sectionSize(index) == 0))
+                              header.sectionSize(index) == 0))
             group.addAction(a)
         menu.exec_(QtGui.QCursor.pos())
 
     def on_action_triggered(self, action):
         self.setColumnHidden(action.index, not action.isChecked())
-        if action.isChecked() and self.horizontalHeader().sectionSize(action.index) == 0:
-            self.horizontalHeader().resizeSection(action.index,
-                                                  self.horizontalHeader().defaultSectionSize())
+        header = self.horizontalHeader()
+        if action.isChecked() and header.sectionSize(action.index) == 0:
+            header.resizeSection(action.index, header.defaultSectionSize())
 
     def on_unsorted_triggered(self, checked):
         self.horizontalHeader().setSortIndicator(-1, QtCore.Qt.AscendingOrder)

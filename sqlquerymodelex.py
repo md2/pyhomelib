@@ -4,6 +4,7 @@
 from exceptions import Exception
 from PyQt4 import QtCore, QtSql
 
+
 class SqlQueryModelEx(QtSql.QSqlQueryModel):
 
     def __init__(self, parent, columns, from_, where=None, order=None, group=None, limit=None):
@@ -41,6 +42,7 @@ class SqlQueryModelEx(QtSql.QSqlQueryModel):
         self.values.append(value)
 
     def select(self, force=False):
+        query = self.query
         l = QtCore.QStringList("SELECT")
         l.append(self.columns)
         l.append("FROM")
@@ -59,12 +61,12 @@ class SqlQueryModelEx(QtSql.QSqlQueryModel):
             l.append(self.limit)
         sql = l.join(" ")
         if force or sql != self.oldsql or self.values != self.oldvalues:
-            self.query.prepare(sql)
+            query.prepare(sql)
             for value in self.values:
-                self.query.addBindValue(value)
-            if not self.query.exec_():
-                raise Exception, self.query.lastError().text()
-            self.setQuery(self.query)
+                query.addBindValue(value)
+            if not query.exec_():
+                raise Exception, query.lastError().text()
+            self.setQuery(query)
         self.oldsql = sql
         self.oldvalues = self.values
         self.values = []

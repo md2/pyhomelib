@@ -4,6 +4,7 @@
 from exceptions import Exception
 from PyQt4 import QtCore, QtSql
 
+
 schema = """
         CREATE TABLE IF NOT EXISTS info (name varchar(32),
                                          value varchar(255),
