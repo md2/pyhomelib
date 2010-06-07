@@ -31,7 +31,7 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
         for genre in info.Genres:
             genres.append(model.genreDescByCode(genre))
         self.genresLabel.setText(genres.join(", "))
-        if info.Coverpage.isEmpty():
+        if info.Coverpage.isEmpty() or reader.info.Coverpage.size() <= 2:
             self.coverpageLabel.setText(self.tr("No coverpage"))
         else:
             pixmap = QtGui.QPixmap()
