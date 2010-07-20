@@ -12,14 +12,14 @@ from finderthread import FinderThread
 
 class ImportDialog(QtGui.QDialog, Ui_ImportDialog):
 
-    def __init__(self, dbname, directory, parent=None):
+    def __init__(self, directory, parent=None):
         super(ImportDialog, self).__init__(parent)
         self.found = 0
         self.processed = 0
 
         self.setupUi(self)
 
-        self.importThread = ImportThread(dbname, directory)
+        self.importThread = ImportThread(directory)
         self.importThread.error.connect(self.textEdit.append)
         self.importThread.processed.connect(self.on_processed)
         self.importThread.start()

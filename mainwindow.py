@@ -10,7 +10,7 @@ from dbpropertiesdialog import DbPropertiesDialog
 from windowstatereader import WindowStateReader
 from windowstatewriter import WindowStateWriter
 from genretreemodelreader import GenreTreeModelReader
-from bookdblayer import *
+from bookdblayer import BookDbLayer
 from fb2streamreader import FB2StreamReader
 from fb2bookparserthread import FB2BookParserThread
 from sqlquerymodelex import SqlQueryModelEx
@@ -27,9 +27,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         QtGui.QMainWindow.__init__(self, parent)
         WindowStateReader.__init__(self)
         WindowStateWriter.__init__(self)
-
-        if not QtSql.QSqlDatabase.drivers().contains("QSQLITE"):
-            raise Exception, "Fatal error: QSQLITE database driver is not found!"
+        self._db = BookDbLayer()
 
         self.userConfigDir = QtCore.QDir.homePath() + QtCore.QDir.separator() + \
                              '.pyhomelib';
@@ -47,18 +45,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         else:
             dbname = QtCore.QString.fromUtf8(sys.argv[1])
 
-        QtSql.QSqlDatabase.addDatabase("QSQLITE")
-
         genreModel = GenreTreeModelReader('genres.xml')
 
         info = QtCore.QFileInfo(dbname)
         if info.exists() and info.size() > 0:
-            openDb(dbname)
+            self._db.open(dbname)
         else:
             QtGui.QMessageBox.information(self, self.tr("Information"),
                 QtCore.QString(self.tr("Database doesn't exists, recreating: %1"))
                 .arg(dbname))
-            createDb(dbname, 'Default', '', genreModel.list(),
+            self._db.create(dbname, 'Default', '', genreModel.list(),
                      [self.tr('Favorites')])
 
         try:
@@ -71,7 +67,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.setupUi(self)
         QtGui.qApp.setStyleSheet(QtCore.QResource(":/pyhomelib.css").data())
         self.appTitle = self.windowTitle()
-        self.prependToTitle(getDbProperty('name').toString())
+        self.prependToTitle(self._db.getDbProperty('name').toString())
         self.actionRuLetterA.setText(u"А")
         self.actionRuLetterB.setText(u"Б")
         self.actionRuLetterV.setText(u"В")
@@ -110,10 +106,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                a.objectName().startsWith('actionEnLetter'):
                 self.lettersGroup.addAction(a)
 
-        self.authorsModel = SqlQueryModelEx(self, "authorid, lastname, firstname",
-                                                  "libauthorname",
-                                                  None,
-                                                  "lastname, firstname")
+        self.authorsModel = SqlQueryModelEx(self, self._db, "authorid, lastname, firstname",
+                                                            "libauthorname",
+                                                            None,
+                                                            "lastname, firstname")
         self.authorsView.setModel(self.authorsModel)
         self.setTableAuthorsModelQuery()
         self.authorsView.hideColumn(0)
@@ -122,10 +118,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                       self.tr("First name")]):
             self.authorsView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
 
-        self.sequencesModel = SqlQueryModelEx(self, "seqid, seqname",
-                                                    "libseqname",
-                                                    None,
-                                                    "seqname")
+        self.sequencesModel = SqlQueryModelEx(self, self._db, "seqid, seqname",
+                                                              "libseqname",
+                                                              None,
+                                                              "seqname")
         self.sequencesView.setModel(self.sequencesModel)
         self.sequencesModel.select()
         self.sequencesView.hideColumn(0)
@@ -137,11 +133,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.genresTree.hideColumn(1)
 
 
-        self.bookSearchModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
-                                                     "libbook b LEFT JOIN libsequence s ON b.bookid = s.bookid LEFT JOIN libseqname sn ON s.seqid = sn.seqid LEFT JOIN libauthor a ON b.bookid = a.bookid LEFT JOIN libauthorname an ON a.authorid = an.authorid LEFT JOIN libgenre g ON b.bookid = g.bookid LEFT JOIN libgenrelist gl ON g.genreid = gl.genreid",
-                                                     "b.bookid = 0",
-                                                     None,
-                                                     "1")
+        self.bookSearchModel = SqlQueryModelEx(self, self._db, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
+                                                               "libbook b LEFT JOIN libsequence s ON b.bookid = s.bookid LEFT JOIN libseqname sn ON s.seqid = sn.seqid LEFT JOIN libauthor a ON b.bookid = a.bookid LEFT JOIN libauthorname an ON a.authorid = an.authorid LEFT JOIN libgenre g ON b.bookid = g.bookid LEFT JOIN libgenrelist gl ON g.genreid = gl.genreid",
+                                                               "b.bookid = 0",
+                                                               None,
+                                                               "1")
         self.bookSearchView.setModel(self.bookSearchModel)
         self.bookSearchModel.select()
         self.bookSearchView.hideColumn(0)
@@ -155,10 +151,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                       self.tr("Year")]):
             self.bookSearchModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
-        self.groupsModel = SqlQueryModelEx(self, "groupid, groupname",
-                                                 "libgrouplist",
-                                                 None,
-                                                 "groupname")
+        self.groupsModel = SqlQueryModelEx(self, self._db, "groupid, groupname",
+                                                           "libgrouplist",
+                                                           None,
+                                                           "groupname")
         self.groupsView.setModel(self.groupsModel)
         self.groupsModel.select()
         self.groupsView.hideColumn(0)
@@ -166,9 +162,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                       self.tr("Group")]):
             self.groupsView.model().setHeaderData(index, QtCore.Qt.Horizontal, name)
 
-        self.booksByAuthorModel = SqlQueryModelEx(self, "bookid, title, seqname, genredesc, lang, year",
-                                                        "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-                                                        "a.authorid = ?")
+        self.booksByAuthorModel = SqlQueryModelEx(self, self._db, "bookid, title, seqname, genredesc, lang, year",
+                                                                  "libauthor a INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
+                                                                  "a.authorid = ?")
         self.booksByAuthorView.setModel(self.booksByAuthorModel)
         self.booksByAuthorModel.addBindValue(0)
         self.booksByAuthorModel.select()
@@ -181,9 +177,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                       self.tr("Year")]):
             self.booksByAuthorModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
-        self.booksBySeqModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, genredesc, lang, year",
-                                                     "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
-                                                     "s.seqid = ?")
+        self.booksBySeqModel = SqlQueryModelEx(self, self._db, "bookid, firstname, lastname, title, genredesc, lang, year",
+                                                               "libsequence s INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist g ON b.genreid = g.genreid",
+                                                               "s.seqid = ?")
         self.booksBySeqView.setModel(self.booksBySeqModel)
         self.booksBySeqModel.addBindValue(0)
         self.booksBySeqModel.select()
@@ -197,9 +193,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                       self.tr("Year")]):
             self.booksBySeqModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
-        self.booksByGenreModel = SqlQueryModelEx(self, "bookid, firstname, lastname, title, seqname, lang, year",
-                                                       "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
-                                                       "g.genreid = ?")
+        self.booksByGenreModel = SqlQueryModelEx(self, self._db, "bookid, firstname, lastname, title, seqname, lang, year",
+                                                                 "libgenre g INNER JOIN libbook b USING(bookid) LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libseqname s ON b.seqid = s.seqid",
+                                                                 "g.genreid = ?")
         self.booksByGenreView.setModel(self.booksByGenreModel)
         self.booksByGenreModel.addBindValue(0)
         self.booksByGenreModel.select()
@@ -213,9 +209,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                       self.tr("Year")]):
             self.booksByGenreModel.setHeaderData(index, QtCore.Qt.Horizontal, name)
 
-        self.booksByGroupModel = SqlQueryModelEx(self, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
-                                                       "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
-                                                       "g.groupid = ?")
+        self.booksByGroupModel = SqlQueryModelEx(self, self._db, "b.bookid, firstname, lastname, title, seqname, genredesc, lang, year",
+                                                                 "libgroup g INNER JOIN libbook b USING(bookid) LEFT JOIN libseqname s ON b.seqid = s.seqid LEFT JOIN libauthorname a ON b.authorid = a.authorid LEFT JOIN libgenrelist gl ON b.genreid = gl.genreid",
+                                                                 "g.groupid = ?")
         self.booksByGroupView.setModel(self.booksByGroupModel)
         self.booksByGroupModel.addBindValue(0)
         self.booksByGroupModel.select()
@@ -326,11 +322,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
     @QtCore.pyqtSlot()
     def on_actionDbProperties_triggered(self):
-        dialog = DbPropertiesDialog(self)
-        dialog.filenameEdit.setText(dbName())
+        dialog = DbPropertiesDialog(self._db, self)
         dialog.nameEdit.setFocus()
         if dialog.exec_():
-            self.prependToTitle(getDbProperty('name').toString())
+            self.prependToTitle(self._db.getDbProperty('name').toString())
 
     @QtCore.pyqtSlot()
     def on_actionDbScanBookDir_triggered(self):
@@ -339,8 +334,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                                             QtCore.QDir.homePath(),
                                             QtGui.QFileDialog.ShowDirsOnly)
         if not dirname.isEmpty():
-            self.fetchAll()
-            dlg = ImportDialog(dbName(), QtCore.QDir(dirname).absolutePath(),
+            self._db.finishActiveQueries()
+            dlg = ImportDialog(QtCore.QDir(dirname).absolutePath(),
                                self)
             dlg.exec_()
             for widget in self.findChildren(QtGui.QTableView):
@@ -356,7 +351,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             edit.setText("")
         else:
             edit.setText(reader.info.Annotation)
-            if reader.info.Coverpage.isEmpty() or reader.info.Coverpage.size() <= 2:
+            if reader.info.Coverpage.isEmpty() or reader.info.Coverpage.size() <= 120:
                 label.setText(self.tr("No coverpage"))
             else:
                 pixmap = QtGui.QPixmap()
@@ -422,7 +417,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         self.startDefaultProgramUsingBookId(bookid)
 
     def startDefaultProgramUsingBookId(self, bookid):
-        filename = filenameByBookId(bookid)
+        filename = self._db.getFilenameByBookId(bookid)
         if filename:
             programs = self.programSettings.getPrograms()
             if programs:
@@ -452,7 +447,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
     def makePopupMenu(self, bookid):
         menu = QtGui.QMenu()
         if bookid:
-            filename = filenameByBookId(bookid)
+            filename = self._db.getFilenameByBookId(bookid)
             group = QtGui.QActionGroup(menu)
             group.triggered.connect(self.on_group1_triggered)
             for program in self.programSettings.getPrograms():
@@ -467,7 +462,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                     a.program = program
                     a.args = args
                     group.addAction(a)
-            groups = getGroupsBookNotIn(bookid)
+            groups = self._db.getGroupsBookNotIn(bookid)
             if groups:
                 if not menu.isEmpty():
                     menu.addSeparator()
@@ -480,7 +475,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                     a.groupid = group[0]
                     group2.addAction(a)
                 menu.addMenu(menu2)
-            groups = getGroupsBookIn(bookid)
+            groups = self._db.getGroupsBookIn(bookid)
             if groups:
                 if not menu.isEmpty():
                     menu.addSeparator()
@@ -500,12 +495,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
     def on_group2_triggered(self, action):
         self.fetchAll()
-        addBookToGroup(action.bookid, action.groupid)
+        self._db.addBookToGroup(action.bookid, action.groupid)
         self.booksByGroupModel.refresh()
 
     def on_group3_triggered(self, action):
         self.fetchAll()
-        removeBookFromGroup(action.bookid, action.groupid)
+        self._db.removeBookFromGroup(action.bookid, action.groupid)
         for index in self.booksByGroupView.selectionModel().selectedRows():
             self.booksByGroupView.setRowHidden(index.row(), True)
 
@@ -577,19 +572,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
     def on_remove_author_action_triggered(self, action):
         self.fetchAll()
-        removeAuthor(action.authorid)
+        self._db.removeAuthor(action.authorid)
         for index in self.authorsView.selectionModel().selectedRows():
             self.authorsView.setRowHidden(index.row(), True)
 
     def on_remove_sequence_action_triggered(self, action):
         self.fetchAll()
-        removeSequence(action.seqid)
+        self._db.removeSequence(action.seqid)
         for index in self.sequencesView.selectionModel().selectedRows():
             self.sequencesView.setRowHidden(index.row(), True)
 
     def on_remove_group_action_triggered(self, action):
         self.fetchAll()
-        removeGroup(action.groupid)
+        self._db.removeGroup(action.groupid)
         for index in self.groupsView.selectionModel().selectedRows():
             self.groupsView.setRowHidden(index.row(), True)
 
@@ -609,7 +604,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
     def on_groupEdit_returnPressed(self):
         self.fetchAll()
-        addGroup(self.groupEdit.text())
+        self._db.addGroup(self.groupEdit.text())
         self.groupsModel.refresh()
         self.groupEdit.clear()
 
@@ -705,7 +700,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
     @QtCore.pyqtSlot()
     def on_actionStatistics_triggered(self):
-        dlg = StatisticsDialog(self)
+        dlg = StatisticsDialog(self._db, self)
         dlg.exec_()
 
     def on_dockWidget_visibilityChanged(self, visible):

@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui, QtSql
 from mainwindow import MainWindow
 
 app = QtGui.QApplication(sys.argv)
+
+if not QtSql.QSqlDatabase.drivers().contains("QSQLITE"):
+    raise Exception, "Fatal error: QSQLITE database driver is not found!"
 
 qttranslator = QtCore.QTranslator()
 if qttranslator.load("qt_" + QtCore.QLocale.system().name(),

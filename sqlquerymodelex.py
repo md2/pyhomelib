@@ -7,7 +7,7 @@ from PyQt4 import QtCore, QtSql
 
 class SqlQueryModelEx(QtSql.QSqlQueryModel):
 
-    def __init__(self, parent, columns, from_, where=None, order=None, group=None, limit=None):
+    def __init__(self, parent, db, columns, from_, where=None, order=None, group=None, limit=None):
         super(SqlQueryModelEx, self).__init__(parent)
         self.columns = columns
         self.from_ = from_
@@ -18,7 +18,7 @@ class SqlQueryModelEx(QtSql.QSqlQueryModel):
         self.values = []
         self.oldsql = None
         self.oldvalues = []
-        self.query = QtSql.QSqlQuery()
+        self.query = db.newQuery()
 
     def setColumns(self, columns):
         self.columns = columns

@@ -16,9 +16,6 @@ class FB2BookParserThread(QtCore.QThread):
         self.mutex = QtCore.QMutex()
         self.condition = QtCore.QWaitCondition()
 
-    def __del__(self):
-        QtSql.QSqlDatabase.removeDatabase("parser_thread_connection")
-
     def quit(self):
         locker = QtCore.QMutexLocker(self.mutex)
         self.abort = True
@@ -31,20 +28,14 @@ class FB2BookParserThread(QtCore.QThread):
             self.condition.wakeOne()
 
     def run(self):
-        self.mutex.lock()
-        if QtSql.QSqlDatabase.contains("parser_thread_connection"):
-            self.mutex.unlock()
-            return
-        db = QtSql.QSqlDatabase.addDatabase("QSQLITE", "parser_thread_connection")
-        self.mutex.unlock()
-        db.setDatabaseName(dbName())
-        if not db.open():
-            return
+        db = BookDbLayer('parser_thread_connection',
+                         QtSql.QSqlDatabase.database())
+        db.open()
         while not self.abort:
             bookid = self.bookid
             if bookid != 0:
-                filename = execScalar(db, "SELECT filename FROM libfilename WHERE bookid = ? LIMIT 1",
-                                      bookid)
+                filename = db.execScalar("SELECT filename FROM libfilename WHERE bookid = ? LIMIT 1",
+                                         bookid)
                 if filename:
                     reader = FB2StreamReader()
                     if reader.read(filename.toString()) and self.bookid == bookid:

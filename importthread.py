@@ -3,7 +3,7 @@
 
 from PyQt4 import QtCore, QtSql
 from fb2streamreader import FB2StreamReader
-from bookdblayer import *
+from bookdblayer import BookDbLayer
 
 
 class ImportThread(QtCore.QThread):
@@ -11,9 +11,8 @@ class ImportThread(QtCore.QThread):
     error = QtCore.pyqtSignal(QtCore.QString)
     processed = QtCore.pyqtSignal(QtCore.QString)
 
-    def __init__(self, dbname, directory, parent=None):
+    def __init__(self, directory, parent=None):
         super(ImportThread, self).__init__(parent)
-        self.dbname = dbname
         self.directory = directory
         self.mutex = QtCore.QMutex()
         self.condition = QtCore.QWaitCondition()
@@ -47,25 +46,25 @@ class ImportThread(QtCore.QThread):
                                         QtCore.QCryptographicHash.Md5).toHex()
 
     def selectBookByFilename(self, filename):
-        bookid = execScalar(self.db, "SELECT bookid FROM libfilename WHERE filename = ? LIMIT 1",
-                            filename)
+        bookid = self.db.execScalar("SELECT bookid FROM libfilename WHERE filename = ? LIMIT 1",
+                                    filename)
         if bookid:
             return bookid.toInt()[0]
         return None
 
     def selectBookByMd5(self, md5):
-        bookid = execScalar(self.db, "SELECT bookid FROM libbook WHERE md5 = ? LIMIT 1",
-                            md5)
+        bookid = self.db.execScalar("SELECT bookid FROM libbook WHERE md5 = ? LIMIT 1",
+                                    md5)
         if bookid:
             return bookid.toInt()[0]
         return None
 
     def insertBook(self, title, lang, year, fileauthor, size, md5):
-        return execUpdate(self.db, "INSERT INTO libbook(title, lang, year, fileauthor, filesize, md5) VALUES(?,?,?,?,?,?)",
-                          title, lang, year, fileauthor, size, md5)
+        return self.db.execUpdate("INSERT INTO libbook(title, lang, year, fileauthor, filesize, md5) VALUES(?,?,?,?,?,?)",
+                                  title, lang, year, fileauthor, size, md5)
 
     def selectAuthorByName(self, firstname, middlename, lastname, nickname):
-        query = QtSql.QSqlQuery(self.db)
+        query = self.db.newQuery()
         query.prepare("SELECT authorid FROM libauthorname WHERE lastname=? AND firstname=? AND middlename=? AND nickname=?")
         for s in (lastname, firstname, middlename, nickname):
             if s.isNull():
@@ -79,7 +78,7 @@ class ImportThread(QtCore.QThread):
         return None
 
     def insertAuthor(self, firstname, middlename, lastname, nickname):
-        query = QtSql.QSqlQuery(self.db)
+        query = self.db.newQuery()
         query.prepare("INSERT INTO libauthorname (firstname, middlename, lastname, nickname) VALUES(?,?,?,?)")
         for s in (firstname, middlename, lastname, nickname):
             if s.isNull():
@@ -91,45 +90,47 @@ class ImportThread(QtCore.QThread):
         return query.lastInsertId().toInt()[0]
 
     def insertBookAuthorRelation(self, bookid, authorid):
-        execUpdate(self.db, "INSERT OR IGNORE INTO libauthor(bookid, authorid) VALUES(?,?)",
-                   bookid, authorid)
+        self.db.execUpdate("INSERT OR IGNORE INTO libauthor(bookid, authorid) VALUES(?,?)",
+                           bookid, authorid)
 
     def selectGenreByCode(self, genrecode):
-        genreid = execScalar(self.db, "SELECT genreid FROM libgenrelist WHERE genrecode = ?",
-                             genrecode)
+        genreid = self.db.execScalar("SELECT genreid FROM libgenrelist WHERE genrecode = ?",
+                                     genrecode)
         if genreid:
             return genreid.toInt()[0]
         return None
 
     def insertBookGenreRelation(self, bookid, genreid):
-        execUpdate(self.db, "INSERT OR IGNORE INTO libgenre(bookid, genreid) VALUES(?,?)",
-                   bookid, genreid)
+        self.db.execUpdate("INSERT OR IGNORE INTO libgenre(bookid, genreid) VALUES(?,?)",
+                           bookid, genreid)
 
     def selectSequenceByName(self, seqname):
-        seqid = execScalar(self.db, "SELECT seqid FROM libseqname WHERE seqname = ?",
-                           seqname)
+        seqid = self.db.execScalar("SELECT seqid FROM libseqname WHERE seqname = ?",
+                                   seqname)
         if seqid:
             return seqid.toInt()[0]
         return None
 
     def insertBookSeqRelation(self, bookid, seqid, seqnum):
-        execUpdate(self.db, "INSERT OR IGNORE INTO libsequence(bookid, seqid, seqnum) VALUES(?,?,?)",
-                   bookid, seqid, seqnum)
+        self.db.execUpdate("INSERT OR IGNORE INTO libsequence(bookid, seqid, seqnum) VALUES(?,?,?)",
+                           bookid, seqid, seqnum)
 
     def insertSequence(self, seqname):
-        return execUpdate(self.db, "INSERT INTO libseqname (seqname) VALUES(?)",
-                          seqname)
+        return self.db.execUpdate("INSERT INTO libseqname (seqname) VALUES(?)",
+                                  seqname)
 
     def updateBookInfo(self, bookid, authorid, genreid, seqid):
-        execUpdate(self.db, "UPDATE libbook SET authorid = ?, genreid = ?, seqid = ? WHERE bookid = ?",
-                   authorid, genreid, seqid, bookid)
+        self.db.execUpdate("UPDATE libbook SET authorid = ?, genreid = ?, seqid = ? WHERE bookid = ?",
+                           authorid, genreid, seqid, bookid)
 
     def insertFilename(self, bookid, filename):
-        execUpdate(self.db, "INSERT INTO libfilename(bookid, filename) VALUES(?,?)",
-                   bookid, filename)
+        self.db.execUpdate("INSERT INTO libfilename(bookid, filename) VALUES(?,?)",
+                           bookid, filename)
 
     def run(self):
-        self.db = db()
+        self.db = BookDbLayer('import_thread_connection',
+                              QtSql.QSqlDatabase.database())
+        self.db.open()
         while not self.abort:
             filename = self.takeFilename()
             if filename:
