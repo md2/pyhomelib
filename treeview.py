@@ -4,12 +4,12 @@
 from PyQt4 import QtCore, QtGui
 
 
-class TreeViewEx(QtGui.QTreeView):
+class TreeView(QtGui.QTreeView):
 
     rowSelected = QtCore.pyqtSignal(QtCore.QModelIndex)
 
     def __init__(self, parent=None):
-        super(TreeViewEx, self).__init__(parent)
+        super(TreeView, self).__init__(parent)
         self.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
 

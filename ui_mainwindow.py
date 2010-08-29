@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Aug 30 02:25:13 2010
+# Created: Mon Aug 30 02:56:47 2010
 #      by: PyQt4 UI code generator 4.7
 #
 # WARNING! All changes made in this file will be lost!
@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
         self.authorEdit.setObjectName("authorEdit")
         self.horizontalLayout_3.addWidget(self.authorEdit)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
-        self.authorsView = TableViewEx(self.widget)
+        self.authorsView = TableView(self.widget)
         self.authorsView.setObjectName("authorsView")
         self.authorsView.horizontalHeader().setVisible(False)
         self.authorsView.verticalHeader().setVisible(False)
@@ -73,7 +73,7 @@ class Ui_MainWindow(object):
         self.sequenceEdit.setObjectName("sequenceEdit")
         self.horizontalLayout_4.addWidget(self.sequenceEdit)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
-        self.sequencesView = TableViewEx(self.widget_2)
+        self.sequencesView = TableView(self.widget_2)
         self.sequencesView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.sequencesView.setGridStyle(QtCore.Qt.SolidLine)
         self.sequencesView.setSortingEnabled(True)
@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
         self.widget_3.setObjectName("widget_3")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.widget_3)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.genresTree = TreeViewEx(self.widget_3)
+        self.genresTree = TreeView(self.widget_3)
         self.genresTree.setHeaderHidden(True)
         self.genresTree.setObjectName("genresTree")
         self.verticalLayout_2.addWidget(self.genresTree)
@@ -161,7 +161,7 @@ class Ui_MainWindow(object):
         self.groupEdit.setObjectName("groupEdit")
         self.horizontalLayout_9.addWidget(self.groupEdit)
         self.verticalLayout_4.addLayout(self.horizontalLayout_9)
-        self.groupsView = TableViewEx(self.widget_5)
+        self.groupsView = TableView(self.widget_5)
         self.groupsView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.groupsView.setObjectName("groupsView")
         self.groupsView.horizontalHeader().setVisible(False)
@@ -188,7 +188,7 @@ class Ui_MainWindow(object):
         self.authorTitleLabel.setObjectName("authorTitleLabel")
         self.horizontalLayout_6.addWidget(self.authorTitleLabel)
         self.verticalLayout_5.addLayout(self.horizontalLayout_6)
-        self.booksByAuthorView = TableViewEx(self.page)
+        self.booksByAuthorView = TableView(self.page)
         self.booksByAuthorView.setObjectName("booksByAuthorView")
         self.booksByAuthorView.horizontalHeader().setDefaultSectionSize(200)
         self.booksByAuthorView.verticalHeader().setVisible(False)
@@ -212,7 +212,7 @@ class Ui_MainWindow(object):
         self.seqTitleLabel.setObjectName("seqTitleLabel")
         self.horizontalLayout_5.addWidget(self.seqTitleLabel)
         self.verticalLayout_7.addLayout(self.horizontalLayout_5)
-        self.booksBySeqView = TableViewEx(self.page_2)
+        self.booksBySeqView = TableView(self.page_2)
         self.booksBySeqView.setObjectName("booksBySeqView")
         self.booksBySeqView.horizontalHeader().setDefaultSectionSize(200)
         self.booksBySeqView.verticalHeader().setVisible(False)
@@ -236,7 +236,7 @@ class Ui_MainWindow(object):
         self.genreTitleLabel.setObjectName("genreTitleLabel")
         self.horizontalLayout_7.addWidget(self.genreTitleLabel)
         self.verticalLayout_8.addLayout(self.horizontalLayout_7)
-        self.booksByGenreView = TableViewEx(self.page_3)
+        self.booksByGenreView = TableView(self.page_3)
         self.booksByGenreView.setObjectName("booksByGenreView")
         self.booksByGenreView.horizontalHeader().setDefaultSectionSize(200)
         self.booksByGenreView.verticalHeader().setVisible(False)
@@ -268,7 +268,7 @@ class Ui_MainWindow(object):
         self.resultsTitleLabel.setObjectName("resultsTitleLabel")
         self.horizontalLayout_2.addWidget(self.resultsTitleLabel)
         self.verticalLayout_9.addLayout(self.horizontalLayout_2)
-        self.bookSearchView = TableViewEx(self.page_4)
+        self.bookSearchView = TableView(self.page_4)
         self.bookSearchView.setObjectName("bookSearchView")
         self.bookSearchView.horizontalHeader().setVisible(True)
         self.bookSearchView.horizontalHeader().setDefaultSectionSize(200)
@@ -293,7 +293,7 @@ class Ui_MainWindow(object):
         self.groupTitleLabel.setObjectName("groupTitleLabel")
         self.horizontalLayout.addWidget(self.groupTitleLabel)
         self.verticalLayout_10.addLayout(self.horizontalLayout)
-        self.booksByGroupView = TableViewEx(self.page_5)
+        self.booksByGroupView = TableView(self.page_5)
         self.booksByGroupView.setObjectName("booksByGroupView")
         self.booksByGroupView.horizontalHeader().setVisible(True)
         self.booksByGroupView.horizontalHeader().setDefaultSectionSize(200)
@@ -1008,7 +1008,7 @@ class Ui_MainWindow(object):
         self.actionAboutQt.setText(QtGui.QApplication.translate("MainWindow", "About Qt", None, QtGui.QApplication.UnicodeUTF8))
         self.actionStatistics.setText(QtGui.QApplication.translate("MainWindow", "&Statistics", None, QtGui.QApplication.UnicodeUTF8))
 
-from tableviewex import TableViewEx
+from treeview import TreeView
 from quicksearchwidget import QuickSearchWidget
-from treeviewex import TreeViewEx
+from tableview import TableView
 import pyhomelib_rc

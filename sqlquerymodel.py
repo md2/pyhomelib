@@ -5,10 +5,10 @@ from exceptions import Exception
 from PyQt4 import QtCore, QtSql
 
 
-class SqlQueryModelEx(QtSql.QSqlQueryModel):
+class SqlQueryModel(QtSql.QSqlQueryModel):
 
     def __init__(self, parent, db, columns, from_, where=None, order=None, group=None, limit=None):
-        super(SqlQueryModelEx, self).__init__(parent)
+        super(SqlQueryModel, self).__init__(parent)
         self.columns = columns
         self.from_ = from_
         self.where = where

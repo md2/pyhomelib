@@ -494,9 +494,9 @@
     </message>
 </context>
 <context>
-    <name>TableViewEx</name>
+    <name>TableView</name>
     <message>
-        <location filename="tableviewex.py" line="50"/>
+        <location filename="tableview.py" line="50"/>
         <source>Unsorted</source>
         <translation>Без сортировки</translation>
     </message>

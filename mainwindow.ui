@@ -81,7 +81,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="authorsView">
+          <widget class="TableView" name="authorsView">
            <attribute name="horizontalHeaderVisible">
             <bool>false</bool>
            </attribute>
@@ -118,7 +118,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="sequencesView">
+          <widget class="TableView" name="sequencesView">
            <property name="horizontalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
@@ -147,7 +147,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="TreeViewEx" name="genresTree">
+          <widget class="TreeView" name="genresTree">
            <property name="headerHidden">
             <bool>true</bool>
            </property>
@@ -339,7 +339,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="groupsView">
+          <widget class="TableView" name="groupsView">
            <property name="horizontalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
@@ -385,7 +385,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="booksByAuthorView">
+          <widget class="TableView" name="booksByAuthorView">
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>200</number>
            </attribute>
@@ -423,7 +423,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="booksBySeqView">
+          <widget class="TableView" name="booksBySeqView">
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>200</number>
            </attribute>
@@ -461,7 +461,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="booksByGenreView">
+          <widget class="TableView" name="booksByGenreView">
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>200</number>
            </attribute>
@@ -509,7 +509,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="bookSearchView">
+          <widget class="TableView" name="bookSearchView">
            <attribute name="horizontalHeaderVisible">
             <bool>true</bool>
            </attribute>
@@ -550,7 +550,7 @@
           </layout>
          </item>
          <item>
-          <widget class="TableViewEx" name="booksByGroupView">
+          <widget class="TableView" name="booksByGroupView">
            <attribute name="horizontalHeaderVisible">
             <bool>true</bool>
            </attribute>
@@ -1728,14 +1728,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TableViewEx</class>
+   <class>TableView</class>
    <extends>QTableView</extends>
-   <header>tableviewex.h</header>
+   <header>tableview.h</header>
   </customwidget>
   <customwidget>
-   <class>TreeViewEx</class>
+   <class>TreeView</class>
    <extends>QTreeView</extends>
-   <header>treeviewex.h</header>
+   <header>treeview.h</header>
   </customwidget>
   <customwidget>
    <class>QuickSearchWidget</class>

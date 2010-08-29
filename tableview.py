@@ -4,12 +4,12 @@
 from PyQt4 import QtCore, QtGui
 
 
-class HeaderViewEx(QtGui.QHeaderView):
+class HeaderView(QtGui.QHeaderView):
 
     rightButtonPressed = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
-        super(HeaderViewEx, self).__init__(QtCore.Qt.Horizontal, parent)
+        super(HeaderView, self).__init__(QtCore.Qt.Horizontal, parent)
         self.setMovable(True)
         self.setClickable(True)
         self.setSortIndicatorShown(True)
@@ -22,14 +22,14 @@ class HeaderViewEx(QtGui.QHeaderView):
             QtGui.QHeaderView.mousePressEvent(self, event)
 
 
-class TableViewEx(QtGui.QTableView):
+class TableView(QtGui.QTableView):
 
     rowSelected = QtCore.pyqtSignal(QtCore.QModelIndex)
     rightButtonPressed = QtCore.pyqtSignal(QtCore.QModelIndex)
 
     def __init__(self, parent=None):
-        super(TableViewEx, self).__init__(parent)
-        header = HeaderViewEx(self)
+        super(TableView, self).__init__(parent)
+        header = HeaderView(self)
         header.rightButtonPressed.connect(self.on_header_rightButtonPressed)
         header.setSortIndicator(-1, QtCore.Qt.AscendingOrder)
         self.setHorizontalHeader(header)
