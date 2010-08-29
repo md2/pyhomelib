@@ -235,6 +235,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         else:
             self.setRowHeight(self.programSettings.getRowHeight())
 
+        for key in ('/', 'Ctrl+F'):
+            QtGui.QShortcut(key, self).activated.connect(self.on_quickFindShortcut_activated)
+
         self.parserThread = FB2BookParserThread()
         self.parserThread.bookParsed.connect(self.bookParsed)
         self.parserThread.start()
@@ -705,4 +708,20 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
 
     def on_dockWidget_visibilityChanged(self, visible):
         self.actionViewBookInfo.setChecked(self.dockWidget.isVisibleTo(self))
+
+    def on_quickFindShortcut_activated(self):
+        self.tabWidget.setCurrentIndex(3)
+        self.searchForWidget.show()
+
+    def on_searchForWidget_returnPressed(self):
+        self.quickFind()
+
+    def quickFind(self):
+        model = self.bookSearchModel
+        text = self.searchForWidget.text().trimmed().append("%")
+        sql = "lastname LIKE ? OR title LIKE ? OR seqname LIKE ?"
+        for i in range(3):
+            model.addBindValue(text)
+        model.setWhereClause(sql)
+        model.select()
 

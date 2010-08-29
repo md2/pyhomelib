@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Feb  9 21:26:41 2010
+# Created: Mon Aug 30 02:25:13 2010
 #      by: PyQt4 UI code generator 4.7
 #
 # WARNING! All changes made in this file will be lost!
@@ -246,6 +246,14 @@ class Ui_MainWindow(object):
         self.page_4.setObjectName("page_4")
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.page_4)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.searchForWidget = QuickSearchWidget(self.page_4)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.searchForWidget.sizePolicy().hasHeightForWidth())
+        self.searchForWidget.setSizePolicy(sizePolicy)
+        self.searchForWidget.setObjectName("searchForWidget")
+        self.verticalLayout_9.addWidget(self.searchForWidget)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_8 = QtGui.QLabel(self.page_4)
@@ -295,7 +303,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menuBar = QtGui.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 691, 21))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 691, 20))
         self.menuBar.setObjectName("menuBar")
         self.helpMenu = QtGui.QMenu(self.menuBar)
         self.helpMenu.setObjectName("helpMenu")
@@ -1001,5 +1009,6 @@ class Ui_MainWindow(object):
         self.actionStatistics.setText(QtGui.QApplication.translate("MainWindow", "&Statistics", None, QtGui.QApplication.UnicodeUTF8))
 
 from tableviewex import TableViewEx
+from quicksearchwidget import QuickSearchWidget
 from treeviewex import TreeViewEx
 import pyhomelib_rc

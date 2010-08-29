@@ -475,6 +475,16 @@
        <widget class="QWidget" name="page_4">
         <layout class="QVBoxLayout" name="verticalLayout_9">
          <item>
+          <widget class="QuickSearchWidget" name="searchForWidget" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QLabel" name="label_8">
@@ -565,7 +575,7 @@
      <x>0</x>
      <y>0</y>
      <width>691</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="helpMenu">
@@ -1726,6 +1736,12 @@
    <class>TreeViewEx</class>
    <extends>QTreeView</extends>
    <header>treeviewex.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QuickSearchWidget</class>
+   <extends>QWidget</extends>
+   <header>quicksearchwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
