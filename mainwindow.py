@@ -3,7 +3,7 @@
 
 import os
 import sys
-from exceptions import Exception
+import shlex
 from PyQt4 import QtCore, QtSql, QtGui
 from ui_mainwindow import Ui_MainWindow
 from dbpropertiesdialog import DbPropertiesDialog
@@ -424,10 +424,11 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
         if filename:
             programs = self.programSettings.getPrograms()
             if programs:
-                args = programs[0][1].split(" ")
-                if args.count():
-                    program = args.takeFirst()
-                    args.replaceInStrings('%p', filename)
+                args = [x.decode('utf8') for x in
+                        shlex.split(unicode(programs[0][1]).encode('utf8'))]
+                if args:
+                    program = args.pop(0)
+                    args = [arg.replace('%p', filename) for arg in args]
                     self.startProgramDetached(program, args)
 
     def startProgramDetached(self, program, args):
@@ -459,9 +460,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
                         a = menu.addAction(program[1])
                     else:
                         a = menu.addAction(program[0])
-                    args = program[1].split(" ")
-                    program = args.takeFirst()
-                    args.replaceInStrings('%p', filename)
+                    args = [x.decode('utf8') for x in
+                            shlex.split(unicode(program[1]).encode('utf8'))]
+                    program = args.pop(0)
+                    args = [arg.replace('%p', filename) for arg in args]
                     a.program = program
                     a.args = args
                     group.addAction(a)
