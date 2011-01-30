@@ -31,10 +31,11 @@ for dp, dn, fs in os.walk( os.path.join( name, "icons")):
             temp.append( os.path.join( dp,f ) )
     data_files.append( ( os.path.join( prefix, dp), temp, ) )
 
-
+'''
 data_files.append(
         ( "/usr/share/applications/",
           [os.path.join( name, "pyhomelib.desktop") ] ) )
+'''
 
 compileUiDir(os.path.join(name,'ui'))
 compile_qrc(os.path.join( name, 'resources','pyhomelib.qrc'), os.path.join(name, 'pyhomelib_rc.py'))
@@ -52,9 +53,9 @@ setup(name='pyhomelib',
       license='GPLv3',
       packages=find_packages(exclude=('pyhomelib')),
       data_files=data_files,
-      #      entry_points = {
-      # 'console_scripts':[
-      #      'pyhomelib = quimge.quimge:main'
-      #  ]
-      #  }
+            entry_points = {
+       'console_scripts':[
+            'pyhomelib = pyhomelib.pyhomelib:main'
+        ]
+      }
      )
