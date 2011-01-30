@@ -55,7 +55,9 @@ setup(name='pyhomelib',
       data_files=data_files,
             entry_points = {
        'console_scripts':[
-            'pyhomelib = pyhomelib.pyhomelib:main'
+            'pyhomelib = pyhomelib.pyhomelib:main',
+            'bookinfodialog = pyhomelib.bookinfodialog:main'
+            'validator = pyhomelib.validator:main'
         ]
       }
      )

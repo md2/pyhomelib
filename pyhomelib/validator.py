@@ -2,12 +2,11 @@
 # vim: ts=4 sw=4 et tw=79 sts=4 ai si
 
 import sys
-from PyQt4 import QtCore, QtGui
-import pyhomelib_rc
+import os
 
+from PyQt4 import QtCore, QtGui
 
 class XmlValidatorDialog(QtGui.QDialog):
-
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle(self.tr('Validator'))
@@ -31,11 +30,26 @@ class XmlValidatorDialog(QtGui.QDialog):
         process.readyReadStandardError.connect(self.readStandardError)
         self.process = process
         args = [QtCore.QString.fromUtf8(arg) for arg in sys.argv[1:]]
+        if '--schema' not in args:
+            path_to_schema = self.get_schema()
+            if path_to_schema:
+                args.append(QtCore.QString.fromUtf8('--schema'))
+                args.append(QtCore.QString.fromUtf8(path_to_schema))
         process.start("xmllint", args)
         if not process.waitForStarted(10000):
             self.textEdit.append("<span style='color:red'>" +
                                  self.tr("Could not launch xmllint.") +
                                  "</span>")
+    def get_schema(self, files=None):
+        schema_files = files or []
+        data_dirs = ['..']
+        data_dirs.extend(os.environ.get('XDG_DATA_DIRS',
+            '/usr/share/').split(':'))
+        schema_files.extend([os.path.join(d, 'pyhomelib', 'schema2.21',
+            'FictionBook2.21.xsd') for d in data_dirs])
+        for sf in schema_files:
+            if os.path.exists(sf):
+                return sf
 
     def readStandardOutput(self):
         text = QtCore.QString.fromUtf8(self.process.readAllStandardOutput())
@@ -48,7 +62,7 @@ class XmlValidatorDialog(QtGui.QDialog):
             self.textEdit.append(QtCore.QString("<p>%1</p>").arg(par))
 
 
-if __name__ == '__main__':
+def main():
     if len(sys.argv) < 2:
         sys.exit(-1)
     app = QtGui.QApplication(sys.argv)
@@ -63,3 +77,5 @@ if __name__ == '__main__':
     dlg.show()
     sys.exit(app.exec_())
 
+if __name__ == '__main__':
+    main()

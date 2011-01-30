@@ -7,14 +7,18 @@ import sys
 from PyQt4 import QtCore, QtGui, QtSql
 
 
+def init():
+    try:
+        import pyhomelib
+        sys.path.append(os.path.dirname(pyhomelib.__file__))
+    except ImportError:
+        pass
 
 
 def main():
-    import pyhomelib
-    sys.path.append(os.path.dirname(pyhomelib.__file__))
-    
-    app = QtGui.QApplication(sys.argv)
+    init()
 
+    app = QtGui.QApplication(sys.argv)
 
     from mainwindow import MainWindow
     if not QtSql.QSqlDatabase.drivers().contains("QSQLITE"):

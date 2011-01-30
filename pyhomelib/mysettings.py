@@ -8,20 +8,25 @@ KEY_PROGRAMS = 'programs'
 KEY_SAVE_UI_ON_EXIT = 'other/save_ui_on_exit'
 KEY_ROW_HEIGHT = 'other/row_height'
 
+
 class MySettings(QtCore.QSettings):
 
     def __init__(self, filename, parent=None):
         exists = QtCore.QFileInfo(filename).exists()
         super(MySettings, self).__init__(filename, QtCore.QSettings.IniFormat,
                                          parent)
+
+        self.defaults_programs = [
+            ('FBReader', 'FBReader %p'),
+            ('Okular', 'okular %p'),
+            (self.tr('Book info'), 'bookinfodialog %p'),
+            (self.tr('Validation'), 'validator --nonet --noout %p')]
+
         if not exists:
             self.writeDefaultSettings()
 
     def writeDefaultSettings(self):
-        self.writePrograms([('FBReader', 'FBReader %p'),
-                            ('Okular', 'okular %p'),
-                            (self.tr('Book info'), 'python bookinfodialog.py %p'),
-                            (self.tr('Validation'), 'python validator.py --nonet --noout --schema ./schema2.21/FictionBook2.21.xsd %p')])
+        self.writePrograms(self.defaults_programs)
         self.writeSaveUiOnExitOption(True)
         self.sync()
 

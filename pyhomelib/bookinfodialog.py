@@ -224,11 +224,16 @@ class BookInfoDialog(QtGui.QDialog, Ui_BookInfoDialog):
                       (desktopGeometry.height() - self.height()) / 2)
             self.centered = True
 
+def main():
+    try:
+        from pyhomelib.pyhomelib import init
+        init()
+    except ImportError:
+        pass
 
-if __name__ == '__main__':
+    app = QtGui.QApplication(sys.argv)
     if len(sys.argv) < 2:
         sys.exit(-1)
-    app = QtGui.QApplication(sys.argv)
     qttranslator = QtCore.QTranslator()
     if qttranslator.load("qt_" + QtCore.QLocale.system().name(),
             QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath)):
@@ -236,7 +241,11 @@ if __name__ == '__main__':
     translator = QtCore.QTranslator()
     if translator.load("pyhomelib_" + QtCore.QLocale.system().name()):
         app.installTranslator(translator)
+
     dlg = BookInfoDialog()
     dlg.show()
     sys.exit(app.exec_())
 
+
+if __name__ == '__main__':
+    main()
