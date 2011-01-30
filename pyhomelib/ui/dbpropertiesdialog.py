@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pyhomelib/ui/dbpropertiesdialog.ui'
 #
-# Created: Sun Jan 30 20:18:13 2011
+# Created: Sun Jan 30 20:46:43 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!

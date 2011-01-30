@@ -1,7 +1,7 @@
 <RCC>
   <qresource>
-    <file>window-close.png</file>
-    <file>pyhomelib.css</file>
-    <file>pyhomelib.png</file>
+    <file>../icons/window-close.png</file>
+    <file>../icons/pyhomelib.png</file>
+    <file>../resources/pyhomelib.css</file>
   </qresource>
 </RCC>

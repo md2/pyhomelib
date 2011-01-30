@@ -7,7 +7,7 @@ import shlex
 
 from PyQt4 import QtCore, QtSql, QtGui
 
-from ui.ui_mainwindow import Ui_MainWindow
+from ui.mainwindow import Ui_MainWindow
 
 from dbpropertiesdialog import DbPropertiesDialog
 from windowstatereader import WindowStateReader
@@ -68,7 +68,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow,
             pass
 
         self.setupUi(self)
-        QtGui.qApp.setStyleSheet(QtCore.QResource(":/pyhomelib.css").data())
+        QtGui.qApp.setStyleSheet(QtCore.QResource(":resources/pyhomelib.css").data())
         self.appTitle = self.windowTitle()
         self.prependToTitle(self._db.getDbProperty('name').toString())
         self.actionRuLetterA.setText(u"А")
