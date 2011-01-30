@@ -2,7 +2,7 @@
 # vim: ts=4 sw=4 et tw=79 sts=4 ai si
 
 from PyQt4 import QtCore, QtGui
-from ui_settingsdialog import Ui_SettingsDialog
+from ui.ui_settingsdialog import Ui_SettingsDialog
 
 
 class SettingsDialog(QtGui.QDialog, Ui_SettingsDialog):

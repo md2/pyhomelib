@@ -5,7 +5,7 @@ SOURCES      = bookdblayer.py bookinfodialog.py dbpropertiesdialog.py \
 		sqlquerymodel.py statisticsdialog.py tableview.py \
 		treeview.py validator.py windowstatereader.py \
 		windowstatewriter.py
-FORMS        = bookinfodialog.ui dbpropertiesdialog.ui importdialog.ui \
-		 mainwindow.ui settingsdialog.ui statisticsdialog.ui
-TRANSLATIONS = pyhomelib_ru.ts
+FORMS        = ui/bookinfodialog.ui ui/dbpropertiesdialog.ui ui/importdialog.ui \
+		 ui/mainwindow.ui ui/settingsdialog.ui ui/statisticsdialog.ui
+TRANSLATIONS = locals/pyhomelib_ru.ts
 

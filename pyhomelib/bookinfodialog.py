@@ -3,7 +3,7 @@
 
 import sys
 from PyQt4 import QtCore, QtSql, QtGui
-from ui_bookinfodialog import Ui_BookInfoDialog
+from ui.ui_bookinfodialog import Ui_BookInfoDialog
 from fb2streamreader import FB2StreamReader
 from genretreemodelreader import GenreTreeModelReader
 

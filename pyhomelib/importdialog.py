@@ -4,7 +4,7 @@
 import os
 import sys
 from PyQt4 import QtCore, QtGui, QtSql
-from ui_importdialog import Ui_ImportDialog
+from ui.ui_importdialog import Ui_ImportDialog
 from fb2streamreader import FB2StreamReader
 from importthread import ImportThread
 from finderthread import FinderThread

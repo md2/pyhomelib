@@ -1,45 +1,50 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'dbpropertiesdialog.ui'
+# Form implementation generated from reading ui file 'pyhomelib/ui/dbpropertiesdialog.ui'
 #
-# Created: Fri Nov  6 14:42:11 2009
-#      by: PyQt4 UI code generator 4.6
+# Created: Sun Jan 30 20:18:13 2011
+#      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
 
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    _fromUtf8 = lambda s: s
+
 class Ui_DbPropertiesDialog(object):
     def setupUi(self, DbPropertiesDialog):
-        DbPropertiesDialog.setObjectName("DbPropertiesDialog")
+        DbPropertiesDialog.setObjectName(_fromUtf8("DbPropertiesDialog"))
         DbPropertiesDialog.resize(357, 186)
         self.verticalLayout = QtGui.QVBoxLayout(DbPropertiesDialog)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.gridLayout = QtGui.QGridLayout()
-        self.gridLayout.setObjectName("gridLayout")
+        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.nameEdit = QtGui.QLineEdit(DbPropertiesDialog)
-        self.nameEdit.setObjectName("nameEdit")
+        self.nameEdit.setObjectName(_fromUtf8("nameEdit"))
         self.gridLayout.addWidget(self.nameEdit, 2, 1, 1, 1)
         self.descriptionEdit = QtGui.QLineEdit(DbPropertiesDialog)
-        self.descriptionEdit.setObjectName("descriptionEdit")
+        self.descriptionEdit.setObjectName(_fromUtf8("descriptionEdit"))
         self.gridLayout.addWidget(self.descriptionEdit, 3, 1, 1, 1)
         self.label = QtGui.QLabel(DbPropertiesDialog)
-        self.label.setObjectName("label")
+        self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout.addWidget(self.label, 2, 0, 1, 1)
         self.label_2 = QtGui.QLabel(DbPropertiesDialog)
-        self.label_2.setObjectName("label_2")
+        self.label_2.setObjectName(_fromUtf8("label_2"))
         self.gridLayout.addWidget(self.label_2, 3, 0, 1, 1)
         self.filenameEdit = QtGui.QLineEdit(DbPropertiesDialog)
         self.filenameEdit.setEnabled(False)
-        self.filenameEdit.setObjectName("filenameEdit")
+        self.filenameEdit.setObjectName(_fromUtf8("filenameEdit"))
         self.gridLayout.addWidget(self.filenameEdit, 0, 1, 1, 1)
         self.label_3 = QtGui.QLabel(DbPropertiesDialog)
-        self.label_3.setObjectName("label_3")
+        self.label_3.setObjectName(_fromUtf8("label_3"))
         self.gridLayout.addWidget(self.label_3, 0, 0, 1, 1)
         self.selectFileButton = QtGui.QToolButton(DbPropertiesDialog)
         self.selectFileButton.setEnabled(False)
-        self.selectFileButton.setText("...")
-        self.selectFileButton.setObjectName("selectFileButton")
+        self.selectFileButton.setText(_fromUtf8("..."))
+        self.selectFileButton.setObjectName(_fromUtf8("selectFileButton"))
         self.gridLayout.addWidget(self.selectFileButton, 0, 2, 1, 1)
         spacerItem = QtGui.QSpacerItem(20, 10, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem, 1, 1, 1, 1)
@@ -49,11 +54,11 @@ class Ui_DbPropertiesDialog(object):
         self.buttonBox = QtGui.QDialogButtonBox(DbPropertiesDialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)
 
         self.retranslateUi(DbPropertiesDialog)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), DbPropertiesDialog.reject)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), DbPropertiesDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(DbPropertiesDialog)
         DbPropertiesDialog.setTabOrder(self.filenameEdit, self.selectFileButton)
         DbPropertiesDialog.setTabOrder(self.selectFileButton, self.nameEdit)

@@ -2,7 +2,7 @@
 # vim: ts=4 sw=4 et tw=79 sts=4 ai si
 
 from PyQt4 import QtCore, QtGui
-from ui_statisticsdialog import Ui_StatisticsDialog
+from ui.ui_statisticsdialog import Ui_StatisticsDialog
 
 
 class StatisticsDialog(QtGui.QDialog, Ui_StatisticsDialog):

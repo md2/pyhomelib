@@ -4,8 +4,11 @@
 import os
 import sys
 import shlex
+
 from PyQt4 import QtCore, QtSql, QtGui
-from ui_mainwindow import Ui_MainWindow
+
+from ui.ui_mainwindow import Ui_MainWindow
+
 from dbpropertiesdialog import DbPropertiesDialog
 from windowstatereader import WindowStateReader
 from windowstatewriter import WindowStateWriter
